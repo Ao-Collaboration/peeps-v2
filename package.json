@@ -1,7 +1,7 @@
 {
   "name": "peeps-v2",
   "version": "0.1.0",
-  "homepage": "https://michael-ao.github.io/peeps-v2",
+  "homepage": "https://peeps-v2.surge.sh",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -23,8 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "./deploy-surge.sh"
   },
   "eslintConfig": {
     "extends": [
