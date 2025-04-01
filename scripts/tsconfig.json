@@ -9,7 +9,5 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "../dist/scripts"
   },
-  "include": [
-    "*.ts"
-  ]
-} 
+  "include": ["*.ts"]
+}
