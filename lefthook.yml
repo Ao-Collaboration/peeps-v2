@@ -1,0 +1,6 @@
+pre-commit:
+  parallel: true
+  commands:
+    formatting:
+      glob: "*.{js,jsx,ts,tsx,json,css,scss,md}"
+      run: yarn prettier --write {staged_files}

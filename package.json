@@ -21,6 +21,8 @@
   },
   "devDependencies": {
     "@notionhq/client": "^2.3.0",
+    "lefthook": "^1.11.6",
+    "prettier": "^3.5.3",
     "ts-node": "^10.9.2"
   },
   "scripts": {
@@ -29,7 +31,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "./deploy-surge.sh",
-    "script:download": "ts-node --project scripts/tsconfig.json ./scripts/download-notion.ts"
+    "script:download": "ts-node --project scripts/tsconfig.json ./scripts/download-notion.ts",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "eslintConfig": {
     "extends": [
