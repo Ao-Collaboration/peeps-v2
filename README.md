@@ -29,6 +29,16 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
+### Scripts
+
+There are a number of scripts for updating the data from Notion.
+
+To download the traits from the Peeps Notion database:
+
+```sh
+yarn script:download
+```
+
 ## License
 
 The code in this repository is licensed to [Ao Collaboration Ltd](https://aocollab.tech) under the Apache 2.0 license.
