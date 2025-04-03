@@ -11,6 +11,19 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 })
 
+async function cleanFolders() {
+  const paths = [
+    path.join(process.cwd(), 'public', 'traits'),
+    path.join(process.cwd(), 'data', 'notion-data.json'),
+    path.join(process.cwd(), 'src', 'data', 'traits.ts'),
+  ]
+  for (const path of paths) {
+    if (fs.existsSync(path)) {
+      fs.rmSync(path, {recursive: true})
+    }
+  }
+}
+
 async function downloadNotionTable(databaseId: string): Promise<string> {
   try {
     let allResults: any[] = []
@@ -67,7 +80,30 @@ async function downloadNotionTable(databaseId: string): Promise<string> {
             case 'checkbox':
               row[key] = property.checkbox
               break
+            case 'files':
+              if (property.files.length === 1) {
+                console.log(JSON.stringify(property.files[0], null, 2))
+                row[key] = {
+                  url: property.files[0].file.url,
+                  name: property.files[0].name,
+                }
+              } else {
+                if (property.files.length > 1) {
+                  const fname1 = property.files[0].name
+                  console.log(`Multiple files for ${key}:`, fname1, property.files)
+                }
+                row[key] = ''
+              }
+              break
+            case 'relation':
+            case 'people':
+            case 'formula':
+            case 'status':
+              // Ignore these types
+              row[key] = ''
+              break
             default:
+              console.log(`Unknown property type: ${property.type}`)
               row[key] = ''
           }
         })
@@ -95,7 +131,49 @@ async function downloadNotionTable(databaseId: string): Promise<string> {
   } catch (error) {
     console.error('Error downloading Notion data:', error)
     process.exit(1)
-    throw error // This line will never be reached due to process.exit(1)
+  }
+}
+
+function readJsonFile(jsonFilePath: string) {
+  const jsonData = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
+  if (jsonData.length === 0) {
+    console.error('No data found in the JSON file')
+    return
+  }
+  return jsonData
+}
+
+/**
+ * Downloads all files.
+ */
+async function downloadFiles(jsonFilePath: string) {
+  const jsonData = readJsonFile(jsonFilePath)
+  for (const row of jsonData) {
+    for (const key in row) {
+      if (typeof row[key] === 'object' && row[key] !== null) {
+        const file = row[key]
+        const fileUrl = file.url
+        const fileName = file.name
+
+        if (fileName && fileUrl) {
+          console.log(`Downloading file: ${fileName} from ${fileUrl}`)
+          // Build the folder path
+          const folders = [row['Selections Category'], row['Header Category'], row.Name].filter(
+            Boolean,
+          )
+          const folderPath = path.join(process.cwd(), 'public', 'traits', ...folders)
+          if (!fs.existsSync(folderPath)) {
+            fs.mkdirSync(folderPath, {recursive: true})
+          }
+
+          // Download the file
+          const response = await fetch(fileUrl)
+          const blob = await response.blob()
+          const filePath = path.join(folderPath, fileName)
+          fs.writeFileSync(filePath, Buffer.from(await blob.arrayBuffer()))
+        }
+      }
+    }
   }
 }
 
@@ -106,12 +184,7 @@ async function downloadNotionTable(databaseId: string): Promise<string> {
 function convertJsonToTypeScript(jsonFilePath: string) {
   try {
     // Read the JSON file
-    const jsonData = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
-
-    if (jsonData.length === 0) {
-      console.error('No data found in the JSON file')
-      return
-    }
+    const jsonData = readJsonFile(jsonFilePath)
 
     // Get the first item to determine the structure
     const sampleItem = jsonData[0]
@@ -134,7 +207,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
 
     // Create mappings for all fields
     Object.keys(sampleItem).forEach(key => {
-      // Skip the "Comments" field
+      // Skip the ignored fields
       if (ignoredFields.includes(key)) {
         return
       }
@@ -155,7 +228,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
 
     // Add properties to the type definition using the mapped names
     Object.keys(sampleItem).forEach(key => {
-      // Skip the "Comments" field
+      // Skip the ignored fields
       if (ignoredFields.includes(key)) {
         return
       }
@@ -172,6 +245,9 @@ function convertJsonToTypeScript(jsonFilePath: string) {
         type = 'boolean'
       } else if (Array.isArray(value)) {
         type = 'string[]'
+      } else if (typeof value === 'object' && value !== null) {
+        // This is the file object. We will only output the file name
+        type = 'string'
       } else if (value === null) {
         // Nullable values are always numbers
         type = 'number | null'
@@ -190,7 +266,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       dataExport += '  {\n'
 
       Object.keys(item).forEach(key => {
-        // Skip the "Comments" field
+        // Skip the ignored fields
         if (ignoredFields.includes(key)) {
           return
         }
@@ -202,6 +278,9 @@ function convertJsonToTypeScript(jsonFilePath: string) {
           dataExport += `    ${camelCaseKey}: "${value.replace(/"/g, '\\"')}",\n`
         } else if (Array.isArray(value)) {
           dataExport += `    ${camelCaseKey}: ${JSON.stringify(value)},\n`
+        } else if (typeof value === 'object' && value !== null) {
+          // This is the file object. Replace with string of file name
+          dataExport += `    ${camelCaseKey}: "${value.name}",\n`
         } else {
           dataExport += `    ${camelCaseKey}: ${value},\n`
         }
@@ -239,7 +318,9 @@ if (require.main === module) {
 
   // Run the download function and then convert to TypeScript
   ;(async () => {
+    await cleanFolders()
     const jsonFilePath = await downloadNotionTable(process.env.NOTION_DATABASE_ID as string)
+    downloadFiles(jsonFilePath)
     convertJsonToTypeScript(jsonFilePath)
   })()
 }
