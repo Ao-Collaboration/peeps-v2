@@ -33,10 +33,10 @@ Your app is ready to be deployed!
 
 There are a number of scripts for updating the data from Notion.
 
-To download the traits from the Peeps Notion database:
+To download and process the traits from the Peeps Notion database:
 
 ```sh
-yarn script:download
+yarn script:process
 ```
 
 ## License

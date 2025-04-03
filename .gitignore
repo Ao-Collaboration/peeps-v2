@@ -24,3 +24,6 @@ yarn-error.log*
 
 # env
 .env
+
+# data
+data/notion-data.json
