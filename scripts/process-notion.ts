@@ -223,6 +223,8 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       fieldMappings[key] = camelCaseKey
     })
 
+    const alwaysDefinedFields = ['Name', 'Selections Category']
+
     // Create the TypeScript type definition
     let typeDefinition = 'export interface TraitData {\n'
 
@@ -252,8 +254,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
         type = 'string'
       }
 
-      // Special case for the Name field - it cannot be undefined
-      if (key === 'Name') {
+      if (alwaysDefinedFields.includes(key) || type === 'string[]') {
         typeDefinition += `  ${camelCaseKey}: ${type};\n`
       } else {
         typeDefinition += `  ${camelCaseKey}?: ${type};\n`
@@ -267,8 +268,12 @@ function convertJsonToTypeScript(jsonFilePath: string) {
 
     // Add each item to the data export
     jsonData.forEach((item: any, index: number) => {
-      // Skip rows where Name is empty or undefined
-      if (!item['Name']) {
+      // Skip hidden trait rows
+      if (
+        !item['Name'] ||
+        !item['Selections Category'] ||
+        item['Selections Category'] === 'Hidden'
+      ) {
         console.log(`Skipping row ${index} due to missing Name field:`, item)
         return
       }

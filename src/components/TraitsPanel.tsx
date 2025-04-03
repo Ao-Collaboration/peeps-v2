@@ -27,7 +27,9 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({onTraitsChange}) => {
     const groups: Record<string, Record<string, Record<string, TraitData[]>>> = {}
 
     filteredTraits.forEach(trait => {
-      const {selectionsCategory, headerCategory, secondaryCategory} = trait
+      const {selectionsCategory} = trait
+      const headerCategory = trait.headerCategory ?? ''
+      const secondaryCategory = trait.secondaryCategory ?? ''
 
       if (!groups[selectionsCategory]) {
         groups[selectionsCategory] = {}

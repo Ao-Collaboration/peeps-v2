@@ -2,16 +2,16 @@ export interface TraitData {
   mobileUIArea?: string
   headerCategory?: string
   label?: string
-  searchableTags?: string[]
+  searchableTags: string[]
   file?: string
   backFileName?: string
   frontFileName?: string
-  selectionsCategory?: string
+  selectionsCategory: string
   holderExclusive?: string
-  colourTags?: string[]
+  colourTags: string[]
   secondaryCategory?: string
   frontIndex?: number
-  devTags?: string[]
+  devTags: string[]
   backIndex?: number
   name: string
 }
@@ -883,19 +883,6 @@ export const traitsData: TraitData[] = [
     frontIndex: 1500,
     devTags: [],
     name: 'Bone Earrings',
-  },
-  {
-    mobileUIArea: 'Hidden',
-    label: 'Head',
-    searchableTags: [],
-    backFileName: 'Head Skin.svg',
-    frontFileName: 'Base.svg',
-    selectionsCategory: 'Hidden',
-    colourTags: [],
-    frontIndex: 17000,
-    devTags: ['hidden_opensea'],
-    backIndex: 19000,
-    name: 'Head',
   },
   {
     mobileUIArea: 'Full Body',
@@ -2002,14 +1989,6 @@ export const traitsData: TraitData[] = [
     name: 'Auburn',
   },
   {
-    label: 'Birthday',
-    searchableTags: [],
-    selectionsCategory: 'Hidden',
-    colourTags: [],
-    devTags: [],
-    name: 'Birthday',
-  },
-  {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
     label: 'Red Riding Hood Cape',
@@ -2747,14 +2726,6 @@ export const traitsData: TraitData[] = [
     name: 'Exclusive CC Astro',
   },
   {
-    label: 'Name',
-    searchableTags: [],
-    selectionsCategory: 'Hidden',
-    colourTags: [],
-    devTags: [],
-    name: 'Name',
-  },
-  {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Sports Equipment',
     label: 'Volleyball',
@@ -2854,12 +2825,6 @@ export const traitsData: TraitData[] = [
     frontIndex: 14000,
     devTags: ['hidden_opensea'],
     name: 'Shooting Stars',
-  },
-  {
-    searchableTags: [],
-    colourTags: [],
-    devTags: [],
-    name: 'Test Trait',
   },
   {
     headerCategory: 'Facial Hair',
@@ -3295,17 +3260,6 @@ export const traitsData: TraitData[] = [
     name: 'Pale Ivory',
   },
   {
-    mobileUIArea: 'Hidden',
-    label: 'Eye Whites',
-    searchableTags: [],
-    frontFileName: 'Base.svg',
-    selectionsCategory: 'Hidden',
-    colourTags: [],
-    frontIndex: 16000,
-    devTags: ['hidden_opensea'],
-    name: 'Eye Whites',
-  },
-  {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
     label: 'Tassled Vest',
@@ -3690,14 +3644,6 @@ export const traitsData: TraitData[] = [
     frontIndex: 1000,
     devTags: [],
     name: 'Black Pearl Necklace',
-  },
-  {
-    label: 'Pronoun',
-    searchableTags: [],
-    selectionsCategory: 'Hidden',
-    colourTags: [],
-    devTags: [],
-    name: 'Pronoun',
   },
   {
     mobileUIArea: 'Background',
