@@ -234,26 +234,30 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       }
 
       const camelCaseKey = fieldMappings[key]
-
-      // Determine the type based on the value
-      let type = 'string'
       const value = sampleItem[key]
 
-      if (typeof value === 'number') {
+      // Determine the type based on the value
+      let type: string
+      if (value === null || typeof value === 'number') {
+        // Null values are always numbers
         type = 'number'
       } else if (typeof value === 'boolean') {
         type = 'boolean'
       } else if (Array.isArray(value)) {
         type = 'string[]'
-      } else if (typeof value === 'object' && value !== null) {
+      } else if (typeof value === 'object') {
         // This is the file object. We will only output the file name
         type = 'string'
-      } else if (value === null) {
-        // Nullable values are always numbers
-        type = 'number | null'
+      } else {
+        type = 'string'
       }
 
-      typeDefinition += `  ${camelCaseKey}: ${type};\n`
+      // Special case for the Name field - it cannot be undefined
+      if (key === 'Name') {
+        typeDefinition += `  ${camelCaseKey}: ${type};\n`
+      } else {
+        typeDefinition += `  ${camelCaseKey}?: ${type};\n`
+      }
     })
 
     typeDefinition += '}\n\n'
@@ -263,6 +267,12 @@ function convertJsonToTypeScript(jsonFilePath: string) {
 
     // Add each item to the data export
     jsonData.forEach((item: any, index: number) => {
+      // Skip rows where Name is empty or undefined
+      if (!item['Name']) {
+        console.log(`Skipping row ${index} due to missing Name field:`, item)
+        return
+      }
+
       dataExport += '  {\n'
 
       Object.keys(item).forEach(key => {
@@ -275,11 +285,21 @@ function convertJsonToTypeScript(jsonFilePath: string) {
         const value = item[key]
 
         if (typeof value === 'string') {
+          // Skip empty strings
+          if (value.trim() === '') {
+            return
+          }
           dataExport += `    ${camelCaseKey}: "${value.replace(/"/g, '\\"')}",\n`
+        } else if (value === null) {
+          // Skip null values
+          return
         } else if (Array.isArray(value)) {
           dataExport += `    ${camelCaseKey}: ${JSON.stringify(value)},\n`
         } else if (typeof value === 'object' && value !== null) {
-          // This is the file object. Replace with string of file name
+          // This is the file object. Skip if name is empty
+          if (!value.name || value.name.trim() === '') {
+            return
+          }
           dataExport += `    ${camelCaseKey}: "${value.name}",\n`
         } else {
           dataExport += `    ${camelCaseKey}: ${value},\n`
