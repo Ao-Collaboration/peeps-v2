@@ -39,7 +39,7 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
           if (skinTone) {
             return [
               {
-                index: 11000,
+                index: 18501,
                 filePath: `Hidden/Skin/Basic.svg`,
                 traitName: trait.name,
                 skinTone,
@@ -70,5 +70,5 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
     }),
   ]
 
-  return entries.sort((a, b) => a.index - b.index)
+  return entries.sort((a, b) => b.index - a.index)
 }
