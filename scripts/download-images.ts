@@ -12,10 +12,20 @@ function readJsonFile(jsonFilePath: string) {
   return jsonData
 }
 
-async function cleanImageFolders() {
+async function withCleanImageFolders(fn: () => Promise<void>) {
+  // Temporarily save public/traits/Hidden/Skin/Basic.svg
+  const tempSavePath = path.join(PATHS.TRAITS_DIR, 'Hidden', 'Skin', 'Basic.svg')
+  const basicSvg = fs.readFileSync(tempSavePath, 'utf8')
+
   if (fs.existsSync(PATHS.TRAITS_DIR)) {
     fs.rmSync(PATHS.TRAITS_DIR, {recursive: true})
   }
+
+  await fn()
+
+  // Restore public/traits/Hidden/Skin/Basic.svg
+  fs.mkdirSync(path.dirname(tempSavePath), {recursive: true})
+  fs.writeFileSync(tempSavePath, basicSvg)
 }
 
 /**
@@ -55,7 +65,6 @@ async function downloadFiles() {
 
 if (require.main === module) {
   ;(async () => {
-    await cleanImageFolders()
-    await downloadFiles()
+    await withCleanImageFolders(downloadFiles)
   })()
 }
