@@ -2,30 +2,32 @@ import {useEffect, useState} from 'react'
 
 import './OrientationCheck.css'
 
+const MIN_WIDTH = 600
+
 const OrientationCheck = ({children}: {children: React.ReactNode}) => {
-  const [isPortrait, setIsPortrait] = useState(false)
+  const [isTooNarrow, setIsTooNarrow] = useState(false)
 
   useEffect(() => {
-    const checkOrientation = () => {
-      setIsPortrait(window.innerHeight > window.innerWidth)
+    const checkWidth = () => {
+      setIsTooNarrow(window.innerWidth < MIN_WIDTH)
     }
 
     // Check on mount and when window resizes
-    checkOrientation()
-    window.addEventListener('resize', checkOrientation)
+    checkWidth()
+    window.addEventListener('resize', checkWidth)
 
     return () => {
-      window.removeEventListener('resize', checkOrientation)
+      window.removeEventListener('resize', checkWidth)
     }
   }, [])
 
-  if (isPortrait) {
+  if (isTooNarrow) {
     return (
       <div className="orientation-message">
         <div className="orientation-content">
           <div className="rotate-icon">↻</div>
           <h2>Please rotate your device</h2>
-          <p>This app works best in landscape mode</p>
+          <p>This app requires a minimum width of {MIN_WIDTH}px</p>
         </div>
       </div>
     )
