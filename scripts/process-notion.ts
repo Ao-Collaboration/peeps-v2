@@ -1,7 +1,8 @@
-import {Client} from '@notionhq/client'
+import {config as dotenvConfig} from 'dotenv'
 import * as fs from 'fs'
 import * as path from 'path'
-import {config as dotenvConfig} from 'dotenv'
+
+import {Client} from '@notionhq/client'
 
 // Load environment variables from .env file
 dotenvConfig()

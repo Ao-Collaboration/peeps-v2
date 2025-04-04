@@ -1,5 +1,6 @@
-import React, {useState, useMemo} from 'react'
-import {traitsData, TraitData} from '../data/traits'
+import React, {useMemo, useState} from 'react'
+
+import {TraitData, traitsData} from '../data/traits'
 import './TraitsPanel.css'
 
 interface TraitsPanelProps {

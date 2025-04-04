@@ -1,9 +1,10 @@
 import {useState} from 'react'
+
 import './App.css'
 import Canvas from './components/Canvas'
 import TraitsPanel from './components/TraitsPanel'
-import {TraitData} from './data/traits'
 import {getDefaultPeep} from './data/constants'
+import {TraitData} from './data/traits'
 
 function App() {
   const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())

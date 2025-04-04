@@ -1,7 +1,8 @@
 import React from 'react'
+
+import {SKIN_TONES} from '../data/constants'
 import {TraitData} from '../data/traits'
 import './Canvas.css'
-import {SKIN_TONES} from '../data/constants'
 
 interface CanvasProps {
   selectedTraits: TraitData[]
