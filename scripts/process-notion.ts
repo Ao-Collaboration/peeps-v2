@@ -287,9 +287,36 @@ function convertJsonToTypeScript(jsonFilePath: string) {
         return isValid
       })
       .sort((a: any, b: any) => {
-        const nameA = a['Name'] || ''
-        const nameB = b['Name'] || ''
-        return nameA.localeCompare(nameB)
+        const compareNullable = (a?: string, b?: string) => {
+          if (a !== b) {
+            return (a ?? '').localeCompare(b ?? '')
+          }
+          return 0
+        }
+
+        // First sort by Selections Category
+        const selectionsCompare = compareNullable(
+          a['Selections Category'],
+          b['Selections Category'],
+        )
+        if (selectionsCompare !== 0) {
+          return selectionsCompare
+        }
+
+        // Then by Header Category
+        const headerCompare = compareNullable(a['Header Category'], b['Header Category'])
+        if (headerCompare !== 0) {
+          return headerCompare
+        }
+
+        // Then by Secondary Category
+        const secondaryCompare = compareNullable(a['Secondary Category'], b['Secondary Category'])
+        if (secondaryCompare !== 0) {
+          return secondaryCompare
+        }
+
+        // Finally by Label
+        return compareNullable(a['Label'], b['Label'])
       })
 
     console.log(`Found ${validItems.length} valid items out of ${jsonData.length} total items`)

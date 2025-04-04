@@ -20,4 +20,10 @@ export const IGNORED_FIELDS = new Set([
   'Front File Name',
 ])
 
-export const ALWAYS_DEFINED_FIELDS = new Set(['Name', 'Stage', 'Label', 'Selections Category'])
+export const ALWAYS_DEFINED_FIELDS = new Set([
+  'Name',
+  'Stage',
+  'Label',
+  'Selections Category',
+  'Header Category',
+])
