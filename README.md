@@ -1,3 +1,6 @@
+[![Build](https://github.com/Ao-Collaboration/peeps-v2/actions/workflows/ci.yml/badge.svg)](https://github.com/Ao-Collaboration/peeps-v2/actions/workflows/ci.yml)
+[![Deploy](https://github.com/Ao-Collaboration/peeps-v2/actions/workflows/deploy.yml/badge.svg)](https://github.com/Ao-Collaboration/peeps-v2/actions/workflows/deploy.yml)
+
 # Peeps Builder!
 
 This is the repository for the Peeps builder website!
