@@ -4,3 +4,6 @@ pre-commit:
     formatting:
       glob: "*.{js,jsx,ts,tsx,json,css,scss,md}"
       run: yarn prettier --write {staged_files} && git add {staged_files}
+    linting:
+      glob: "*.{js,jsx,ts,tsx}"
+      run: yarn eslint {staged_files}
