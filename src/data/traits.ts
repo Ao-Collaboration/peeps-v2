@@ -36,7 +36,7 @@ export type HeaderCategory =
   | 'Mobility'
   | 'Jumpsuits'
 
-export type SelectionsCategory = 'Body' | 'Accessory' | 'Clothing' | 'Pose' | 'Location' | 'Hidden'
+export type SelectionsCategory = 'Body' | 'Accessory' | 'Clothing' | 'Pose' | 'Location'
 
 export type SecondaryCategory =
   | 'Tone'

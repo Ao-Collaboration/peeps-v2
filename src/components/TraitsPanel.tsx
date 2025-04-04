@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from 'react'
 
-import {TraitData, traitsData} from '../data/traits'
+import {SelectionsCategory, TraitData, traitsData} from '../data/traits'
 import {legalizeTraits} from '../utils/traitUtils'
 import './TraitsPanel.css'
 
@@ -35,7 +35,13 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({
 
   // Group traits by category hierarchy
   const groupedTraits = useMemo(() => {
-    const groups: Record<string, Record<string, Record<string, TraitData[]>>> = {}
+    const groups: Record<SelectionsCategory, Record<string, Record<string, TraitData[]>>> = {
+      Location: {},
+      Body: {},
+      Pose: {},
+      Clothing: {},
+      Accessory: {},
+    }
 
     filteredTraits.forEach(trait => {
       const {selectionsCategory} = trait

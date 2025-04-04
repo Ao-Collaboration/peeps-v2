@@ -212,6 +212,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
     typeDefinition +=
       'export type SelectionsCategory = ' +
       Array.from(uniqueValues.selectionsCategory)
+        .filter(v => v !== 'Hidden')
         .map(v => `'${v}'`)
         .join(' | ') +
       '\n\n'
