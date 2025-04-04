@@ -1,13 +1,10 @@
 import {useCallback, useState} from 'react'
 
-type FillReplacement = {
-  currentFill: string
-  replacementFill: string
-}
+import {FillReplacement} from '../utils/traitUtils'
 
 interface SvgLoaderResult {
   svgContent: {[key: string]: string}
-  loadSvg: (filePath: string, fillReplacement?: FillReplacement) => Promise<void>
+  loadSvg: (filePath: string, fillReplacements?: FillReplacement[]) => Promise<void>
 }
 
 // Cache for raw SVG content only
@@ -17,7 +14,7 @@ export const useSvgLoader = (): SvgLoaderResult => {
   const [svgContent, setSvgContent] = useState<{[key: string]: string}>({})
 
   const loadSvg = useCallback(
-    async (filePath: string, fillReplacement?: FillReplacement) => {
+    async (filePath: string, fillReplacements?: FillReplacement[]) => {
       try {
         // Get the raw SVG content (from cache or fetch)
         let content = rawSvgCache[filePath]
@@ -28,8 +25,13 @@ export const useSvgLoader = (): SvgLoaderResult => {
         }
 
         // Apply fill replacement if needed
-        if (fillReplacement) {
-          content = content.replaceAll(fillReplacement.currentFill, fillReplacement.replacementFill)
+        if (fillReplacements) {
+          fillReplacements.forEach(fillReplacement => {
+            content = content.replaceAll(
+              fillReplacement.currentFill,
+              fillReplacement.replacementFill,
+            )
+          })
         }
 
         setSvgContent(prev => ({...prev, [filePath]: content}))

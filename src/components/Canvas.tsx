@@ -2,7 +2,6 @@ import React, {useEffect, useMemo} from 'react'
 
 import {TraitData} from '../data/traits'
 import {useSvgLoader} from '../hooks/useSvgLoader'
-import {SKIN_TONE_DEFAULT} from '../utils/constants'
 import {createImageEntries} from '../utils/traitUtils'
 import './Canvas.css'
 
@@ -17,11 +16,8 @@ const Canvas: React.FC<CanvasProps> = ({selectedTraits}) => {
   useEffect(() => {
     // Load SVGs for skin tones
     imageEntries.forEach(entry => {
-      if (entry.skinTone) {
-        loadSvg(entry.filePath, {
-          currentFill: SKIN_TONE_DEFAULT,
-          replacementFill: entry.skinTone,
-        })
+      if (entry.replacements) {
+        loadSvg(entry.filePath, entry.replacements)
       }
     })
   }, [imageEntries, loadSvg])
@@ -31,7 +27,7 @@ const Canvas: React.FC<CanvasProps> = ({selectedTraits}) => {
       <div className="canvas-content">
         <div className="canvas-image-container">
           {imageEntries.map((entry, idx) => {
-            if (entry.skinTone) {
+            if (entry.replacements) {
               const svgData = svgContent[entry.filePath]
               if (svgData) {
                 return (

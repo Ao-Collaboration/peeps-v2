@@ -1,11 +1,23 @@
 import {TraitData, traitsData} from '../data/traits'
-import {REQUIRED_CATEGORIES, RequiredCategory, SKIN_TONES} from './constants'
+import {
+  DEFAULT_HAIR_COLOURS,
+  HAIR_COLOURS,
+  REQUIRED_CATEGORIES,
+  RequiredCategory,
+  SKIN_TONES,
+  SKIN_TONE_DEFAULT,
+} from './constants'
+
+export type FillReplacement = {
+  currentFill: string
+  replacementFill: string
+}
 
 export interface ImageEntry {
   index: number
   filePath: string
   traitName: string
-  skinTone?: string
+  replacements?: FillReplacement[]
 }
 
 const DEFAULT_IMAGE_ENTRIES: ImageEntry[] = [
@@ -29,12 +41,23 @@ export const requireTraitByName = (name: string): TraitData => {
   return trait
 }
 
+const getHairColour = (selectedTraits: TraitData[]): string | undefined => {
+  const hairColour = selectedTraits.find(
+    trait => trait.headerCategory === 'Hair' && trait.secondaryCategory === 'Colour',
+  )
+  if (hairColour) {
+    return HAIR_COLOURS.get(hairColour.label)
+  }
+  // Should never happen for a legal peep
+  return undefined
+}
+
 export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] => {
   const entries = [
     ...DEFAULT_IMAGE_ENTRIES,
     ...selectedTraits.flatMap(trait => {
       if (trait.type === 'Automated') {
-        if (trait.label && trait.headerCategory === 'Skin' && trait.secondaryCategory === 'Tone') {
+        if (trait.headerCategory === 'Skin' && trait.secondaryCategory === 'Tone') {
           const skinTone = SKIN_TONES.get(trait.label)
           if (skinTone) {
             return [
@@ -43,11 +66,46 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
                 index: 18501,
                 filePath: `Hidden/Skin/Basic.svg`,
                 traitName: trait.name,
-                skinTone,
+                replacements: [
+                  {
+                    currentFill: SKIN_TONE_DEFAULT,
+                    replacementFill: skinTone,
+                  },
+                ],
               },
             ]
           }
         }
+        if (trait.headerCategory === 'Hair' && trait.secondaryCategory === 'Colour') {
+          // Skip hair colour. See handling for Hair Style below
+          return []
+        }
+      } else if (trait.headerCategory === 'Hair' && trait.secondaryCategory === 'Style') {
+        // Special case for hair handling
+        const filePath = [
+          trait.selectionsCategory,
+          trait.headerCategory,
+          trait.name,
+          trait.frontFile,
+        ]
+          .filter(Boolean)
+          .join('/')
+        const hairColour = getHairColour(selectedTraits)
+        if (!trait.frontIndex) {
+          console.error(`Hair style ${trait.name} has no front index`)
+          return []
+        }
+        return [
+          {
+            index: trait.frontIndex,
+            filePath,
+            traitName: trait.name,
+            replacements: DEFAULT_HAIR_COLOURS.map(defaultColour => ({
+              currentFill: defaultColour,
+              replacementFill: hairColour!,
+            })),
+          },
+        ]
       } else {
         const traitEntries: ImageEntry[] = []
         const addEntry = (trait: TraitData, index?: number, fileName?: string) => {

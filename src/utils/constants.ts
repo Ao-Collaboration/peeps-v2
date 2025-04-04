@@ -27,6 +27,28 @@ export const SKIN_TONES: Map<string, string> = new Map([
   ['Alien', '#a6f9de'],
 ])
 
+export const DEFAULT_HAIR_COLOURS = ['#ff8080', '#ff8d8d']
+
+export const HAIR_COLOURS: Map<string, string> = new Map([
+  ['Platinum', '#FFFFFF'],
+  ['Blonde', '#FEF5CE'],
+  ['Mousey', '#E4D385'],
+  ['Light Brown', '#CD9B66'],
+  ['Mid Brown', '#956746'],
+  ['Dark Brown', '#371F0F'],
+  ['Black', '#303433'],
+  ['Purple', '#643B5B'],
+  ['Pink', '#D57FC0'],
+  ['Amethyst', '#907ABB'],
+  ['Blue', '#5E87C5'],
+  ['Teal', '#8FDCE2'],
+  ['Pale Green', '#A4CFB4'],
+  ['Green', '#7EAF5E'],
+  ['Copper', '#D08565'],
+  ['Auburn', '#9D2A23'],
+  ['Grey', '#E5CCD2'],
+])
+
 export type RequiredCategory = {
   headerCategory: string
   secondaryCategory?: string
