@@ -47,33 +47,3 @@
   height: 100%;
   object-fit: contain;
 }
-
-.traits-list {
-  flex: 1;
-}
-
-.traits-list h2 {
-  margin-top: 0;
-  margin-bottom: 20px;
-  color: #333;
-  font-size: 24px;
-}
-
-.empty-message {
-  color: #888;
-  font-style: italic;
-}
-
-.selected-traits-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.selected-trait-item {
-  padding: 10px;
-  margin-bottom: 8px;
-  background-color: #f5f5f5;
-  border-radius: 4px;
-  border-left: 4px solid #4a90e2;
-}
