@@ -9,12 +9,8 @@ interface TraitsPanelProps {
   selectedTraits: TraitData[]
 }
 
-const TraitsPanel: React.FC<TraitsPanelProps> = ({
-  onTraitsChange,
-  selectedTraits: initialSelectedTraits,
-}) => {
+const TraitsPanel: React.FC<TraitsPanelProps> = ({onTraitsChange, selectedTraits}) => {
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(initialSelectedTraits)
 
   // Filter traits based on search term
   const filteredTraits = useMemo(() => {
@@ -77,10 +73,6 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({
     }
 
     newSelectedTraits = legalizeTraits(newSelectedTraits)
-
-    console.log(trait)
-
-    setSelectedTraits(newSelectedTraits)
     onTraitsChange(newSelectedTraits)
   }
 

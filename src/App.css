@@ -62,3 +62,9 @@
   overflow: hidden;
   box-sizing: border-box;
 }
+
+.save-load-button-container {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
