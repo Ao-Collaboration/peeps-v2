@@ -64,7 +64,23 @@
 }
 
 .save-load-button-container {
-  padding: 1rem;
+  margin: 1rem 1rem 0;
   display: flex;
+  gap: 0.5rem;
   justify-content: flex-end;
+}
+
+.save-load-button-container button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #4a90e2;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.save-load-button-container button:hover {
+  background-color: #357abd;
 }

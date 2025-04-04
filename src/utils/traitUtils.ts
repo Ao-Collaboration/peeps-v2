@@ -224,3 +224,47 @@ export const getDefaultPeep = (): TraitData[] => {
 
   return legalizeTraits(defaultTraits)
 }
+
+// Convert traits array to a URL-safe string
+export function encodeTraitsToString(traits: TraitData[], name: string): string {
+  // Create a minimal representation of traits using just the name property
+  const minimalTraits = traits.map((t: TraitData) => t.name)
+  const data = {traits: minimalTraits, name: name}
+  // Convert to base64 and make URL safe
+  return btoa(JSON.stringify(data)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
+}
+
+// Convert URL string back to traits array
+export function decodeTraitsFromString(
+  encoded: string,
+): {traits: TraitData[]; name: string} | null {
+  try {
+    // Restore base64 padding and decode
+    const padded = encoded + '='.repeat((4 - (encoded.length % 4)) % 4)
+    const decoded = padded.replace(/-/g, '+').replace(/_/g, '/')
+    const data = JSON.parse(atob(decoded))
+
+    // Validate the structure
+    if (!data.traits || !Array.isArray(data.traits) || typeof data.name !== 'string') {
+      return null
+    }
+
+    // Convert trait names back to full trait objects
+    const decodedTraits: TraitData[] = []
+    for (const name of data.traits) {
+      const trait = traitsData.find((t: TraitData) => t.name === name)
+      if (trait) {
+        decodedTraits.push(trait)
+      } else {
+        console.error('Invalid trait name in encoded string', name)
+      }
+    }
+
+    // Legalize the traits
+    const legalizedTraits = legalizeTraits(decodedTraits)
+
+    return {traits: legalizedTraits, name: data.name}
+  } catch (e) {
+    return null
+  }
+}
