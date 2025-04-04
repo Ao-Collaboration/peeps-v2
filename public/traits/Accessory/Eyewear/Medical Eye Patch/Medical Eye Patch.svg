@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg5" width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs77">
+  <linearGradient id="linearGradient5359" x1="67.723" x2="112.32" y1="96.829" y2="96.829" gradientTransform="matrix(.6272 0 0 .63735 -185.62 -167.94)" gradientUnits="userSpaceOnUse">
+   <stop id="stop2-60" stop-opacity="0" offset="0"/>
+   <stop id="stop4-35" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer60" transform="translate(19.4 11.241)">
+  <g id="layer214">
+   <g id="layer79">
+    <g id="g27-7" transform="matrix(4.1461 0 0 4.1461 114.51 46.945)">
+     <g id="g17" stroke-linecap="round" stroke-linejoin="round">
+      <rect id="rect9" transform="scale(-1)" x="-146.12" y="-122.6" width="34.136" height="33.001" ry="10.122" fill="#fff" stroke="#000" stroke-width=".30915" style="paint-order:markers fill stroke"/>
+      <rect id="rect11" transform="scale(-1)" x="-143.14" y="-120.37" width="27.973" height="28.278" ry="8.6736" fill="#fff" opacity=".22669" stroke="url(#linearGradient5359)" stroke-width=".46966" style="paint-order:markers fill stroke"/>
+      <ellipse id="ellipse13" transform="scale(-1)" cx="-145.7" cy="-105.48" rx=".38228" ry="1.8932" opacity=".22669" stroke="#000" stroke-width=".3" style="paint-order:markers fill stroke"/>
+      <ellipse id="ellipse15" transform="rotate(253.61)" cx="-121.53" cy="89.555" rx=".59904" ry="1.8932" opacity=".22669" stroke="#000" stroke-width=".37554" style="paint-order:markers fill stroke"/>
+     </g>
+     <g id="g21" transform="matrix(-1.2027,0,0,-1,221.35,192.05)" stroke="#000" stroke-width=".3">
+      <path id="path19-8" d="m62.869 85.41-3.8589 1.4709c-0.54337 1.2641-0.7488 1.6517-0.47844 2.7926l4.3237-1.9234z" color="#000000" fill="#fff" stroke="#000" stroke-width=".3"/>
+     </g>
+     <g id="g25-8" transform="matrix(-1.567,0,0,-1,301.09,177.88)" stroke="#000" stroke-width=".3">
+      <path id="path23-0" d="m115.89 86.4-1.1219 0.46599c8.1762 27.34 19.256 22.833 29.271 30.005l0.93079-1.0466c-9.8381-7.5789-20.554-2.2598-29.079-29.425z" color="#000000" fill="#fff" stroke="#000" stroke-width=".30488"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

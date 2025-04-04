@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg5" width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g id="layer60" transform="translate(19.4 11.241)">
+  <g id="layer214">
+   <g id="layer72">
+    <g id="g8" transform="matrix(4.1461 0 0 4.1461 114.51 46.946)">
+     <ellipse id="ellipse2" cx="89.425" cy="95.602" rx="27.577" ry="27.885" stroke-linecap="round" stroke-linejoin="round" stroke-width=".565" style="paint-order:markers fill stroke"/>
+     <ellipse id="ellipse4" cx="89.345" cy="95.563" rx="25.879" ry="26.168" fill="none" opacity=".60878" stroke="#585050" stroke-dasharray="1.06, 1.06" stroke-linecap="round" stroke-linejoin="round" stroke-width=".53" style="paint-order:markers fill stroke"/>
+     <path id="path6" d="m148.01 78.641 0.56915 1.4343c0.217 0.63237 0.30412 0.82654 0.38461 1.159 0.0853 0.19073 0.0497 0.16505 0.0853 0.19073-0.0936 0.07391-0.3504 0.17528-0.60183 0.28432l-87.338 26.41-0.62416-0.69979c-0.51314 0.36641-0.74702-0.42213-1.2832-0.15646-0.49533 0.72202-0.66804 1.5748-0.42855 2.3367 0.15793 0.50247 0.49204 0.97407 1.0254 1.25s1.2695 0.26683 1.8105-0.0195l-0.24609 0.10156 88.059-26.629 0.0644-0.02734c0.77349-0.3218 1.3975-0.7351 1.832-1.332s0.60069-1.4266 0.41016-2.1152c-0.38107-1.3773-1.3569-2.034-2.6632-2.2394-0.32784 3e-3 -0.5207-0.07507-1.0552 0.05186z" color="#000000" style="-inkscape-stroke:none"/>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

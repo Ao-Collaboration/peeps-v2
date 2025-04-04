@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg5" width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g id="layer60" transform="translate(19.4 11.241)">
+  <g id="layer263">
+   <g id="g22208" transform="translate(-19.4 -11.241)">
+    <path id="path22198" d="m679.35 825.34 114.78-296.07" fill="none" stroke="#000" stroke-width="12"/>
+    <path id="path22200" d="m641.67 11.774-163.66 370.87 563.96 260.2 158.95-393.24z" fill="#f7eecc" stroke="#000" stroke-width="4"/>
+    <text id="text29268" transform="rotate(25.74)" x="900.34222" y="-161.9473" fill="#000000" font-family="Ranchers" font-size="105.83px" stroke-width=".26458" text-align="center" text-anchor="middle" style="line-height:1" xml:space="preserve"><tspan id="tspan29266" x="900.34222" y="-161.9473" text-align="center">PEACE</tspan><tspan id="tspan32204" x="900.34222" y="-56.114296" text-align="center">EQUAL RIGHTS</tspan><tspan id="tspan36882" x="900.34222" y="49.718704" text-align="center">JUSTICE</tspan></text>
+    <g id="g25351" transform="rotate(178.13 845.02 323.02)" fill="none" opacity=".74797" stroke="#6e0379">
+     <circle id="circle22202" cx="845.02" cy="323.02" r="153.19" opacity="1" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" style="paint-order:fill markers stroke"/>
+     <path id="path22709" transform="scale(.26458)" d="m2973.5 1730.6 198.23-468.84-195.09-553.8m448.39 4.7211-457.83 1021.1zm297.35 357.14-547.5 191.94z" stroke-width="56.693"/>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

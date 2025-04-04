@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg5" width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs77">
+  <linearGradient id="linearGradient11100" x1="111.62" x2="111.57" y1="117.36" y2="126.45" gradientUnits="userSpaceOnUse">
+   <stop id="stop2-2" offset="0"/>
+   <stop id="stop4-99" stop-color="#bf4c4c" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer60" transform="translate(19.4 11.241)">
+  <g id="layer32">
+   <g id="layer43">
+    <g id="g11" transform="matrix(4.1461 0 0 4.1461 114.51 54.122)">
+     <path id="path9" d="m112.73 126.53c1.2932-1.3388 1.0444-5.4419-0.81517-5.5244-1.8116-0.0804-2.3093 3.8061-1.2677 5.2905 0.40131 0.5719 1.5975 0.73646 2.0829 0.23395z" fill="url(#linearGradient11100)" stroke="#000" stroke-width=".665"/>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

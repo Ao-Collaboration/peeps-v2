@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <filter id="filter216308-1" x="-.33604" y="-.36112" width="1.6721" height="1.7222" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.67607452"/>
+  </filter>
+  <filter id="filter217808-7" x="-.2669" y="-.28597" width="1.5338" height="1.5719" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.29565397"/>
+  </filter>
+  <filter id="filter217812-2" x="-.034407" y="-.07239" width="1.0688" height="1.1448" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.099111574"/>
+  </filter>
+  <filter id="filter216308-6" x="-.33604" y="-.36112" width="1.6721" height="1.7222" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.67607452"/>
+  </filter>
+  <filter id="filter217808-8" x="-.2669" y="-.28597" width="1.5338" height="1.5719" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.29565397"/>
+  </filter>
+  <filter id="filter217812-1" x="-.034407" y="-.07239" width="1.0688" height="1.1448" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.099111574"/>
+  </filter>
+  <filter id="filter216308-3" x="-.33604" y="-.36112" width="1.6721" height="1.7222" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.67607452"/>
+  </filter>
+  <filter id="filter217808-2" x="-.2669" y="-.28597" width="1.5338" height="1.5719" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.29565397"/>
+  </filter>
+  <filter id="filter217812-20" x="-.034407" y="-.07239" width="1.0688" height="1.1448" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.099111574"/>
+  </filter>
+  <filter id="filter216308-8" x="-.33604" y="-.36112" width="1.6721" height="1.7222" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.67607452"/>
+  </filter>
+  <filter id="filter217808-0" x="-.2669" y="-.28597" width="1.5338" height="1.5719" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.29565397"/>
+  </filter>
+  <filter id="filter217812-0" x="-.034407" y="-.07239" width="1.0688" height="1.1448" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.099111574"/>
+  </filter>
+  <filter id="filter216308-4" x="-.33604" y="-.36112" width="1.6721" height="1.7222" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.67607452"/>
+  </filter>
+  <filter id="filter217808-6" x="-.2669" y="-.28597" width="1.5338" height="1.5719" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.29565397"/>
+  </filter>
+  <filter id="filter217812-7" x="-.034407" y="-.07239" width="1.0688" height="1.1448" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.099111574"/>
+  </filter>
+  <filter id="filter216308-68" x="-.33604" y="-.36112" width="1.6721" height="1.7222" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.67607452"/>
+  </filter>
+  <filter id="filter217808-70" x="-.2669" y="-.28597" width="1.5338" height="1.5719" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.29565397"/>
+  </filter>
+  <filter id="filter217812-62" x="-.034407" y="-.07239" width="1.0688" height="1.1448" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.099111574"/>
+  </filter>
+ </defs>
+ <g>
+  <g fill-rule="evenodd">
+   <ellipse cx="567.47" cy="621.74" rx="2.9272" ry="2.8234" stroke="#000" stroke-linecap="round" stroke-width="1.7512" style="paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 209.22 154.87)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#fff" filter="url(#filter216308-1)" opacity=".41463" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 208.87 153.38)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#f5cc21" filter="url(#filter216308-1)" opacity=".12602" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(1.1863 0 0 1.1863 115.49 32.505)" cx="381.08" cy="495.5" rx="1.3293" ry="1.2407" fill="#fff" filter="url(#filter217808-7)" opacity=".62805" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+  </g>
+  <path transform="matrix(.8756 0 0 .8756 73.956 76.244)" d="m560.29 623.42c-0.16545 1.0268 1.1865 3.0265 2.537 3.2246 3.4433 0.50515 4.3626-2.2762 4.3626-2.2762s-1.917 1.2354-3.675 1.0433c-0.83554-0.0913-2.5449-0.48676-3.2246-1.9917z" fill="#fff" filter="url(#filter217812-2)" opacity=".42683"/>
+  <g fill-rule="evenodd">
+   <ellipse cx="573.5" cy="625.45" rx="2.9272" ry="2.8234" stroke="#000" stroke-linecap="round" stroke-width="1.7512" style="paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 215.24 158.58)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#fff" filter="url(#filter216308-6)" opacity=".41463" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 214.89 157.08)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#f5cc21" filter="url(#filter216308-6)" opacity=".12602" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(1.1863 0 0 1.1863 121.51 36.212)" cx="381.08" cy="495.5" rx="1.3293" ry="1.2407" fill="#fff" filter="url(#filter217808-8)" opacity=".62805" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+  </g>
+  <path transform="matrix(.8756 0 0 .8756 73.956 76.244)" d="m567.17 627.66c-0.16545 1.0268 1.1865 3.0265 2.537 3.2246 3.4433 0.50515 4.3626-2.2762 4.3626-2.2762s-1.917 1.2354-3.675 1.0433c-0.83554-0.0913-2.5449-0.48676-3.2246-1.9917z" fill="#fff" filter="url(#filter217812-1)" opacity=".42683"/>
+  <g fill-rule="evenodd">
+   <ellipse cx="579.98" cy="628.34" rx="2.9272" ry="2.8234" stroke="#000" stroke-linecap="round" stroke-width="1.7512" style="paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 221.73 161.47)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#fff" filter="url(#filter216308-3)" opacity=".41463" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 221.38 159.98)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#f5cc21" filter="url(#filter216308-3)" opacity=".12602" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(1.1863 0 0 1.1863 128 39.108)" cx="381.08" cy="495.5" rx="1.3293" ry="1.2407" fill="#fff" filter="url(#filter217808-2)" opacity=".62805" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+  </g>
+  <path transform="matrix(.8756 0 0 .8756 73.956 76.244)" d="m574.58 630.97c-0.16545 1.0268 1.1865 3.0265 2.537 3.2246 3.4433 0.50515 4.3626-2.2762 4.3626-2.2762s-1.917 1.2354-3.675 1.0433c-0.83554-0.0913-2.5449-0.48676-3.2246-1.9917z" fill="#fff" filter="url(#filter217812-20)" opacity=".42683"/>
+  <g fill-rule="evenodd">
+   <ellipse cx="587.17" cy="628.46" rx="2.9272" ry="2.8234" stroke="#000" stroke-linecap="round" stroke-width="1.7512" style="paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 228.91 161.59)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#fff" filter="url(#filter216308-8)" opacity=".41463" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 228.56 160.1)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#f5cc21" filter="url(#filter216308-8)" opacity=".12602" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(1.1863 0 0 1.1863 135.18 39.223)" cx="381.08" cy="495.5" rx="1.3293" ry="1.2407" fill="#fff" filter="url(#filter217808-0)" opacity=".62805" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+  </g>
+  <path transform="matrix(.8756 0 0 .8756 73.956 76.244)" d="m582.78 631.1c-0.16545 1.0268 1.1865 3.0265 2.537 3.2246 3.4433 0.50515 4.3626-2.2762 4.3626-2.2762s-1.917 1.2354-3.675 1.0433c-0.83554-0.0913-2.5449-0.48676-3.2246-1.9917z" fill="#fff" filter="url(#filter217812-0)" opacity=".42683"/>
+  <g fill-rule="evenodd">
+   <ellipse cx="594.46" cy="625.8" rx="2.9272" ry="2.8234" stroke="#000" stroke-linecap="round" stroke-width="1.7512" style="paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 236.21 158.93)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#fff" filter="url(#filter216308-4)" opacity=".41463" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 235.86 157.43)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#f5cc21" filter="url(#filter216308-4)" opacity=".12602" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(1.1863 0 0 1.1863 142.48 36.559)" cx="381.08" cy="495.5" rx="1.3293" ry="1.2407" fill="#fff" filter="url(#filter217808-6)" opacity=".62805" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+  </g>
+  <path transform="matrix(.8756 0 0 .8756 73.956 76.244)" d="m591.11 628.05c-0.16545 1.0268 1.1865 3.0265 2.537 3.2246 3.4433 0.50515 4.3626-2.2762 4.3626-2.2762s-1.917 1.2354-3.675 1.0433c-0.83554-0.0913-2.5449-0.48676-3.2246-1.9917z" fill="#fff" filter="url(#filter217812-7)" opacity=".42683"/>
+  <g fill-rule="evenodd">
+   <ellipse cx="600.02" cy="620.93" rx="2.9272" ry="2.8234" stroke="#000" stroke-linecap="round" stroke-width="1.7512" style="paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 241.77 154.06)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#fff" filter="url(#filter216308-68)" opacity=".41463" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(.9401 0 0 .9401 241.42 152.57)" cx="380.58" cy="497.5" rx="2.4142" ry="2.2466" fill="#f5cc21" filter="url(#filter216308-68)" opacity=".12602" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+   <ellipse transform="matrix(1.1863 0 0 1.1863 148.04 31.694)" cx="381.08" cy="495.5" rx="1.3293" ry="1.2407" fill="#fff" filter="url(#filter217808-70)" opacity=".62805" style="mix-blend-mode:normal;paint-order:fill markers stroke"/>
+  </g>
+  <path transform="matrix(.8756 0 0 .8756 73.956 76.244)" d="m597.46 622.5c-0.16545 1.0268 1.1865 3.0265 2.537 3.2246 3.4433 0.50515 4.3626-2.2762 4.3626-2.2762s-1.917 1.2354-3.675 1.0433c-0.83554-0.0913-2.5449-0.48676-3.2246-1.9917z" fill="#fff" filter="url(#filter217812-62)" opacity=".42683"/>
+ </g>
+</svg>

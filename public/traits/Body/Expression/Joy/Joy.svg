@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg5" width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs77">
+  <linearGradient id="linearGradient1707" x1="111.62" x2="111.57" y1="117.36" y2="126.45" gradientTransform="matrix(4.1461 0 0 4.1461 114.51 46.948)" gradientUnits="userSpaceOnUse">
+   <stop id="stop2-5" offset="0"/>
+   <stop id="stop4-5" stop-color="#bf4c4c" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3034" x1="111.3" x2="111.38" y1="118.14" y2="123.2" gradientTransform="matrix(4.1461 0 0 4.1461 114.51 46.948)" gradientUnits="userSpaceOnUse">
+   <stop id="stop7-1" offset="0"/>
+   <stop id="stop9-1" stop-color="#fff" offset="1"/>
+  </linearGradient>
+  <filter id="filter5858" x="-.0011039" y="-.0030483" width="1.0022" height="1.0061" color-interpolation-filters="sRGB">
+   <feGaussianBlur id="feGaussianBlur12-90" stdDeviation="0.00300962"/>
+  </filter>
+ </defs>
+ <g id="layer60" transform="translate(19.4 11.241)">
+  <g id="layer32">
+   <g id="layer33">
+    <path id="path17-4" d="m554.16 553.02c13.641-2.214 28.996-2.2854 44.135 0.4285 0 0-7.9526 41.681-23.782 41.137-15.418-0.5307-20.354-41.564-20.354-41.564z" fill="url(#linearGradient1707)" stroke="#000" stroke-linejoin="round" stroke-width="2.7572"/>
+    <path id="path19-2" d="m555.9 554.14c14.95 11.086 26.179 7.8262 40.728 0.46631-14.455-2.4312-26.474-2.8812-40.728-0.46631z" fill="url(#linearGradient3034)" stroke-width="4.1461"/>
+    <path id="path21-1" d="m560.25 574.41s10.826-3.4219 15.955-1.882c4.6668 1.4012 11.173 9.4261 11.173 9.4261-11.808 21.286-21.813 9.3822-27.128-7.5442z" fill="#ef8a8a" stroke-width="4.1461"/>
+    <path id="path23-6" transform="matrix(4.1461 0 0 4.1461 114.51 46.946)" d="m107.51 127.22s2.611-0.82534 3.8481-0.45393c1.1256 0.33796 2.6949 2.2735 2.6949 2.2735-1.0547-0.99727-1.6082-1.2642-2.6047-1.7085-0.85998-0.38347-2.6677 0.10646-3.8689 0.35844 0 0 0.026-0.26363-0.0695-0.4695z" filter="url(#filter5858)" opacity=".12052" style="mix-blend-mode:normal"/>
+   </g>
+  </g>
+ </g>
+</svg>

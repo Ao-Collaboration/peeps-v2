@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg5" width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs77">
+  <filter id="filter189142" x="-.0010069" y="-.0080403" width="1.002" height="1.0161" color-interpolation-filters="sRGB">
+   <feGaussianBlur id="feGaussianBlur189144" stdDeviation="0.12195909"/>
+  </filter>
+  <filter id="filter189586" x="-.070711" y="-.34361" width="1.1414" height="1.6872" color-interpolation-filters="sRGB">
+   <feGaussianBlur id="feGaussianBlur189588" stdDeviation="9.7694182"/>
+  </filter>
+  <filter id="filter189788" x="-.0043165" y="-.0044002" width="1.0086" height="1.0088" color-interpolation-filters="sRGB">
+   <feGaussianBlur id="feGaussianBlur189790" stdDeviation="0.39382937"/>
+  </filter>
+  <filter id="filter193230" x="-.949" y="-.949" width="2.898" height="2.898" color-interpolation-filters="sRGB">
+   <feGaussianBlur id="feGaussianBlur193232" stdDeviation="0.17713985"/>
+  </filter>
+ </defs>
+ <g id="layer60" transform="translate(19.4 11.241)">
+  <g id="layer214">
+   <g id="layer181" transform="translate(-19.4 -11.241)">
+    <path id="path184261" transform="scale(.26458)" d="m2136.3 404.54c-177.71 4e-5 -348.14 13.586-473.8 37.768-125.66 24.182-145.8 56.702-145.8 90.901 0 34.199 20.138 67.277 145.8 91.459 125.66 24.183 296.09 37.768 473.81 37.768 177.71 6e-5 348.15-13.586 473.81-37.768 125.66-24.183 159.82-55.379 159.82-89.578 0-34.199-34.165-68.6-159.83-92.782s-296.09-37.768-473.8-37.768zm4.5566 38.57c135.64-2e-5 265.73 6.2922 361.64 17.492 95.914 11.2 149.8 26.391 149.8 42.23 0 15.84-53.879 31.031-149.79 42.232s-226 17.493-361.65 17.493c-135.65 2e-5 -265.74-6.2924-361.65-17.493s-149.8-26.392-149.79-42.232c0-15.839 53.886-31.03 149.8-42.23 95.914-11.2 226-17.492 361.64-17.492z" fill="#ffe139" stroke-opacity="0"/>
+    <path id="path184261-2" transform="matrix(1.1692 0 0 1.5075 -95.656 -54.318)" d="m564.03 96.83c-47.019 1.1e-5 -92.113 3.5945-125.36 9.9927-33.248 6.3982-38.577 15.002-38.577 24.051 0 9.0486 5.3282 17.8 38.576 24.199 33.248 6.3983 78.342 9.9929 125.36 9.9929 47.02 2e-5 92.114-3.5945 125.36-9.9929 33.248-6.3983 42.287-14.652 42.286-23.701 0-9.0485-9.0396-18.15-42.287-24.549-33.248-6.3982-78.341-9.9927-125.36-9.9927zm1.2056 10.205c35.889 0 70.308 1.6648 95.685 4.6282 25.377 2.9634 39.634 6.9826 39.635 11.173 0 4.191-14.256 8.2103-39.633 11.174-25.378 2.9635-59.797 4.6284-95.687 4.6284-35.89 0-70.309-1.6649-95.687-4.6284-25.378-2.9635-39.634-6.9828-39.633-11.174 0-4.1909 14.257-8.2101 39.635-11.173 25.377-2.9634 59.796-4.6282 95.685-4.6282z" fill="#ffe139" filter="url(#filter189586)" opacity=".52236" style="mix-blend-mode:normal"/>
+    <path id="path185218" d="m420.46 133.61c-0.30632 1.7729 0.10861 3.6957 1.2949 5.5723 1.1863 1.8766 3.1154 3.7505 5.9375 5.6992 3.1377 2.1667 9.0842 3.7765 17.475 5.2774 8.3904 1.5009 19.154 2.7837 31.529 3.8359 24.751 2.1045 55.942 3.2816 87.297 3.3594 31.355 0.0778 62.866-0.94444 88.258-3.2461 20.447-1.8628 49.119-7.0501 56.83-17.078 1.494-2.0713 2.1546-4.0193 1.9551-5.8164-0.19952-1.7972-1.2684-3.2724-2.6895-4.3711-6.3195-3.9415-14.158-5.1233-21.736-5.8891 53.41 12.918-8.5874 28.362-34.584 30.666-25.273 2.2909-55.44 1.8215-86.736 1.7439-31.296-0.0776-62.255-1.071-86.907-3.1672-12.326-1.0481-23.217-2.6027-31.486-4.0818-5.966-0.96289-24.329-4.2208-23.973-12.079 0.39184-2.2678 2.7782-4.5718 6.1836-6.4824s7.6764-3.4141 11.289-4.4199c1.8063-0.50292 3.4506-0.88333 4.7383-1.1367 1.2876-0.2534 2.3017-0.37194 2.5039-0.37305-8.9723 0.757-25.197 4.3329-27.18 11.986z" color="#000000" fill="#fff" filter="url(#filter189142)" style="-inkscape-stroke:none;mix-blend-mode:normal"/>
+    <path id="path189652" transform="matrix(.4258 0 0 .32461 -106.48 31.265)" d="m1960.4 427.87-84.057-68.308-4.8943 108.2 0.9963-108.31-87.647 63.636 85.299-66.75-104.4-28.849 105.37 25.072-42.537-99.61 46.095 98.014 51.356-95.363-47.89 97.149 106.58-19.305-105.81 23.129z" fill="#fff" filter="url(#filter189788)" opacity=".9" style="mix-blend-mode:normal"/>
+    <circle id="path190684" cx="413.02" cy="114.18" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190686" cx="469.36" cy="107.36" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190700" cx="458.34" cy="105.57" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190702" cx="485.58" cy="100.2" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190704" cx="522.57" cy="102.91" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190706" cx="579.71" cy="97.912" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190708" cx="624.57" cy="102.94" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190710" cx="661.05" cy="109.06" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190712" cx="675.2" cy="107.68" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190714" cx="651.3" cy="99.667" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190716" cx="608.05" cy="101.45" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190718" cx="607.74" cy="93.32" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190720" cx="555.61" cy="102.22" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190722" cx="540.87" cy="91.543" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190724" cx="511.55" cy="101.12" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190726" cx="544.85" cy="101.23" r=".3302" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190728" cx="563.83" cy="91.651" r=".22399" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190730" cx="597.27" cy="97.041" r=".35973" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190732" cx="591.53" cy="102.84" r=".4903" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190734" cx="489.81" cy="105.69" r=".43767" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190736" cx="518.6" cy="94.534" r=".50266" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190738" cx="531.14" cy="85.034" r=".36011" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190740" cx="536.6" cy="75.83" r=".56037" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190742" cx="490.78" cy="90.734" r=".51349" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190744" cx="467.21" cy="97.14" r=".38588" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190746" cx="435.56" cy="112.5" r=".47745" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190748" cx="561.52" cy="78.333" r=".28199" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190750" cx="578.1" cy="90.053" r=".25705" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190752" cx="634.23" cy="93.193" r=".56134" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190754" cx="647.92" cy="105.45" r=".35256" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190756" cx="694.34" cy="107.33" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190758" cx="713.59" cy="114.24" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190760" cx="701.19" cy="113.06" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190762" cx="676.49" cy="101.64" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190764" cx="567.92" cy="100.07" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190766" cx="557.91" cy="90.674" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190768" cx="543.25" cy="94.94" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190770" cx="577.29" cy="86.386" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190772" cx="562.04" cy="77.544" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190774" cx="604.1" cy="98.844" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190776" cx="445.23" cy="105.37" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190778" cx="397.61" cy="128.15" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190780" cx="436.54" cy="153.66" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190782" cx="506.86" cy="163.29" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190784" cx="527.22" cy="143.27" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190786" cx="590.77" cy="162.89" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190788" cx="586.47" cy="140.88" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190790" cx="642.59" cy="141.14" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190792" cx="695.61" cy="153.47" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190794" cx="739.61" cy="141.2" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190796" cx="644.33" cy="176.27" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190798" cx="607.64" cy="180.64" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190800" cx="535.8" cy="182.56" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190802" cx="492.25" cy="178.57" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190804" cx="569.87" cy="178.2" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190806" cx="558.8" cy="166.71" r=".79375" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190808" cx="470.73" cy="174.48" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190810" cx="479.08" cy="165.52" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190812" cx="516.38" cy="180.03" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190814" cx="539.92" cy="166.8" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190816" cx="563.05" cy="177.71" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190818" cx="600.28" cy="178.05" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190820" cx="621.62" cy="144.39" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190822" cx="557.12" cy="143.65" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190824" cx="492.61" cy="143.96" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190826" cx="548.67" cy="132.15" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190828" cx="603.22" cy="135.03" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190830" cx="683.46" cy="134.65" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190832" cx="686.62" cy="120.95" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190834" cx="463.21" cy="137.28" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190836" cx="439.07" cy="133.72" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190838" cx="422.2" cy="114.4" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190840" cx="431.07" cy="105.97" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190842" cx="513.32" cy="87.217" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190844" cx="595.59" cy="74.761" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190846" cx="599.86" cy="88.9" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190848" cx="578.27" cy="70.648" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190850" cx="553.61" cy="68.144" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190852" cx="542.12" cy="79.737" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190854" cx="511.19" cy="81.459" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190856" cx="644.96" cy="89.733" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190858" cx="638.74" cy="104.45" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190860" cx="668.08" cy="99.062" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190862" cx="723.31" cy="132.36" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190864" cx="730.62" cy="125.51" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190866" cx="722.38" cy="158.06" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190868" cx="671.53" cy="161.98" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190870" cx="675.25" cy="172.97" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190872" cx="628.02" cy="166.38" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190874" cx="616.01" cy="176.4" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190876" cx="589.29" cy="181.78" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190878" cx="603.4" cy="172.27" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190880" cx="576.65" cy="169.77" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190882" cx="574.08" cy="181.32" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190884" cx="575.18" cy="191.81" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190886" cx="555.72" cy="180.36" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190888" cx="514.28" cy="179.51" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190890" cx="484.38" cy="178.08" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190892" cx="439.24" cy="168.86" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190894" cx="461.25" cy="165.08" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190896" cx="411.89" cy="153.26" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190898" cx="417.12" cy="149.56" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190900" cx="419.81" cy="164.76" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190902" cx="391.92" cy="143.91" r=".39687" fill="#ffd900" filter="url(#filter193230)"/>
+    <circle id="path190684-2" transform="scale(-1,1)" cx="-717.88" cy="114.94" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190686-6" transform="scale(-1,1)" cx="-661.54" cy="108.11" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190700-3" transform="scale(-1,1)" cx="-672.56" cy="106.33" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190702-9" transform="scale(-1,1)" cx="-645.32" cy="100.96" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190704-3" transform="scale(-1,1)" cx="-608.33" cy="103.66" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190706-3" transform="scale(-1,1)" cx="-551.19" cy="98.668" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190708-1" transform="scale(-1,1)" cx="-506.33" cy="103.7" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190710-4" transform="scale(-1,1)" cx="-469.85" cy="109.82" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190712-1" transform="scale(-1,1)" cx="-455.7" cy="108.44" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190714-6" transform="scale(-1,1)" cx="-479.6" cy="100.42" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190716-2" transform="scale(-1,1)" cx="-522.86" cy="102.2" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190718-7" transform="scale(-1,1)" cx="-523.16" cy="94.076" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190720-6" transform="scale(-1,1)" cx="-575.3" cy="102.98" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190722-8" transform="scale(-1,1)" cx="-590.03" cy="92.299" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190724-3" transform="scale(-1,1)" cx="-619.35" cy="101.88" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190726-3" transform="scale(-1,1)" cx="-586.05" cy="101.98" r=".3302" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190728-7" transform="scale(-1,1)" cx="-567.08" cy="92.407" r=".22399" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190730-8" transform="scale(-1,1)" cx="-533.63" cy="97.798" r=".35973" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190732-5" transform="scale(-1,1)" cx="-539.37" cy="103.59" r=".4903" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190734-2" transform="scale(-1,1)" cx="-641.1" cy="106.44" r=".43767" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190736-9" transform="scale(-1,1)" cx="-612.3" cy="95.29" r=".50266" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190738-5" transform="scale(-1,1)" cx="-599.76" cy="85.79" r=".36011" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190740-3" transform="scale(-1,1)" cx="-594.3" cy="76.587" r=".56037" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190742-3" transform="scale(-1,1)" cx="-640.12" cy="91.491" r=".51349" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190744-7" transform="scale(-1,1)" cx="-663.69" cy="97.897" r=".38588" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190746-6" transform="scale(-1,1)" cx="-695.34" cy="113.26" r=".47745" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190748-5" transform="scale(-1,1)" cx="-569.38" cy="79.089" r=".28199" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190750-2" transform="scale(-1,1)" cx="-552.8" cy="90.81" r=".25705" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190752-4" transform="scale(-1,1)" cx="-496.67" cy="93.949" r=".56134" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190754-6" transform="scale(-1,1)" cx="-482.98" cy="106.21" r=".35256" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190756-8" transform="scale(-1,1)" cx="-436.56" cy="108.08" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190758-0" transform="scale(-1,1)" cx="-417.31" cy="114.99" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190760-6" transform="scale(-1,1)" cx="-429.71" cy="113.82" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190762-9" transform="scale(-1,1)" cx="-454.42" cy="102.4" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190764-6" transform="scale(-1,1)" cx="-562.98" cy="100.82" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190766-7" transform="scale(-1,1)" cx="-572.99" cy="91.431" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190768-3" transform="scale(-1,1)" cx="-587.65" cy="95.697" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190770-0" transform="scale(-1,1)" cx="-553.61" cy="87.142" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190772-3" transform="scale(-1,1)" cx="-568.86" cy="78.3" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190774-6" transform="scale(-1,1)" cx="-526.8" cy="99.6" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190776-0" transform="scale(-1,1)" cx="-685.67" cy="106.13" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190778-3" transform="scale(-1,1)" cx="-733.29" cy="128.91" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190780-6" transform="scale(-1,1)" cx="-694.36" cy="154.42" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190782-0" transform="scale(-1,1)" cx="-624.04" cy="164.05" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190784-2" transform="scale(-1,1)" cx="-603.68" cy="144.02" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190786-5" transform="scale(-1,1)" cx="-540.13" cy="163.65" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190788-7" transform="scale(-1,1)" cx="-544.43" cy="141.64" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190790-1" transform="scale(-1,1)" cx="-488.31" cy="141.9" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190792-4" transform="scale(-1,1)" cx="-435.29" cy="154.23" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190794-7" transform="scale(-1,1)" cx="-391.29" cy="141.95" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190796-8" transform="scale(-1,1)" cx="-486.57" cy="177.02" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190798-0" transform="scale(-1,1)" cx="-523.26" cy="181.4" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190800-4" transform="scale(-1,1)" cx="-595.1" cy="183.31" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190802-9" transform="scale(-1,1)" cx="-638.65" cy="179.33" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190804-3" transform="scale(-1,1)" cx="-561.03" cy="178.95" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190806-4" transform="scale(-1,1)" cx="-572.1" cy="167.47" r=".79375" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190808-6" transform="scale(-1,1)" cx="-660.17" cy="175.23" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190810-2" transform="scale(-1,1)" cx="-651.82" cy="166.28" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190812-8" transform="scale(-1,1)" cx="-614.52" cy="180.78" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190814-0" transform="scale(-1,1)" cx="-590.98" cy="167.56" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190816-9" transform="scale(-1,1)" cx="-567.85" cy="178.46" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190818-2" transform="scale(-1,1)" cx="-530.62" cy="178.81" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190820-9" transform="scale(-1,1)" cx="-509.28" cy="145.14" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190822-9" transform="scale(-1,1)" cx="-573.79" cy="144.4" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190824-9" transform="scale(-1,1)" cx="-638.29" cy="144.71" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190826-1" transform="scale(-1,1)" cx="-582.23" cy="132.91" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190828-0" transform="scale(-1,1)" cx="-527.68" cy="135.79" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190830-2" transform="scale(-1,1)" cx="-447.44" cy="135.41" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190832-4" transform="scale(-1,1)" cx="-444.29" cy="121.71" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190834-1" transform="scale(-1,1)" cx="-667.69" cy="138.04" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190836-7" transform="scale(-1,1)" cx="-691.83" cy="134.48" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190838-6" transform="scale(-1,1)" cx="-708.71" cy="115.16" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190840-1" transform="scale(-1,1)" cx="-699.83" cy="106.72" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190842-8" transform="scale(-1,1)" cx="-617.58" cy="87.974" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190844-1" transform="scale(-1,1)" cx="-535.31" cy="75.517" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190846-6" transform="scale(-1,1)" cx="-531.04" cy="89.656" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190848-5" transform="scale(-1,1)" cx="-552.63" cy="71.405" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190850-8" transform="scale(-1,1)" cx="-577.29" cy="68.901" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190852-7" transform="scale(-1,1)" cx="-588.78" cy="80.493" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190854-2" transform="scale(-1,1)" cx="-619.71" cy="82.215" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190856-2" transform="scale(-1,1)" cx="-485.94" cy="90.489" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190858-0" transform="scale(-1,1)" cx="-492.16" cy="105.2" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190860-2" transform="scale(-1,1)" cx="-462.82" cy="99.818" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190862-2" transform="scale(-1,1)" cx="-407.59" cy="133.12" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190864-2" transform="scale(-1,1)" cx="-400.28" cy="126.26" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190866-2" transform="scale(-1,1)" cx="-408.52" cy="158.82" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190868-6" transform="scale(-1,1)" cx="-459.37" cy="162.73" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190870-1" transform="scale(-1,1)" cx="-455.65" cy="173.73" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190872-9" transform="scale(-1,1)" cx="-502.88" cy="167.14" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190874-9" transform="scale(-1,1)" cx="-514.89" cy="177.16" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190876-9" transform="scale(-1,1)" cx="-541.61" cy="182.53" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190878-1" transform="scale(-1,1)" cx="-527.5" cy="173.02" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190880-6" transform="scale(-1,1)" cx="-554.26" cy="170.53" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190882-6" transform="scale(-1,1)" cx="-556.82" cy="182.08" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190884-4" transform="scale(-1,1)" cx="-555.72" cy="192.56" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190886-0" transform="scale(-1,1)" cx="-575.18" cy="181.12" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190888-4" transform="scale(-1,1)" cx="-616.62" cy="180.27" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190890-2" transform="scale(-1,1)" cx="-646.52" cy="178.84" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190892-3" transform="scale(-1,1)" cx="-691.66" cy="169.62" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190894-7" transform="scale(-1,1)" cx="-669.65" cy="165.84" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190896-3" transform="scale(-1,1)" cx="-719.01" cy="154.01" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190898-7" transform="scale(-1,1)" cx="-713.78" cy="150.32" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190900-8" transform="scale(-1,1)" cx="-711.09" cy="165.51" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+    <circle id="path190902-2" transform="scale(-1,1)" cx="-738.98" cy="144.67" r=".39687" fill="#fff" filter="url(#filter193230)"/>
+   </g>
+  </g>
+ </g>
+</svg>

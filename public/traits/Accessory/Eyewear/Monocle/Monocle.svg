@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg5" width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs77">
+  <linearGradient id="linearGradient5473" x1="121.68" x2="143.96" y1="91.614" y2="116.73" gradientUnits="userSpaceOnUse">
+   <stop id="stop2-28" stop-color="#d5f0f5" offset="0"/>
+   <stop id="stop4-8" stop-color="#d5f0f5" stop-opacity=".8" offset=".2103"/>
+   <stop id="stop6-3" stop-color="#fff" stop-opacity=".8" offset=".31326"/>
+   <stop id="stop8-7" stop-color="#fff" stop-opacity=".8" offset=".39519"/>
+   <stop id="stop10-8" stop-color="#d5f0f5" stop-opacity=".8" offset=".59081"/>
+   <stop id="stop12-3" stop-color="#d5f0f5" stop-opacity=".8" offset=".72928"/>
+   <stop id="stop14-5" stop-color="#fff" stop-opacity=".8" offset=".85415"/>
+   <stop id="stop16-3" stop-color="#d5f0f5" stop-opacity=".8" offset=".93691"/>
+   <stop id="stop18-2" stop-color="#d5f0f5" stop-opacity=".8" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer60" transform="translate(19.4 11.241)">
+  <g id="layer214">
+   <g id="layer80">
+    <g id="g29-2" transform="matrix(4.1461 0 0 4.1461 114.51 46.946)" stroke="#000" stroke-linejoin="round">
+     <circle id="circle23" cx="130.78" cy="106.28" r="16.982" fill="url(#linearGradient5473)" fill-rule="evenodd" stroke-width="2.0799"/>
+     <rect id="rect25" x="148.08" y="105.25" width="1.3147" height="3.8749" fill="#d5f0f5" fill-opacity=".65182" fill-rule="evenodd" stroke-width="2"/>
+     <ellipse id="ellipse27" cx="149.16" cy="123.09" rx=".52353" ry="14.536" fill="none" stroke-width=".12167"/>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

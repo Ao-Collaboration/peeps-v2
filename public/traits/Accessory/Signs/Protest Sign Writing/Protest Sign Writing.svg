@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg5" width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs77">
+  <filter id="filter40378" x="-.0049846" y="-.0045622" width="1.01" height="1.0091" color-interpolation-filters="sRGB">
+   <feGaussianBlur id="feGaussianBlur40380" stdDeviation="0.016505817"/>
+  </filter>
+ </defs>
+ <g id="layer60" transform="translate(19.4 11.241)">
+  <g id="layer263">
+   <g id="layer138" transform="translate(-19.4 -11.241)">
+    <path id="path18147" d="m679.35 825.34 114.78-296.07" fill="none" stroke="#000" stroke-width="12"/>
+    <path id="path18308" d="m641.67 11.774-163.66 370.87 563.96 260.2 158.95-393.24z" fill="#f7eecc" stroke="#000" stroke-width="4"/>
+    <path id="path19605" d="m697.72 110.29c-14.453 12.938-32.425 45.867-10.281 56.756 61.298 14.072 104.02-26.696 151.61-3.9186 23.543 12.335 4.6752 43.879 6.6363 64.321 5.3587 55.855 74.187-4.5827 95.814 10.971 11.293 8.6607 8.2927 58.6 34.401 61.516 19.027 2.1254 54.499-1.0681 65.203 20.184 7.0219 13.942 30.604 10.86 37.113 23.803" fill="none" stroke="#000" stroke-width="5"/>
+    <path id="path19607" d="m636.96 227.03c-11.965 4.3315-18.534 28.42 7.7409 33.412 22.312 4.2395 40.819-5.0825 63.373-1.4548 38.066 6.123 12.207 48.046 49.55 56.455 24.086 5.4238 71.534-5.0055 82.163 15.857 10.018 19.663 31.848 40.834 51.597 46.224 23.953 6.5378 72.097-7.3995 76.817 19.456 6.7424 38.365 65.889 26.779 76.182 60.496" fill="none" stroke="#000" stroke-width="5"/>
+    <path id="path19609" d="m608.24 326.93c-21.073 23.994 11.798 43.285 34.216 46.918 33.524 5.4335 66.905 10.73 100.63 14.921 29.548 3.6725 55.064 13.773 75.698 31.742 28.749 25.036-2.5264 84.314 58.299 98.394 17.538 3.7229 60.207-16.298 51.189 16.506-6.6507 24.194 54.638 26.227 64.273 26.127" fill="none" stroke="#000" stroke-width="5"/>
+    <path id="path40136" d="m1026.1 558.67 28.257-69.465" fill="none" stroke="#000" stroke-width="10"/>
+    <ellipse id="path40240" cx="1019.6" cy="571.25" rx="3.9736" ry="4.3416" fill-rule="evenodd" filter="url(#filter40378)" style="paint-order:fill markers stroke"/>
+   </g>
+  </g>
+ </g>
+</svg>

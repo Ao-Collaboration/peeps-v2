@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg5" width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs77">
+  <filter id="filter1973-1" x="-.39594" y="-.60676" width="1.7919" height="2.2135" color-interpolation-filters="sRGB">
+   <feGaussianBlur id="feGaussianBlur2-4" stdDeviation="1.8210371"/>
+  </filter>
+  <filter id="filter1973-1-4" x="-.39594" y="-.60676" width="1.7919" height="2.2135" color-interpolation-filters="sRGB">
+   <feGaussianBlur id="feGaussianBlur5-74" stdDeviation="1.8210371"/>
+  </filter>
+ </defs>
+ <g id="layer60" transform="translate(19.4 11.241)">
+  <g id="layer32">
+   <g id="layer37">
+    <g id="g34" transform="matrix(4.1461 0 0 4.1461 114.51 46.947)">
+     <ellipse id="ellipse10" transform="matrix(1.6029 0 0 .8112 -54.819 22.014)" cx="90.738" cy="125.77" rx="5.5191" ry="3.6015" fill="#d72a8f" fill-rule="evenodd" filter="url(#filter1973-1)" opacity=".23127" stroke-linejoin="round" stroke-width=".284"/>
+     <g id="g18-9" fill="none" stroke="#c85a5a" stroke-width=".26458px">
+      <path id="path12" d="m94.671 125.25-1.7568-1.8528" style="mix-blend-mode:normal"/>
+      <path id="path14-5" d="m91.432 125.48-1.7568-1.8528" style="mix-blend-mode:normal"/>
+      <path id="path16-2" d="m87.833 125.24-1.7568-1.8528" style="mix-blend-mode:normal"/>
+     </g>
+     <ellipse id="ellipse20" transform="matrix(1.6029 0 0 .8112 -16.263 21.733)" cx="90.738" cy="125.77" rx="5.5191" ry="3.6015" fill="#d72a8f" fill-rule="evenodd" filter="url(#filter1973-1-4)" opacity=".23127" stroke-linejoin="round" stroke-width=".284"/>
+     <g id="g32-7" fill="none">
+      <g id="g28-4" stroke="#c85a5a" stroke-width=".26458px">
+       <path id="path22-7" d="m133.23 124.97-1.7568-1.8528" style="mix-blend-mode:normal"/>
+       <path id="path24-9" d="m129.99 125.2-1.7568-1.8528" style="mix-blend-mode:normal"/>
+       <path id="path26-0" d="m126.39 124.96-1.7568-1.8528" style="mix-blend-mode:normal"/>
+      </g>
+     </g>
+    </g>
+    <path id="path30-6" d="m557.81 566.16c9.662 12.238 31.552 13.289 40.999 0.0697" fill="none" stroke="#000" stroke-linecap="round" stroke-width="3.1718"/>
+   </g>
+  </g>
+ </g>
+</svg>

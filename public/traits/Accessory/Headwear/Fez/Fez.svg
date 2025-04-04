@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg5" width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs77">
+  <filter id="filter6726-6" x="-.0081087" y="-.09312" width="1.0164" height="1.1861" color-interpolation-filters="sRGB">
+   <feGaussianBlur id="feGaussianBlur10-95" stdDeviation="0.10470401"/>
+  </filter>
+  <filter id="filter6704" x="-.0085004" y="-.0085419" width="1.0157" height="1.0189" color-interpolation-filters="sRGB">
+   <feGaussianBlur id="feGaussianBlur7-5" stdDeviation="0.19159869"/>
+  </filter>
+  <linearGradient id="linearGradient87260" x1="70.259" x2="140.18" y1="38.444" y2="38.444" gradientTransform="translate(.78285 -4.3057)" gradientUnits="userSpaceOnUse">
+   <stop id="stop2-18" offset="0"/>
+   <stop id="stop4-1" stop-opacity="0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer60" transform="translate(19.4 11.241)">
+  <g id="layer214">
+   <g id="layer75">
+    <g id="g27-12" transform="matrix(4.1461 0 0 4.1461 114.51 46.946)">
+     <path id="path15-4" d="m71.042 58.595c22.561 8.0886 46.654 8.8236 69.92 0.04748l-7.3954-48.547c-0.59134-3.8818-55.375-4.0588-55.917-0.08107z" fill="#c70800" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".96477" style="paint-order:stroke fill markers"/>
+     <path id="path17-47" d="m82.571 11.817c12.891 1.595 26.43 2.8155 46.222 0.41517" fill="none" stroke="#000" stroke-width=".26458px"/>
+     <g id="g25">
+      <path id="path19-4" d="m71.042 58.595c23.613 9.3034 49.25 7.781 69.92 0.04748 1.3467-16.02-7.2692-29.492-7.3954-48.547-0.76403-5.0155-55.4-3.882-55.917-0.08107z" fill="url(#linearGradient87260)" opacity=".33225" stroke-width=".99998" style="paint-order:markers stroke fill"/>
+      <path id="path21-65" d="m82.571 11.817c15.272 2.2975 30.689 2.2919 46.222 0.41517 0.0652-2.3323-24.997-4.0386-17.18-1.5132 11.898 3.8436-29.027 1.0589-29.042 1.098" filter="url(#filter6726-6)" opacity=".21824" stroke="#000" stroke-width=".26458px"/>
+      <path id="path23-59" d="m77.6 9.9814-6.5581 48.614c1.6601 6.587 26.144 14.967 69.92 0.04748-18.625 1.5561-60.702-0.52144-63.362-48.661z" fill="#080808" filter="url(#filter6704)" opacity=".14984" stroke="#000" stroke-width=".26458px" style="mix-blend-mode:normal"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

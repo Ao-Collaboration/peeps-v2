@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg5" width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g id="layer60" transform="translate(19.4 11.241)">
+  <g id="layer214">
+   <g id="layer100">
+    <g id="g28-53" transform="matrix(4.1461 0 0 4.1461 116.85 38.921)">
+     <ellipse id="ellipse2-6-1" cx="88.895" cy="97.011" rx="27.886" ry="28.093" fill="#aafff8" fill-opacity=".40081" style="paint-order:stroke fill markers"/>
+     <ellipse id="ellipse4-2-3" cx="132.4" cy="108.81" rx="16.112" ry="16.232" fill="#aafff8" fill-opacity=".40081" style="paint-order:stroke fill markers"/>
+     <g id="g26-3-3" fill="none">
+      <g id="g20-8" stroke="#fff">
+       <path id="path6-2-7" d="m84.971 68.78-20.205 40.41-0.27678 1.2455" opacity=".50489" stroke-width="2"/>
+       <path id="path8-8" d="m98.672 71.824-27.124 46.084" opacity=".50489" stroke-width="9"/>
+       <path id="path10-7" d="m103.79 73.9-22.142 48.713" opacity=".50489"/>
+       <path id="path12-3-5" d="m111.13 80.82-20.828 44.146" opacity=".50489" stroke-width="4"/>
+       <path id="path14-62" d="m134.24 93.222-13.153 27.593" opacity=".50489" stroke-width="2"/>
+       <path id="path16-4-9" d="m141.09 95.313-14.371 28.192" opacity=".50489" stroke-width="5"/>
+       <path id="path18-5-6" d="m143.72 96.812-11.003 28.293" opacity=".50489" stroke-width=".5"/>
+      </g>
+      <path id="ellipse22-8" d="m88.361 67.143c-16.218 0-29.385 13.272-29.385 29.592 0 16.32 13.167 29.594 29.385 29.594 16.218 0 29.387-13.274 29.387-29.594 0-16.32-13.169-29.592-29.387-29.592zm0 3c14.584 0 26.387 11.881 26.387 26.592 0 14.711-11.802 26.594-26.387 26.594-14.584 0-26.385-11.883-26.385-26.594 0-14.711 11.8-26.592 26.385-26.592z" color="#000000" fill="#000" stroke-linecap="round" stroke-linejoin="round" style="-inkscape-stroke:none;paint-order:stroke fill markers"/>
+      <path id="ellipse24-1-0" d="m131.87 90.799c-9.7151 0-17.611 7.9611-17.611 17.73 0 9.7693 7.8962 17.732 17.611 17.732s17.613-7.9631 17.613-17.732c0-9.7693-7.8982-17.73-17.613-17.73zm0 3c8.0817 0 14.613 6.5705 14.613 14.73s-6.5316 14.732-14.613 14.732-14.611-6.5724-14.611-14.732 6.5296-14.73 14.611-14.73z" color="#000000" fill="#000" stroke-linecap="round" stroke-linejoin="round" style="-inkscape-stroke:none;paint-order:stroke fill markers"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

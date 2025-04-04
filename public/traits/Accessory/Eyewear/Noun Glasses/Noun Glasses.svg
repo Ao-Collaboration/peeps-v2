@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g>
+  <g fill-rule="evenodd" stroke="#020200" stroke-linecap="square">
+   <g stroke-width="14">
+    <rect x="401.43" y="349.31" width="205.17" height="209.4" fill="#fff" style="paint-order:fill markers stroke"/>
+    <rect x="607.22" y="427.07" width="128.85" height="131.51" fill="#fff" style="paint-order:fill markers stroke"/>
+    <rect x="502.89" y="350.6" width="93.919" height="206.17" style="paint-order:fill markers stroke"/>
+   </g>
+   <rect x="677.43" y="433.84" width="53.54" height="117.53" stroke-width="7.9809" style="paint-order:fill markers stroke"/>
+  </g>
+  <g fill="none" stroke="#f80b06">
+   <rect x="401.43" y="349.31" width="205.17" height="209.4" stroke-linecap="square" stroke-width="14" style="paint-order:fill markers stroke"/>
+   <rect x="607.22" y="427.07" width="128.85" height="131.51" stroke-linecap="square" stroke-width="14" style="paint-order:fill markers stroke"/>
+   <path d="m398.46 472.02h-21.696l-14.552 14.023" stroke-width="15"/>
+   <path d="m737.36 496.37h21.696l14.552 14.023" stroke-width="15"/>
+  </g>
+ </g>
+</svg>

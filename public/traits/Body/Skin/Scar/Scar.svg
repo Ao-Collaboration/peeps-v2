@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200mm" height="1200mm" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g>
+  <g transform="translate(19.4 11.241)" stroke="#000">
+   <g fill="#a6f9de" stroke-width=".26458">
+    <circle cx="647.88" cy="382.99" r=".0999"/>
+    <circle cx="647.88" cy="382.99" r=".0999"/>
+    <circle cx="655.29" cy="576.66" r=".0999"/>
+    <circle cx="655.29" cy="576.66" r=".0999"/>
+    <circle cx="656.88" cy="384.58" r=".0999"/>
+    <circle cx="656.88" cy="384.58" r=".0999"/>
+   </g>
+   <path d="m653.44 389.87c-4.2218 33.765-12.228 64.81-10.62 98.627 1.4391 30.255 12.736 93.196 12.736 93.196l5.8208-30.162-0.79375-122.24z" fill="#570000" fill-opacity=".79672" stroke-width="2"/>
+  </g>
+ </g>
+</svg>
