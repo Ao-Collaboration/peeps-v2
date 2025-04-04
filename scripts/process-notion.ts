@@ -96,15 +96,17 @@ async function downloadNotionTable(databaseId: string): Promise<string> {
                 row[key] = ''
               }
               break
+            case 'status':
+              row[key] = property.status?.name
+              break
             case 'relation':
             case 'people':
             case 'formula':
-            case 'status':
               // Ignore these types
               row[key] = ''
               break
             default:
-              console.log(`Unknown property type: ${property.type}`)
+              console.log(`Unknown property type: ${property.type}`, property)
               row[key] = ''
           }
         })
@@ -157,7 +159,7 @@ async function downloadFiles(jsonFilePath: string) {
         const fileName = file.name
 
         if (fileName && fileUrl) {
-          console.log(`Downloading file: ${fileName} from ${fileUrl}`)
+          console.log(`Downloading file: ${fileName}`)
           // Build the folder path
           const folders = [row['Selections Category'], row['Header Category'], row.Name].filter(
             Boolean,
@@ -199,7 +201,6 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       'Name Suggestions',
       'Assigned To',
       'Rename Guide',
-      'Stage',
       'Exclusions',
       'Related to Traits List (Exclusions)',
       'Rules for Devs',
@@ -225,7 +226,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       fieldMappings[key] = camelCaseKey
     })
 
-    const alwaysDefinedFields = ['Name', 'Selections Category']
+    const alwaysDefinedFields = ['Name', 'Stage', 'Label', 'Selections Category']
 
     // Create the TypeScript type definition
     let typeDefinition = 'export interface TraitData {\n'
@@ -270,13 +271,15 @@ function convertJsonToTypeScript(jsonFilePath: string) {
 
     // Add each item to the data export
     jsonData.forEach((item: any, index: number) => {
-      // Skip hidden trait rows
+      // Skip hidden or incomplete trait rows
       if (
         !item['Name'] ||
+        !item['Label'] ||
+        item['Stage'] !== 'Final' ||
         !item['Selections Category'] ||
         item['Selections Category'] === 'Hidden'
       ) {
-        console.log(`Skipping row ${index} due to missing Name field:`, item)
+        console.log(`Skipping row ${index} due to being incomplete or hidden: ${item['Name']}`)
         return
       }
 

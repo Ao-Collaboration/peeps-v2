@@ -1,5 +1,5 @@
 import {TraitData, traitsData} from '../data/traits'
-import {SKIN_TONES} from './constants'
+import {REQUIRED_CATEGORIES, RequiredCategory, SKIN_TONES} from './constants'
 
 export interface ImageEntry {
   index: number
@@ -38,6 +38,7 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
           const skinTone = SKIN_TONES.get(trait.label)
           if (skinTone) {
             return [
+              //FIXME Don't do skin like this. Use the pose
               {
                 index: 18501,
                 filePath: `Hidden/Skin/Basic.svg`,
@@ -71,4 +72,94 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
   ]
 
   return entries.sort((a, b) => b.index - a.index)
+}
+
+export const legalizeTraits = (selectedTraits: TraitData[]): TraitData[] => {
+  // Create a map of required category to selected trait
+  const categoryToTrait = new Map<RequiredCategory, TraitData>()
+
+  // First, process all traits in reverse order to find the most recently selected ones
+  for (let i = selectedTraits.length - 1; i >= 0; i--) {
+    const trait = selectedTraits[i]
+
+    // Find matching required category for this trait
+    const matchingCategory = REQUIRED_CATEGORIES.find(required => {
+      if (required.secondaryCategory) {
+        return (
+          trait.headerCategory === required.headerCategory &&
+          trait.secondaryCategory === required.secondaryCategory
+        )
+      }
+      return trait.headerCategory === required.headerCategory
+    })
+
+    if (matchingCategory && !categoryToTrait.has(matchingCategory)) {
+      categoryToTrait.set(matchingCategory, trait)
+    }
+  }
+
+  // Build the result array
+  const result: TraitData[] = []
+
+  // Add all non-required category traits
+  selectedTraits.forEach(trait => {
+    const isRequired = REQUIRED_CATEGORIES.some(required => {
+      if (required.secondaryCategory) {
+        return (
+          trait.headerCategory === required.headerCategory &&
+          trait.secondaryCategory === required.secondaryCategory
+        )
+      }
+      return trait.headerCategory === required.headerCategory
+    })
+
+    if (!isRequired) {
+      result.push(trait)
+    }
+  })
+
+  // Add the most recently selected trait for each required category
+  REQUIRED_CATEGORIES.forEach(requiredCategory => {
+    const trait = categoryToTrait.get(requiredCategory)
+    if (trait) {
+      result.push(trait)
+    } else {
+      // If no trait was selected for this category, add the first available one
+      const firstTrait = traitsData.find(t => {
+        if (requiredCategory.secondaryCategory) {
+          return (
+            t.headerCategory === requiredCategory.headerCategory &&
+            t.secondaryCategory === requiredCategory.secondaryCategory
+          )
+        }
+        return t.headerCategory === requiredCategory.headerCategory
+      })
+      if (firstTrait) {
+        result.push(firstTrait)
+      }
+    }
+  })
+
+  return result
+}
+
+export const getDefaultPeep = (): TraitData[] => {
+  const defaultTraits: TraitData[] = [
+    requireTraitByName('Basic'),
+    requireTraitByName('Almond'),
+    requireTraitByName('Fantasy'),
+    requireTraitByName('Hazel'),
+    requireTraitByName('Classic Eyelashes'),
+    requireTraitByName('Twin Braids'),
+    requireTraitByName('Shocked'),
+    requireTraitByName('Bucket Hat'),
+    requireTraitByName('Hoop Earrings'),
+    requireTraitByName('Muscle T-Shirt'),
+    requireTraitByName('Cargo Pants'),
+    requireTraitByName('Crocs'),
+    requireTraitByName('Beach'),
+    requireTraitByName('Sunset'),
+  ]
+
+  return legalizeTraits(defaultTraits)
 }

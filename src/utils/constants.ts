@@ -1,6 +1,3 @@
-import {TraitData} from '../data/traits'
-import {requireTraitByName} from './traitUtils'
-
 export const SKIN_TONE_DEFAULT = '#f7e2ab'
 
 export const SKIN_TONES: Map<string, string> = new Map([
@@ -30,21 +27,20 @@ export const SKIN_TONES: Map<string, string> = new Map([
   ['Alien', '#a6f9de'],
 ])
 
-export const getDefaultPeep = (): TraitData[] => {
-  return [
-    requireTraitByName('Basic'),
-    requireTraitByName('Almond'),
-    requireTraitByName('Fantasy'),
-    requireTraitByName('Hazel'),
-    requireTraitByName('Classic Eyelashes'),
-    requireTraitByName('Twin Braids'),
-    requireTraitByName('Shocked'),
-    requireTraitByName('Bucket Hat'),
-    requireTraitByName('Hoop Earrings'),
-    requireTraitByName('Muscle T-Shirt'),
-    requireTraitByName('Cargo Pants'),
-    requireTraitByName('Crocs'),
-    requireTraitByName('Beach'),
-    requireTraitByName('Sunset'),
-  ]
+export type RequiredCategory = {
+  headerCategory: string
+  secondaryCategory?: string
 }
+
+export const REQUIRED_CATEGORIES: RequiredCategory[] = [
+  {headerCategory: 'District'},
+  {headerCategory: 'Time'},
+  {headerCategory: 'Eyes', secondaryCategory: 'Style'},
+  {headerCategory: 'Eyes', secondaryCategory: 'Colour'},
+  {headerCategory: 'Eyes', secondaryCategory: 'Lashes'},
+  {headerCategory: 'Skin', secondaryCategory: 'Tone'},
+  {headerCategory: 'Hair', secondaryCategory: 'Style'},
+  {headerCategory: 'Hair', secondaryCategory: 'Colour'},
+  {headerCategory: 'Expression'},
+  {headerCategory: 'Pose'},
+]

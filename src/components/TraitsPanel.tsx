@@ -1,6 +1,7 @@
 import React, {useMemo, useState} from 'react'
 
 import {TraitData, traitsData} from '../data/traits'
+import {legalizeTraits} from '../utils/traitUtils'
 import './TraitsPanel.css'
 
 interface TraitsPanelProps {
@@ -69,6 +70,8 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({
       newSelectedTraits = [...selectedTraits, trait]
     }
 
+    newSelectedTraits = legalizeTraits(newSelectedTraits)
+
     console.log(trait)
 
     setSelectedTraits(newSelectedTraits)
@@ -109,7 +112,7 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({
                               checked={selectedTraits.some(t => t.name === trait.name)}
                               onChange={() => handleTraitToggle(trait)}
                             />
-                            <span>{trait.name}</span>
+                            <span>{trait.label}</span>
                           </label>
                         </li>
                       ))}

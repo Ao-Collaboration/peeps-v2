@@ -1,7 +1,8 @@
 export interface TraitData {
   mobileUIArea?: string
   headerCategory?: string
-  label?: string
+  stage: string
+  label: string
   searchableTags: string[]
   frontFile?: string
   selectionsCategory: string
@@ -20,6 +21,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Blue',
     searchableTags: ['Skin', 'Skin Tone', 'Alien', 'Blue', 'Halloween', 'New'],
     selectionsCategory: 'Body',
@@ -32,6 +34,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Sav Wine',
     searchableTags: [],
     frontFile: 'Sav Wine.svg',
@@ -46,6 +49,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Blue Delight',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Blue Delight.svg',
@@ -60,6 +64,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Senna',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Tan'],
     selectionsCategory: 'Body',
@@ -72,6 +77,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Navy Suit Jacket',
     searchableTags: ['New'],
     frontFile: 'Navy Suit Jacket Front.svg',
@@ -86,6 +92,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyewear',
+    stage: 'Final',
     label: 'Eye Patch',
     searchableTags: [],
     frontFile: 'Eye Patch.svg',
@@ -99,6 +106,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Full Body',
+    headerCategory: 'Pose',
+    stage: 'Final',
     label: 'Holding',
     searchableTags: [],
     frontFile: 'Holding Top.svg',
@@ -114,6 +123,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Shirt with Suspenders',
     searchableTags: [],
     frontFile: 'Shirt with Suspenders.svg',
@@ -128,6 +138,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Long Curls',
     searchableTags: ['Right Lashes Above'],
     frontFile: 'Long Curls.svg',
@@ -142,6 +153,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'District',
+    stage: 'Final',
     label: 'Suburb',
     searchableTags: ['Suburb', 'District', 'VeronicaRadd', 'Houses', 'Location'],
     frontFile: 'Suburb.svg',
@@ -154,33 +166,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Upper Body',
-    headerCategory: 'Eyewear',
-    label: 'Aviation Googles',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    secondaryCategory: 'Glasses',
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Aviation Googles',
-  },
-  {
-    mobileUIArea: 'Full Body',
-    headerCategory: 'Set',
-    label: 'Jumpsuit',
-    searchableTags: [],
-    selectionsCategory: 'Clothing',
-    colourTags: [],
-    secondaryCategory: 'Other',
-    frontIndex: 7000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Jumpsuit',
-  },
-  {
-    mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Swirls',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Swirls.svg',
@@ -195,6 +182,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Fedora',
     searchableTags: [],
     frontFile: 'Fedora.svg',
@@ -209,6 +197,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Limestone',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Pale'],
     selectionsCategory: 'Body',
@@ -221,6 +210,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Space Buns',
     searchableTags: ['Right Lashes Above', 'Left Lashes Above'],
     frontFile: 'Space Buns.svg',
@@ -235,6 +225,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'Time',
+    stage: 'Final',
     label: 'Purple Haze',
     searchableTags: ['New', 'Halloween', 'Time', 'Shooting Stars', 'Comets', 'Purple'],
     frontFile: 'Purple Haze.svg',
@@ -248,6 +239,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Patchwork',
     searchableTags: [
       'New',
@@ -272,6 +264,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Bucket Hat',
     searchableTags: ['Hat'],
     frontFile: 'Bucket Hat.svg',
@@ -286,6 +279,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Draculocks',
     searchableTags: [
       'New',
@@ -309,6 +303,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Galaxy',
     searchableTags: ['Eye Colour', 'Face', 'Eyes', 'Multi', 'Space', 'Galaxy'],
     frontFile: 'Galaxy.svg',
@@ -323,6 +318,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Tan Hoodie',
     searchableTags: [],
     frontFile: 'Tan Hoodie Front.svg',
@@ -338,6 +334,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Beanie - Yellow',
     searchableTags: ['Hat'],
     frontFile: 'Beanie - Yellow.svg',
@@ -352,6 +349,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Orange T-Shirt',
     searchableTags: [],
     frontFile: 'Orange T-Shirt.svg',
@@ -366,6 +364,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Exclusive CC Hat',
     searchableTags: [],
     frontFile: 'Exclusive CC Hat.svg',
@@ -381,6 +380,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyewear',
+    stage: 'Final',
     label: 'Full Frames',
     searchableTags: [],
     frontFile: 'Full Frames.svg',
@@ -395,6 +395,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Handbag',
     searchableTags: [],
     frontFile: 'Handbag.svg',
@@ -409,6 +410,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Purple Tank',
     searchableTags: [],
     frontFile: 'Purple Tank.svg',
@@ -423,6 +425,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Wicked',
     searchableTags: ['Skin', 'Skin Tone', 'Witch', 'Wicked', 'Purple', 'Halloween', 'New'],
     selectionsCategory: 'Body',
@@ -435,6 +438,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Jewellery',
+    stage: 'Final',
     label: 'Dangling Earrings',
     searchableTags: [],
     frontFile: 'Dangling Earrings.svg',
@@ -449,6 +453,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Amethyst',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -459,21 +464,9 @@ export const traitsData: TraitData[] = [
     name: 'Amethyst',
   },
   {
-    mobileUIArea: 'Full Body',
-    headerCategory: 'Outerwear',
-    label: 'Biker Jacket',
-    searchableTags: [],
-    selectionsCategory: 'Clothing',
-    colourTags: ['Bright Orange', 'Yellow'],
-    secondaryCategory: 'Jacket',
-    frontIndex: 5000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Biker Jacket',
-  },
-  {
     mobileUIArea: 'Lower Body',
     headerCategory: 'Shoes',
+    stage: 'Final',
     label: 'Crocs',
     searchableTags: [],
     frontFile: 'Crocs.svg',
@@ -487,6 +480,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Pocket T-Shirt',
     searchableTags: [],
     frontFile: 'Pocket T-Shirt.svg',
@@ -501,6 +495,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Unicorn Headband',
     searchableTags: [],
     frontFile: 'Unicorn Headband.svg',
@@ -515,6 +510,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Sports Equipment',
+    stage: 'Final',
     label: 'Fishing Rod',
     searchableTags: [],
     frontFile: 'Fishing Rod.svg',
@@ -528,6 +524,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Rose Beige',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Pale'],
     selectionsCategory: 'Body',
@@ -540,6 +537,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dresses',
+    stage: 'Final',
     label: 'Hippie Tunic Dress',
     searchableTags: [],
     frontFile: 'Hippie Tunic Dress.svg',
@@ -553,6 +551,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Horns',
     searchableTags: [],
     frontFile: 'Horns.svg',
@@ -566,6 +565,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dresses',
+    stage: 'Final',
     label: 'Little Black Dress',
     searchableTags: [],
     frontFile: 'Little Black Dress.svg',
@@ -579,6 +579,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Black',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Black.svg',
@@ -592,6 +593,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Facial Hair',
+    stage: 'Final',
     label: 'Monobrow',
     searchableTags: [],
     frontFile: 'Monobrow.svg',
@@ -605,6 +607,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Cat Ears - Black - Top',
     searchableTags: [],
     selectionsCategory: 'Accessory',
@@ -617,6 +620,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Set',
+    stage: 'Final',
     label: 'Spacesuit',
     searchableTags: [],
     frontFile: 'Spacesuit Front.svg',
@@ -632,6 +636,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Tools',
+    stage: 'Final',
     label: 'Tool Belt',
     searchableTags: [],
     frontFile: 'Tool Belt.svg',
@@ -645,6 +650,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Black Tank Top',
     searchableTags: [],
     frontFile: 'Black Tank Top.svg',
@@ -659,6 +665,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Shovel',
     searchableTags: [],
     frontFile: 'Shovel.svg',
@@ -673,6 +680,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Orange Flare',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Orange Flare.svg',
@@ -687,6 +695,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Brown',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Brown.svg',
@@ -701,6 +710,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Wide Jeans',
     searchableTags: [],
     frontFile: 'Wide Jeans.svg',
@@ -715,6 +725,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Light Brown',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -727,6 +738,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Tan Shorts',
     searchableTags: [],
     frontFile: 'Tan Shorts.svg',
@@ -741,6 +753,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Fancy Eyelashes',
     searchableTags: ['Eyelashes', 'Lashes', 'Fancy'],
     frontFile: 'Fancy Eyelashes.svg',
@@ -753,19 +766,9 @@ export const traitsData: TraitData[] = [
     name: 'Fancy Eyelashes',
   },
   {
-    headerCategory: 'Expression',
-    label: 'Gap in Teeth',
-    searchableTags: [],
-    selectionsCategory: 'Body',
-    colourTags: [],
-    frontIndex: 3000,
-    type: 'Indexed',
-    devTags: ['hidden_opensea'],
-    name: 'Gap in Teeth',
-  },
-  {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Bald',
     searchableTags: ['Left Lashes Above', 'Right Lashes Above'],
     frontFile: 'Bald.svg',
@@ -780,6 +783,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Jewellery',
+    stage: 'Final',
     label: 'Black Pearl Earrings',
     searchableTags: ['New', 'Earrings', 'Jewelery'],
     frontFile: 'Black Pearl Earrings.svg',
@@ -794,6 +798,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Sunflowers',
     searchableTags: [],
     frontFile: 'Sunflowers.svg',
@@ -808,6 +813,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Bows/Ties',
+    stage: 'Final',
     label: 'Dark Blue Tie',
     searchableTags: [],
     frontFile: 'Dark Blue Tie.svg',
@@ -821,6 +827,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Grey T-Shirt',
     searchableTags: [],
     frontFile: 'Grey T-Shirt.svg',
@@ -834,6 +841,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Full Body',
+    headerCategory: 'Pose',
+    stage: 'Final',
     label: 'Peace',
     searchableTags: [],
     frontFile: 'Peace.svg',
@@ -846,6 +855,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Erm',
     searchableTags: [],
     frontFile: 'Erm.svg',
@@ -859,6 +869,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Scar',
     searchableTags: ['New', 'Halloween', 'Seasonal', 'Skin Condition', 'Scar', 'Injury'],
     frontFile: 'Scar.svg',
@@ -873,6 +884,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Rainbow Circular',
     searchableTags: ['Eye Colour', 'Face', 'Eyes', 'Multi', 'Rainbow'],
     frontFile: 'Rainbow Circular.svg',
@@ -885,21 +897,9 @@ export const traitsData: TraitData[] = [
     name: 'Rainbow Circular',
   },
   {
-    mobileUIArea: 'Full Body',
-    headerCategory: 'Holdables',
-    label: 'Parasol',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    secondaryCategory: 'Umbrella',
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Parasol',
-  },
-  {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Porcelain',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Pale'],
     selectionsCategory: 'Body',
@@ -912,6 +912,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Clean Cut',
     searchableTags: ['Left Lashes Above', 'Right Lashes Above'],
     frontFile: 'Clean Cut.svg',
@@ -926,6 +927,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Skinny Jeans',
     searchableTags: [],
     frontFile: 'Skinny Jeans.svg',
@@ -940,6 +942,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Jewellery',
+    stage: 'Final',
     label: 'Bone Earrings',
     searchableTags: ['Earrings'],
     frontFile: 'Bone Earrings.svg',
@@ -954,6 +957,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Set',
+    stage: 'Final',
     label: 'Navy Formal Suit',
     searchableTags: ['New'],
     frontFile: 'Navy Formal Suit.svg',
@@ -968,6 +972,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Tools',
+    stage: 'Final',
     label: 'Stethoscope',
     searchableTags: [],
     frontFile: 'Stethoscope.svg',
@@ -981,6 +986,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Black Hoodie (AP)',
     searchableTags: [],
     frontFile: 'Black Hoodie (AP) Front.svg',
@@ -995,6 +1001,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Mousey',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -1007,6 +1014,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Headscarf',
     searchableTags: ['Hide Hair'],
     frontFile: 'Headscarf.svg',
@@ -1020,6 +1028,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Joy',
     searchableTags: [],
     frontFile: 'Joy.svg',
@@ -1033,6 +1042,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Dress Pants',
     searchableTags: [],
     frontFile: 'Dress Pants.svg',
@@ -1047,6 +1057,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Skinny Black Jeans',
     searchableTags: [],
     frontFile: 'Skinny Black Jeans.svg',
@@ -1061,6 +1072,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Lower Body',
     headerCategory: 'Shoes',
+    stage: 'Final',
     label: 'Checkered Shoes',
     searchableTags: [],
     frontFile: 'Checkered Shoes.svg',
@@ -1074,6 +1086,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Umbrella',
     searchableTags: ['New'],
     frontFile: 'Umbrella.svg',
@@ -1088,6 +1101,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Short Side Swept',
     searchableTags: ['Left Lashes Above'],
     frontFile: 'Short Side Swept.svg',
@@ -1102,6 +1116,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Denim Shorts',
     searchableTags: [],
     frontFile: 'Denim Shorts.svg',
@@ -1116,6 +1131,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Exclusive HL Hoodie',
     searchableTags: [],
     frontFile: 'Exclusive HL Hoodie Front.svg',
@@ -1131,6 +1147,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Black Tee',
     searchableTags: [],
     frontFile: 'Black Tee.svg',
@@ -1145,6 +1162,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Baseball Cap',
     searchableTags: ['Hat'],
     frontFile: 'Baseball Cap.svg',
@@ -1159,6 +1177,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Rainbow Vertical',
     searchableTags: ['Eye Colour', 'Face', 'Eyes', 'Multi', 'Rainbow'],
     frontFile: 'Rainbow Vertical.svg',
@@ -1173,6 +1192,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Short Curls',
     searchableTags: ['Right Lashes Above'],
     frontFile: 'Short Curls.svg',
@@ -1187,6 +1207,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Hippie Tunic',
     searchableTags: [],
     frontFile: 'Hippie Tunic.svg',
@@ -1201,6 +1222,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Long Straight',
     searchableTags: ['Left Lashes Above'],
     frontFile: 'Long Straight.svg',
@@ -1215,6 +1237,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Brown Grey',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Brown Grey.svg',
@@ -1229,6 +1252,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Signs',
+    stage: 'Final',
     label: 'Protest Sign Writing',
     searchableTags: [
       'Protest Sign',
@@ -1249,6 +1273,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Pink',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -1261,6 +1286,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'Time',
+    stage: 'Final',
     label: 'Shepards Warning',
     searchableTags: ['New', 'Halloween', 'Time', 'Red', 'Blood', 'Blood Moon', 'Full Moon', 'Moon'],
     frontFile: 'Shepards Warning.svg',
@@ -1274,6 +1300,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Set',
+    stage: 'Final',
     label: 'Seasonal Santa Outfit',
     searchableTags: [],
     frontFile: 'Seasonal Santa Outfit.svg',
@@ -1286,6 +1313,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Full Body',
+    headerCategory: 'Pose',
+    stage: 'Final',
     label: 'Basic',
     searchableTags: [],
     frontFile: 'Basic.svg',
@@ -1299,6 +1328,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Mohawk',
     searchableTags: ['Right Lashes Above', 'Left Lashes Above'],
     frontFile: 'Mohawk.svg',
@@ -1313,6 +1343,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Layered Shirts',
     searchableTags: [],
     frontFile: 'Layered Shirts.svg',
@@ -1327,6 +1358,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Cat Ears - Top',
     searchableTags: [],
     selectionsCategory: 'Accessory',
@@ -1339,6 +1371,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Ice Cream',
     searchableTags: [],
     frontFile: 'Ice Cream.svg',
@@ -1353,6 +1386,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Tiare Flower',
     searchableTags: ['New'],
     frontFile: 'Tiare Flower.svg',
@@ -1367,6 +1401,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Stars',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Stars.svg',
@@ -1381,6 +1416,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Umber',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Dark'],
     selectionsCategory: 'Body',
@@ -1393,6 +1429,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Headphones',
     searchableTags: [],
     frontFile: 'Headphones.svg',
@@ -1406,6 +1443,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'MrsMilkys Signature Yellow Cardigan',
     searchableTags: [],
     frontFile: 'MrsMilkys Signature Yellow Cardigan Front.svg',
@@ -1422,6 +1460,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Seasonal Elf Hat',
     searchableTags: [],
     frontFile: 'Seasonal Elf Hat.svg',
@@ -1435,6 +1474,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Ahh',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Ahh.svg',
@@ -1449,6 +1489,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Purple',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Purple.svg',
@@ -1463,6 +1504,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'District',
+    stage: 'Final',
     label: 'Mountains',
     searchableTags: ['Mountains', 'District', 'VeronicaRadd', 'Location'],
     frontFile: 'Mountains.svg',
@@ -1476,6 +1518,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Fez',
     searchableTags: [],
     frontFile: 'Fez.svg',
@@ -1490,6 +1533,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Present',
     searchableTags: [],
     frontFile: 'Present.svg',
@@ -1504,6 +1548,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Frankenstein',
     searchableTags: [
       'New',
@@ -1527,6 +1572,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Moms Signature',
     searchableTags: ['Right Lashes Above'],
     frontFile: 'Moms Signature.svg',
@@ -1540,6 +1586,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Facial Hair',
+    stage: 'Final',
     label: 'Shadow',
     searchableTags: [],
     frontFile: 'Shadow.svg',
@@ -1553,6 +1600,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Peep T-Shirt',
     searchableTags: [],
     frontFile: 'Peep T-Shirt.svg',
@@ -1567,6 +1615,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Bow',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Bow.svg',
@@ -1581,6 +1630,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Windmill',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Windmill.svg',
@@ -1595,6 +1645,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Box Braids',
     searchableTags: ['Right Lashes Above'],
     frontFile: 'Box Braids.svg',
@@ -1609,6 +1660,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Rugged T-Shirt',
     searchableTags: [],
     frontFile: 'Rugged T-Shirt.svg',
@@ -1623,6 +1675,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Chefs Hat',
     searchableTags: [],
     frontFile: 'Chefs Hat.svg',
@@ -1637,6 +1690,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Jewellery',
+    stage: 'Final',
     label: 'Nose Ring',
     searchableTags: ['Jewelery', 'Piercing', 'Silver', 'Grey'],
     frontFile: 'Nose Ring.svg',
@@ -1651,6 +1705,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Long Jacket',
     searchableTags: [],
     frontFile: 'Long Jacket Front.svg',
@@ -1667,6 +1722,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Witches Hat',
     searchableTags: [],
     frontFile: 'Witches Hat.svg',
@@ -1681,6 +1737,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Signs',
+    stage: 'Final',
     label: 'Protest Sign',
     searchableTags: ['Protest Sign', 'Rear Accessory', 'Sign', 'Protest'],
     frontFile: 'Protest Sign.svg',
@@ -1694,6 +1751,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Symmetric Vitiligo',
     searchableTags: ['Skin Condition', 'Vitiligo', 'Symmetric'],
     frontFile: 'Symmetric Vitiligo.svg',
@@ -1708,6 +1766,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Warm Ivory',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Pale'],
     selectionsCategory: 'Body',
@@ -1719,6 +1778,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Tongue Out',
     searchableTags: [],
     frontFile: 'Tongue Out.svg',
@@ -1732,6 +1792,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Exclusive GCWC Vest',
     searchableTags: [],
     frontFile: 'Exclusive GCWC Vest Front.svg',
@@ -1747,6 +1808,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Alien',
     searchableTags: ['Skin', 'Skin Tone', 'Alien', 'New', 'Halloween', 'Green'],
     selectionsCategory: 'Body',
@@ -1759,6 +1821,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Seasonal Pumpkin Head',
     searchableTags: ['Hide Hair'],
     frontFile: 'Seasonal Pumpkin Head.svg',
@@ -1772,6 +1835,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Navy Fedora',
     searchableTags: ['New'],
     frontFile: 'Navy Fedora.svg',
@@ -1786,6 +1850,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Labcoat',
     searchableTags: [],
     frontFile: 'Labcoat Front.svg',
@@ -1802,6 +1867,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Muscle T-Shirt',
     searchableTags: [],
     frontFile: 'Muscle T-Shirt.svg',
@@ -1816,6 +1882,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Pulled Back Ponytail',
     searchableTags: ['Right Lashes Above', 'Left Lashes Above'],
     frontFile: 'Pulled Back Ponytail.svg',
@@ -1830,6 +1897,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Exclusive CC Hat - Straw',
     searchableTags: [],
     selectionsCategory: 'Accessory',
@@ -1844,6 +1912,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Purple',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -1855,6 +1924,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Freaked Out',
     searchableTags: [],
     frontFile: 'Freaked Out.svg',
@@ -1868,6 +1938,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Cooking',
+    stage: 'Final',
     label: 'Cauldron',
     searchableTags: [
       'New',
@@ -1889,6 +1960,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Graduation Cap',
     searchableTags: [],
     frontFile: 'Graduation Cap.svg',
@@ -1903,6 +1975,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Freckles',
     searchableTags: ['Skin Condition', 'Freckles'],
     frontFile: 'Freckles.svg',
@@ -1917,6 +1990,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'District',
+    stage: 'Final',
     label: 'Desert',
     searchableTags: ['Desert', 'District', 'Sand', 'Cactus', 'VeronicaRadd', 'Location'],
     frontFile: 'Desert.svg',
@@ -1930,6 +2004,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Lower Body',
     headerCategory: 'Shoes',
+    stage: 'Final',
     label: 'White High Tops',
     searchableTags: [],
     frontFile: 'White High Tops.svg',
@@ -1941,20 +2016,9 @@ export const traitsData: TraitData[] = [
     name: 'White High Tops',
   },
   {
-    mobileUIArea: 'Mid Body',
-    headerCategory: 'Sports Equipment',
-    label: 'American Football',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'American Football',
-  },
-  {
     mobileUIArea: 'Full Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Plant',
     searchableTags: [],
     frontFile: 'Plant.svg',
@@ -1968,6 +2032,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Full Body',
+    headerCategory: 'Pose',
+    stage: 'Final',
     label: 'Hip',
     searchableTags: [],
     frontFile: 'Hip.svg',
@@ -1981,6 +2047,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Cargo Pants',
     searchableTags: [],
     frontFile: 'Cargo Pants.svg',
@@ -1995,6 +2062,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Flower Headband',
     searchableTags: ['New'],
     frontFile: 'Flower Headband.svg',
@@ -2009,6 +2077,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Large Bow',
     searchableTags: [],
     frontFile: 'Large Bow.svg',
@@ -2023,6 +2092,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'District',
+    stage: 'Final',
     label: 'Graveyard',
     searchableTags: ['New', 'Halloween', 'Graveyard', 'Spooky', 'District', 'Location'],
     frontFile: 'Graveyard.svg',
@@ -2035,6 +2105,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Facial Hair',
+    stage: 'Final',
     label: 'Shaped Beard',
     searchableTags: [],
     frontFile: 'Shaped Beard.svg',
@@ -2048,6 +2119,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Sports Equipment',
+    stage: 'Final',
     label: 'Tennis Racket',
     searchableTags: [],
     frontFile: 'Tennis Racket.svg',
@@ -2061,6 +2133,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Cutie Pie',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Cutie Pie.svg',
@@ -2075,6 +2148,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Partyhat',
     searchableTags: [],
     frontFile: 'Partyhat.svg',
@@ -2089,6 +2163,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Taco',
     searchableTags: [],
     frontFile: 'Taco.svg',
@@ -2103,6 +2178,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Set',
+    stage: 'Final',
     label: 'Chefs Uniform',
     searchableTags: [],
     frontFile: 'Chefs Uniform.svg',
@@ -2117,6 +2193,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyewear',
+    stage: 'Final',
     label: 'Noun Glasses',
     searchableTags: ['New'],
     frontFile: 'Noun Glasses.svg',
@@ -2131,6 +2208,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Auburn',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -2143,6 +2221,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Red Riding Hood Cape',
     searchableTags: ['New', 'Cape', 'Halloween', 'Seasonal', 'Outerwear', 'Red', 'Red Riding Hood'],
     frontFile: 'Red Riding Hood Cape Front.svg',
@@ -2159,6 +2238,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Twin Braids',
     searchableTags: ['Right Lashes Above', 'Left Lashes Above'],
     frontFile: 'Twin Braids.svg',
@@ -2173,6 +2253,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Navy Suit Pants',
     searchableTags: ['New'],
     frontFile: 'Navy Suit Pants.svg',
@@ -2187,6 +2268,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Solid Wine Headband',
     searchableTags: [],
     frontFile: 'Solid Wine Headband.svg',
@@ -2201,6 +2283,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyewear',
+    stage: 'Final',
     label: 'Bruh Glasses',
     searchableTags: ['Glasses'],
     frontFile: 'Bruh Glasses.svg',
@@ -2215,6 +2298,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Shorts',
     searchableTags: [],
     frontFile: 'Shorts.svg',
@@ -2229,6 +2313,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Chestnut',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Dark'],
     selectionsCategory: 'Body',
@@ -2240,6 +2325,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Vamp Smile',
     searchableTags: [
       'New',
@@ -2263,6 +2349,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyewear',
+    stage: 'Final',
     label: 'Techie Monocle',
     searchableTags: [],
     frontFile: 'Techie Monocle.svg',
@@ -2277,6 +2364,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Exclusive CC T-Shirt',
     searchableTags: [],
     frontFile: 'Exclusive CC T-Shirt.svg',
@@ -2292,6 +2380,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Bean',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Bean.svg',
@@ -2306,6 +2395,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Beige',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Pale'],
     selectionsCategory: 'Body',
@@ -2318,6 +2408,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Companions',
+    stage: 'Final',
     label: 'Exclusive RR Tako',
     searchableTags: [],
     frontFile: 'Exclusive RR Tako.svg',
@@ -2332,6 +2423,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Dot Flares',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Dot Flares.svg',
@@ -2345,6 +2437,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Shocked',
     searchableTags: [],
     frontFile: 'Shocked.svg',
@@ -2358,6 +2451,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Classic',
     searchableTags: ['Classic', 'Eye Style', 'Reflections'],
     frontFile: 'Classic.svg',
@@ -2370,20 +2464,9 @@ export const traitsData: TraitData[] = [
     name: 'Classic',
   },
   {
-    mobileUIArea: 'Mid Body',
-    headerCategory: 'Tools',
-    label: 'Utility Belt',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Utility Belt',
-  },
-  {
     mobileUIArea: 'Full Body',
     headerCategory: 'Set',
+    stage: 'Final',
     label: 'Exclusive GG Sheet',
     searchableTags: [
       'New',
@@ -2408,6 +2491,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Brown Hazel',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     selectionsCategory: 'Body',
@@ -2421,6 +2505,8 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'Animal',
+    stage: 'Final',
+    label: 'Bats',
     searchableTags: ['Halloween', 'Animal', 'Bat', 'Witch', 'Seasonal', 'Background'],
     selectionsCategory: 'Accessory',
     colourTags: ['Black'],
@@ -2432,6 +2518,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Flower Pants',
     searchableTags: [],
     frontFile: 'Flower Pants.svg',
@@ -2446,6 +2533,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Ripped Jeans',
     searchableTags: [],
     frontFile: 'Ripped Jeans.svg',
@@ -2460,6 +2548,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Asymmetric Vitiligo',
     searchableTags: ['Skin Condition', 'Vitiligo', 'Asymmetric'],
     frontFile: 'Asymmetric Vitiligo.svg',
@@ -2474,6 +2563,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'District',
+    stage: 'Final',
     label: 'Forest',
     searchableTags: ['Forest', 'District', 'Trees', 'Green', 'VeronicaRadd', 'Location'],
     frontFile: 'Forest.svg',
@@ -2487,6 +2577,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Lightning',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Lightning.svg',
@@ -2499,21 +2590,9 @@ export const traitsData: TraitData[] = [
     name: 'Lightning',
   },
   {
-    mobileUIArea: 'Upper Body',
-    headerCategory: 'Headwear',
-    label: 'Top Hat',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    secondaryCategory: 'Hat',
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Top Hat',
-  },
-  {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Coffee',
     searchableTags: [],
     frontFile: 'Coffee.svg',
@@ -2528,6 +2607,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Cat Ears',
     searchableTags: [],
     frontFile: 'Cat Ears.svg',
@@ -2541,6 +2621,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Copper',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -2553,6 +2634,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Beauty Mark Lip',
     searchableTags: ['Skin Condition', 'Beauty Mark'],
     frontFile: 'Beauty Mark Lip.svg',
@@ -2566,20 +2648,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Full Body',
-    headerCategory: 'Set',
-    label: 'Rugby Uniform',
-    searchableTags: [],
-    selectionsCategory: 'Clothing',
-    colourTags: [],
-    secondaryCategory: 'Uniform',
-    frontIndex: 7000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Rugby Uniform',
-  },
-  {
-    mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Uniform Pants',
     searchableTags: [],
     frontFile: 'Uniform Pants.svg',
@@ -2594,6 +2664,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Loose Dreads',
     searchableTags: ['Right Lashes Above'],
     frontFile: 'Loose Dreads.svg',
@@ -2606,21 +2677,9 @@ export const traitsData: TraitData[] = [
     name: 'Loose Dreads',
   },
   {
-    mobileUIArea: 'Upper Body',
-    headerCategory: 'Headwear',
-    label: 'Wide Brim Hat',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    secondaryCategory: 'Hat',
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Wide Brim Hat',
-  },
-  {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Dino Hoodie',
     searchableTags: [],
     frontFile: 'Dino Hoodie Front.svg',
@@ -2636,6 +2695,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Classic Eyelashes',
     searchableTags: ['Eyelashes', 'Classic', 'Lashes'],
     frontFile: 'Classic Eyelashes.svg',
@@ -2650,6 +2710,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Golden',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Dark'],
     selectionsCategory: 'Body',
@@ -2662,6 +2723,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Ivory',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Pale'],
     selectionsCategory: 'Body',
@@ -2674,6 +2736,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Seasonal Bunny Ears',
     searchableTags: [],
     frontFile: 'Seasonal Bunny Ears.svg',
@@ -2687,6 +2750,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Vampire',
     searchableTags: ['Skin', 'Skin Tone', 'Vampire', 'Halloween', 'Pale', 'New'],
     selectionsCategory: 'Body',
@@ -2699,6 +2763,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Almond',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Tan'],
     selectionsCategory: 'Body',
@@ -2711,6 +2776,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Long Pleated Skirt',
     searchableTags: [],
     frontFile: 'Long Pleated Skirt.svg',
@@ -2725,6 +2791,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Mullet',
     searchableTags: ['Left Lashes Above', 'Right Lashes Above'],
     frontFile: 'Mullet.svg',
@@ -2738,6 +2805,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Blush',
     searchableTags: [],
     frontFile: 'Blush.svg',
@@ -2751,6 +2819,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Black Cargo Pants',
     searchableTags: [],
     frontFile: 'Black Cargo Pants.svg',
@@ -2765,6 +2834,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Kurta',
     searchableTags: [],
     frontFile: 'Kurta.svg',
@@ -2777,33 +2847,9 @@ export const traitsData: TraitData[] = [
     name: 'Kurta',
   },
   {
-    mobileUIArea: 'Full Body',
-    headerCategory: 'Sports Equipment',
-    label: 'Skateboard',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Skateboard',
-  },
-  {
-    mobileUIArea: 'Full Body',
-    headerCategory: 'Set',
-    label: 'Wet Suit',
-    searchableTags: [],
-    selectionsCategory: 'Clothing',
-    colourTags: [],
-    secondaryCategory: 'Other',
-    frontIndex: 7000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Wet Suit',
-  },
-  {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Brown Gold',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Brown Gold.svg',
@@ -2818,6 +2864,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Dark Brown',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Dark Brown.svg',
@@ -2832,6 +2879,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Outline',
     searchableTags: ['Basic', 'Eyelashes', 'Lashes'],
     frontFile: 'Outline.svg',
@@ -2845,6 +2893,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Oh!',
     searchableTags: [],
     frontFile: 'Oh!.svg',
@@ -2858,6 +2907,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Green',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -2870,6 +2920,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'Time',
+    stage: 'Final',
     label: 'Sunset',
     searchableTags: ['Sunset', 'Time', 'Orange', 'VeronicaRadd'],
     frontFile: 'Sunset.svg',
@@ -2883,6 +2934,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Blue',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Blue Green.svg',
@@ -2896,6 +2948,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Full Lips',
     searchableTags: [],
     frontFile: 'Full Lips.svg',
@@ -2909,6 +2962,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Sports Equipment',
+    stage: 'Final',
     label: 'Basketball',
     searchableTags: ['Sport', 'Ball'],
     frontFile: 'Basketball.svg',
@@ -2922,6 +2976,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Companions',
+    stage: 'Final',
     label: 'Exclusive CC Astro',
     searchableTags: [],
     frontFile: 'Exclusive CC Astro.svg',
@@ -2936,6 +2991,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Sports Equipment',
+    stage: 'Final',
     label: 'Volleyball',
     searchableTags: [],
     frontFile: 'Volleyball.svg',
@@ -2949,6 +3005,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Exclusive HL Sweater',
     searchableTags: [],
     frontFile: 'Exclusive HL Sweater Front.svg',
@@ -2964,6 +3021,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Ghoul',
     searchableTags: ['Skin', 'Skin Tone', 'Ghoul', 'Halloween', 'Pale', 'New'],
     selectionsCategory: 'Body',
@@ -2976,6 +3034,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Lower Body',
     headerCategory: 'Sports Equipment',
+    stage: 'Final',
     label: 'Soccer Ball',
     searchableTags: [],
     frontFile: 'Soccer Ball.svg',
@@ -2989,6 +3048,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Balloonie',
     searchableTags: ['Hold'],
     frontFile: 'Balloonie.svg',
@@ -3003,6 +3063,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Slick',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Slick.svg',
@@ -3017,6 +3078,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Wavy Curls',
     searchableTags: ['Right Lashes Above', 'Left Lashes Above'],
     frontFile: 'Wavy Curls.svg',
@@ -3031,6 +3093,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Shooting Stars',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Shooting Stars.svg',
@@ -3043,19 +3106,9 @@ export const traitsData: TraitData[] = [
     name: 'Shooting Stars',
   },
   {
-    headerCategory: 'Facial Hair',
-    label: 'Goatee',
-    searchableTags: [],
-    selectionsCategory: 'Body',
-    colourTags: [],
-    frontIndex: 4000,
-    type: 'Indexed',
-    devTags: ['hidden_opensea'],
-    name: 'Goatee',
-  },
-  {
     mobileUIArea: 'Full Body',
     headerCategory: 'Set',
+    stage: 'Final',
     label: 'Seasonal Elf Outfit',
     searchableTags: [],
     frontFile: 'Seasonal Elf Outfit.svg',
@@ -3069,6 +3122,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Boomarang',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Boomarang.svg',
@@ -3083,6 +3137,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Sand',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Pale'],
     selectionsCategory: 'Body',
@@ -3095,6 +3150,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Short Fade',
     searchableTags: ['Right Lashes Above', 'Left Lashes Above'],
     frontFile: 'Short Fade.svg',
@@ -3109,6 +3165,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Blonde',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -3121,6 +3178,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Pale Green',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -3131,21 +3189,9 @@ export const traitsData: TraitData[] = [
     name: 'Pale Green',
   },
   {
-    mobileUIArea: 'Full Body',
-    headerCategory: 'Set',
-    label: 'Firefighter Suit',
-    searchableTags: [],
-    selectionsCategory: 'Clothing',
-    colourTags: [],
-    secondaryCategory: 'Uniform',
-    frontIndex: 7000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Firefighter Suit',
-  },
-  {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Teal',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -3158,6 +3204,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Dino Tail',
     searchableTags: ['Dinosaur', 'Rear Accessory', 'Tail', 'Dino Tail'],
     frontFile: 'Dino Tail.svg',
@@ -3171,6 +3218,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyewear',
+    stage: 'Final',
     label: '3D Glasses',
     searchableTags: ['Glasses'],
     frontFile: '3D Glasses.svg',
@@ -3185,6 +3233,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'District',
+    stage: 'Final',
     label: 'City',
     searchableTags: ['City', 'District', 'Buildings', 'Location', 'VeronicaRadd'],
     frontFile: 'City.svg',
@@ -3198,6 +3247,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Quiff',
     searchableTags: ['Right Lashes Above', 'Left Lashes Above'],
     frontFile: 'Quiff.svg',
@@ -3212,6 +3262,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Controller',
     searchableTags: [],
     frontFile: 'Controller.svg',
@@ -3226,6 +3277,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Sweetie',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Sweetie.svg',
@@ -3240,6 +3292,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Jewellery',
+    stage: 'Final',
     label: 'Diamond Earrings',
     searchableTags: [],
     frontFile: 'Diamond Earrings.svg',
@@ -3254,6 +3307,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Bows/Ties',
+    stage: 'Final',
     label: 'Loose Orange Tie',
     searchableTags: [],
     frontFile: 'Loose Orange Tie.svg',
@@ -3266,6 +3320,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Fangs',
     searchableTags: [
       'New',
@@ -3289,6 +3344,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Hard Hat',
     searchableTags: [],
     frontFile: 'Hard Hat.svg',
@@ -3302,20 +3358,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Upper Body',
-    headerCategory: 'Headwear',
-    label: 'Cap',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    secondaryCategory: 'Hat',
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Cap',
-  },
-  {
-    mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Hazel',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Hazel.svg',
@@ -3330,6 +3374,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Mobility',
+    stage: 'Final',
     label: 'Walking Stick',
     searchableTags: [],
     frontFile: 'Walking Stick.svg',
@@ -3343,6 +3388,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Full Freckles',
     searchableTags: ['Skin Condition', 'Freckles'],
     frontFile: 'Full Freckles.svg',
@@ -3356,6 +3402,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Facial Hair',
+    stage: 'Final',
     label: 'Fluffy Beard',
     searchableTags: [],
     frontFile: 'Fluffy Beard.svg',
@@ -3369,6 +3416,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Band',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Tan'],
     selectionsCategory: 'Body',
@@ -3381,6 +3429,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyewear',
+    stage: 'Final',
     label: 'Monocle',
     searchableTags: [],
     frontFile: 'Monocle.svg',
@@ -3395,6 +3444,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Laptop',
     searchableTags: [],
     frontFile: 'Laptop.svg',
@@ -3409,6 +3459,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Black Collar',
     searchableTags: [],
     frontFile: 'Black Collar.svg',
@@ -3423,6 +3474,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Companions',
+    stage: 'Final',
     label: 'Exclusive CS Plushie',
     searchableTags: [],
     frontFile: 'Exclusive CS Plushie.svg',
@@ -3437,6 +3489,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Beauty Mark Eye',
     searchableTags: ['Skin Condition', 'Beauty Mark'],
     frontFile: 'Beauty Mark Eye.svg',
@@ -3449,19 +3502,9 @@ export const traitsData: TraitData[] = [
     name: 'Beauty Mark Eye',
   },
   {
-    headerCategory: 'Expression',
-    label: 'Snaggletooth',
-    searchableTags: [],
-    selectionsCategory: 'Body',
-    colourTags: [],
-    frontIndex: 3000,
-    type: 'Indexed',
-    devTags: ['hidden_opensea'],
-    name: 'Snaggletooth',
-  },
-  {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Honey',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Tan'],
     selectionsCategory: 'Body',
@@ -3473,34 +3516,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Upper Body',
-    headerCategory: 'Eyes',
-    label: 'Exclusive UWU Cute',
-    searchableTags: ['Eye Style', 'Reflections'],
-    selectionsCategory: 'Body',
-    holderExclusive: 'UWU',
-    colourTags: [],
-    secondaryCategory: 'Style',
-    frontIndex: 14000,
-    type: 'Indexed',
-    devTags: ['hidden_opensea'],
-    name: 'Exclusive UWU Cute',
-  },
-  {
-    mobileUIArea: 'Upper Body',
-    headerCategory: 'Headwear',
-    label: 'Trucker Hat',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    secondaryCategory: 'Hat',
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Trucker Hat',
-  },
-  {
-    mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Pale Ivory',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Pale'],
     selectionsCategory: 'Body',
@@ -3513,6 +3530,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Tassled Vest',
     searchableTags: [],
     frontFile: 'Tassled Vest Front.svg',
@@ -3528,6 +3546,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Beanie - Grey',
     searchableTags: ['Hat'],
     frontFile: 'Beanie - Grey.svg',
@@ -3542,6 +3561,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Birthday Hat',
     searchableTags: ['Hat', 'Birthday'],
     frontFile: 'Birthday Hat.svg',
@@ -3556,6 +3576,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dresses',
+    stage: 'Final',
     label: 'Forest Dress',
     searchableTags: [],
     frontFile: 'Forest Dress.svg',
@@ -3568,6 +3589,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Gentle Smile',
     searchableTags: [],
     frontFile: 'Gentle Smile.svg',
@@ -3581,6 +3603,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Platinum',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -3591,21 +3614,9 @@ export const traitsData: TraitData[] = [
     name: 'Platinum',
   },
   {
-    mobileUIArea: 'Upper Body',
-    headerCategory: 'Headwear',
-    label: 'Sweatband',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    secondaryCategory: 'Headband',
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Sweatband',
-  },
-  {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Black Skirt',
     searchableTags: [],
     frontFile: 'Black Skirt.svg',
@@ -3620,6 +3631,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Leather Pants',
     searchableTags: [],
     frontFile: 'Leather Pants.svg',
@@ -3632,6 +3644,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Meow',
     searchableTags: [],
     frontFile: 'Meow.svg',
@@ -3645,6 +3658,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Grey',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -3657,6 +3671,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Exclusive GCWC Rose Wine',
     searchableTags: [],
     frontFile: 'Exclusive GCWC Rose Wine.svg',
@@ -3672,6 +3687,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Bronze',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Dark'],
     selectionsCategory: 'Body',
@@ -3684,6 +3700,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'District',
+    stage: 'Final',
     label: 'Beach',
     searchableTags: ['Beach', 'District', 'Sand', 'Ocean', 'Location', 'VeronicaRadd'],
     frontFile: 'Beach.svg',
@@ -3697,6 +3714,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Asymmetric Sweep',
     searchableTags: ['Left Lashes Above'],
     frontFile: 'Asymetric Sweep.svg',
@@ -3711,6 +3729,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Black',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -3723,6 +3742,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Chocolate',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Dark'],
     selectionsCategory: 'Body',
@@ -3733,21 +3753,9 @@ export const traitsData: TraitData[] = [
     name: 'Chocolate',
   },
   {
-    mobileUIArea: 'Upper Body',
-    headerCategory: 'Hair',
-    label: 'Side Bun',
-    searchableTags: [],
-    selectionsCategory: 'Body',
-    colourTags: [],
-    secondaryCategory: 'Style',
-    frontIndex: 12000,
-    type: 'Indexed',
-    devTags: ['hidden_opensea'],
-    name: 'Side Bun',
-  },
-  {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Black Hoodie (WP)',
     searchableTags: [],
     frontFile: 'Black Hoodie (WP) Front.svg',
@@ -3762,6 +3770,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyewear',
+    stage: 'Final',
     label: 'Medical Eye Patch',
     searchableTags: [],
     frontFile: 'Medical Eye Patch.svg',
@@ -3776,6 +3785,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Mobility',
+    stage: 'Final',
     label: 'Crutches',
     searchableTags: [],
     frontFile: 'Crutches.svg',
@@ -3787,21 +3797,9 @@ export const traitsData: TraitData[] = [
     name: 'Crutches',
   },
   {
-    mobileUIArea: 'Upper Body',
-    headerCategory: 'Jewellery',
-    label: 'Tiara',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    secondaryCategory: 'Tiara/Crowns',
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Tiara',
-  },
-  {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Sports Equipment',
+    stage: 'Final',
     label: 'Rugby Ball',
     searchableTags: [],
     frontFile: 'Rugby Ball.svg',
@@ -3815,6 +3813,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bows/Ties',
+    stage: 'Final',
     label: 'Seasonal Large Red Bowtie',
     searchableTags: [],
     frontFile: 'Seasonal Large Red Bowtie.svg',
@@ -3828,6 +3827,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'High Waisted Pants',
     searchableTags: [],
     frontFile: 'High Waisted Pants.svg',
@@ -3842,6 +3842,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'Time',
+    stage: 'Final',
     label: 'Crescent Moonlight',
     searchableTags: ['New', 'Halloween', 'Time', 'Crescent Moon', 'Full Moon', 'Black', 'Moon'],
     frontFile: 'Crescent Moonlight.svg',
@@ -3854,6 +3855,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Annoyed',
     searchableTags: [],
     frontFile: 'Annoyed.svg',
@@ -3867,6 +3869,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Sweatpants',
     searchableTags: [],
     frontFile: 'Sweatpants.svg',
@@ -3881,6 +3884,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Stitches',
     searchableTags: [
       'New',
@@ -3903,6 +3907,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Full Body',
+    headerCategory: 'Pose',
+    stage: 'Final',
     label: 'Arm Behind Back',
     searchableTags: [],
     frontFile: 'Arm Behind Back.svg',
@@ -3916,6 +3922,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Jewellery',
+    stage: 'Final',
     label: 'Black Pearl Necklace',
     searchableTags: ['New', 'Necklace', 'Jewelery'],
     frontFile: 'Black Pearl Necklace.svg',
@@ -3930,6 +3937,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'Time',
+    stage: 'Final',
     label: 'Day',
     searchableTags: ['Time', 'Green', 'Yellow', 'VeronicaRadd', 'Day'],
     frontFile: 'Day.svg',
@@ -3943,6 +3951,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Lower Body',
     headerCategory: 'Shoes',
+    stage: 'Final',
     label: 'Green High Tops',
     searchableTags: [],
     frontFile: 'Green High Tops.svg',
@@ -3956,6 +3965,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Big Pupils',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Big Pupils.svg',
@@ -3970,6 +3980,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Lower Body',
     headerCategory: 'Shoes',
+    stage: 'Final',
     label: 'Black High Tops',
     searchableTags: [],
     frontFile: 'Black High Tops.svg',
@@ -3983,6 +3994,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Grey',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Grey.svg',
@@ -3997,6 +4009,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Long Sleeve',
     searchableTags: [],
     frontFile: 'Long Sleeve.svg',
@@ -4010,6 +4023,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Mad',
     searchableTags: [],
     frontFile: 'Mad.svg',
@@ -4022,6 +4036,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Sad',
     searchableTags: [],
     frontFile: 'Sad.svg',
@@ -4035,6 +4050,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Flared Maxi Skirt',
     searchableTags: [],
     frontFile: 'Flared Maxi Skirt.svg',
@@ -4049,6 +4065,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'Time',
+    stage: 'Final',
     label: 'Witching Hour',
     searchableTags: ['New', 'Halloween', 'Time', 'Full Moon', 'Blue', 'Yellow', 'Moon'],
     frontFile: 'Witching Hour.svg',
@@ -4062,6 +4079,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Set',
+    stage: 'Final',
     label: 'Scrubs',
     searchableTags: [],
     frontFile: 'Scrubs.svg',
@@ -4076,6 +4094,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Espresso',
     searchableTags: ['Skin', 'Skin Tone', 'Human', 'Dark'],
     selectionsCategory: 'Body',
@@ -4088,6 +4107,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Lower Body',
     headerCategory: 'Shoes',
+    stage: 'Final',
     label: 'Leopard Print Shoes',
     searchableTags: [],
     frontFile: 'Leopard Print Shoes.svg',
@@ -4101,6 +4121,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Straight Jeans',
     searchableTags: [],
     frontFile: 'Straight Jeans.svg',
@@ -4115,6 +4136,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Snifter',
     searchableTags: [],
     frontFile: 'Snifter.svg',
@@ -4129,6 +4151,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Beanie - Red',
     searchableTags: ['Hat'],
     frontFile: 'Beanie - Red.svg',
@@ -4143,6 +4166,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Pompadour',
     searchableTags: ['Right Lashes Above', 'Left Lashes Above'],
     frontFile: 'Pompadour.svg',
@@ -4156,20 +4180,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Full Body',
-    headerCategory: 'Set',
-    label: 'Army Uniform',
-    searchableTags: [],
-    selectionsCategory: 'Clothing',
-    colourTags: [],
-    secondaryCategory: 'Uniform',
-    frontIndex: 7000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Army Uniform',
-  },
-  {
-    mobileUIArea: 'Full Body',
     headerCategory: 'Sports Equipment',
+    stage: 'Final',
     label: 'Golf Bag',
     searchableTags: ['Sport', 'Sports Equipment', 'Golf', 'Bag', 'Golf Bag', 'Rear Accessory'],
     frontFile: 'Golf Bag.svg',
@@ -4183,6 +4195,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dresses',
+    stage: 'Final',
     label: 'Layered Dress',
     searchableTags: [],
     frontFile: 'Layered Dress.svg',
@@ -4195,6 +4208,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Humph',
     searchableTags: [],
     frontFile: 'Humph.svg',
@@ -4208,6 +4222,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Exclusive TKP Fairy Wings',
     searchableTags: [
       'Wings',
@@ -4229,6 +4244,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dresses',
+    stage: 'Final',
     label: 'Mumu Dress',
     searchableTags: ['New'],
     frontFile: 'Mumu Dress.svg',
@@ -4242,6 +4258,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Green',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Green.svg',
@@ -4254,21 +4271,9 @@ export const traitsData: TraitData[] = [
     name: 'Green Eye Colour',
   },
   {
-    mobileUIArea: 'Full Body',
-    headerCategory: 'Set',
-    label: 'Baseball Uniform',
-    searchableTags: [],
-    selectionsCategory: 'Clothing',
-    colourTags: [],
-    secondaryCategory: 'Uniform',
-    frontIndex: 7000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Baseball Uniform',
-  },
-  {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'High Bun Locks',
     searchableTags: ['Right Lashes Above'],
     frontFile: 'High Bun Locks.svg',
@@ -4283,6 +4288,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Cat Ears - Black',
     searchableTags: [],
     frontFile: 'Cat Ears - Black.svg',
@@ -4296,6 +4302,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'White Collar',
     searchableTags: [],
     frontFile: 'White Collar.svg',
@@ -4310,6 +4317,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dresses',
+    stage: 'Final',
     label: 'Pink Midi Dress',
     searchableTags: [],
     frontFile: 'Pink Midi Dress.svg',
@@ -4323,6 +4331,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Jewellery',
+    stage: 'Final',
     label: 'Hoop Earrings',
     searchableTags: [],
     frontFile: 'Hoop Earrings.svg',
@@ -4337,6 +4346,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Dark Brown',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -4349,6 +4359,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Dracula Cape',
     searchableTags: ['New', 'Halloween', 'Seasonal', 'Cape', 'Dracula', 'Black', 'Red'],
     frontFile: 'Dracula Cape Front.svg',
@@ -4365,6 +4376,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyewear',
+    stage: 'Final',
     label: 'Heavy Framed Glasses',
     searchableTags: [],
     frontFile: 'Heavy Framed Glasses.svg',
@@ -4379,6 +4391,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Baseball Bat',
     searchableTags: ['Sport', 'Bat'],
     frontFile: 'Baseball Bat.svg',
@@ -4393,6 +4406,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Beret',
     searchableTags: ['Hat'],
     frontFile: 'Beret.svg',
@@ -4407,6 +4421,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'High Viz Vest',
     searchableTags: [],
     frontFile: 'High Viz Vest Front.svg',
@@ -4423,6 +4438,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Skin',
+    stage: 'Final',
     label: 'Zombie',
     searchableTags: ['Skin', 'Skin Tone', 'Zombie', 'Halloween', 'New'],
     selectionsCategory: 'Body',
@@ -4434,20 +4450,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Full Body',
-    headerCategory: 'Set',
-    label: 'Police Uniform',
-    searchableTags: [],
-    selectionsCategory: 'Clothing',
-    colourTags: [],
-    secondaryCategory: 'Uniform',
-    frontIndex: 7000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Police Uniform',
-  },
-  {
-    mobileUIArea: 'Full Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Seasonal Santa Hat',
     searchableTags: [],
     frontFile: 'Seasonal Santa Hat.svg',
@@ -4461,6 +4465,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Blue Grey',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Blue.svg',
@@ -4475,6 +4480,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Messy Bun',
     searchableTags: ['Right Lashes Above', 'Left Lashes Above'],
     frontFile: 'Messy Bun.svg',
@@ -4489,6 +4495,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Pigtails',
     searchableTags: ['Right Lashes Above'],
     frontFile: 'Pigtails.svg',
@@ -4503,6 +4510,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Short Messy',
     searchableTags: [],
     frontFile: 'Short Messy.svg',
@@ -4517,6 +4525,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Blue Funky Pants',
     searchableTags: [],
     frontFile: 'Blue Funky Pants.svg',
@@ -4531,6 +4540,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Blue Green',
     searchableTags: ['Eye Colour', 'Human', 'Face', 'Eyes'],
     frontFile: 'Blue Grey.svg',
@@ -4545,6 +4555,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Costanza',
     searchableTags: ['Left Lashes Above', 'Right Lashes Above'],
     frontFile: 'Costanza.svg',
@@ -4559,6 +4570,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Grey Leggings',
     searchableTags: [],
     frontFile: 'Grey Leggings.svg',
@@ -4572,6 +4584,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Full Body',
+    headerCategory: 'Pose',
+    stage: 'Final',
     label: 'Wave',
     searchableTags: [],
     frontFile: 'Wave.svg',
@@ -4585,6 +4599,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Fantasy',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Fantasy.svg',
@@ -4599,6 +4614,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Joggers',
     searchableTags: [],
     frontFile: 'Joggers.svg',
@@ -4612,6 +4628,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Facial Hair',
+    stage: 'Final',
     label: 'Full Beard',
     searchableTags: [],
     frontFile: 'Full Beard.svg',
@@ -4625,6 +4642,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Cargo Shorts',
     searchableTags: [],
     frontFile: 'Cargo Shorts.svg',
@@ -4639,6 +4657,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Sparkles',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Sparkles.svg',
@@ -4651,41 +4670,8 @@ export const traitsData: TraitData[] = [
     name: 'Sparkles',
   },
   {
-    mobileUIArea: 'Upper Body',
-    headerCategory: 'Jewellery',
-    label: 'Neck Screws',
-    searchableTags: [
-      'New',
-      'Jewelery',
-      'Silver',
-      'Screw',
-      'Head Accessory',
-      'Halloween',
-      'Seasonal',
-    ],
-    frontFile: 'Neck Screws.svg',
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Neck Screws',
-  },
-  {
-    mobileUIArea: 'Full Body',
-    headerCategory: 'Set',
-    label: 'Basketball Uniform',
-    searchableTags: [],
-    selectionsCategory: 'Clothing',
-    colourTags: [],
-    secondaryCategory: 'Uniform',
-    frontIndex: 7000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Basketball Uniform',
-  },
-  {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Concentrate',
     searchableTags: [],
     frontFile: 'Concentrate.svg',
@@ -4699,6 +4685,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Jewellery',
+    stage: 'Final',
     label: 'Black Pearl Set',
     searchableTags: ['New', 'Jewelery'],
     frontFile: 'Black Pearl Set.svg',
@@ -4713,6 +4700,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Holdables',
+    stage: 'Final',
     label: 'Paintbrush',
     searchableTags: [],
     frontFile: 'Paintbrush.svg',
@@ -4727,6 +4715,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Lower Body',
     headerCategory: 'Shoes',
+    stage: 'Final',
     label: 'High Heels',
     searchableTags: [],
     frontFile: 'High Heels.svg',
@@ -4740,6 +4729,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Teal Hoodie',
     searchableTags: [],
     frontFile: 'Teal Hoodie Front.svg',
@@ -4755,6 +4745,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Sports Equipment',
+    stage: 'Final',
     label: 'Surfboard',
     searchableTags: ['Sport', 'Sports Equipment', 'Surfboard', 'Beach', 'Water'],
     frontFile: 'Surfboard.svg',
@@ -4767,6 +4758,7 @@ export const traitsData: TraitData[] = [
   },
   {
     headerCategory: 'Expression',
+    stage: 'Final',
     label: 'Bloody Tears',
     searchableTags: ['New', 'Halloween', 'Seasonal', 'Blood', 'Red', 'Tears', 'Expression'],
     frontFile: 'Bloody Tears.svg',
@@ -4779,18 +4771,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Full Body',
-    label: 'Put Your Left Arm Out',
-    searchableTags: [],
-    selectionsCategory: 'Pose',
-    colourTags: [],
-    frontIndex: 11000,
-    type: 'Indexed',
-    devTags: ['hidden_opensea'],
-    name: 'Put Your Left Arm Out',
-  },
-  {
-    mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Layered Jackets',
     searchableTags: [],
     frontFile: 'Layered Jackets Front.svg',
@@ -4805,6 +4787,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Straight Mid',
     searchableTags: ['Right Lashes Above'],
     frontFile: 'Straight Mid.svg',
@@ -4818,20 +4801,8 @@ export const traitsData: TraitData[] = [
   },
   {
     mobileUIArea: 'Full Body',
-    headerCategory: 'Set',
-    label: 'Netball Uniform',
-    searchableTags: [],
-    selectionsCategory: 'Clothing',
-    colourTags: [],
-    secondaryCategory: 'Uniform',
-    frontIndex: 7000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Netball Uniform',
-  },
-  {
-    mobileUIArea: 'Full Body',
     headerCategory: 'Dresses',
+    stage: 'Final',
     label: 'Red Midi Dress',
     searchableTags: [],
     frontFile: 'Red Midi Dress.svg',
@@ -4845,6 +4816,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Side Ponytail',
     searchableTags: ['Right Lashes Above'],
     frontFile: 'Side Ponytail.svg',
@@ -4859,6 +4831,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Tousled',
     searchableTags: ['Right Lashes Above', 'Left Lashes Above'],
     frontFile: 'Tousled.svg',
@@ -4873,6 +4846,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Jumpsuits',
+    stage: 'Final',
     label: 'Overalls',
     searchableTags: [],
     frontFile: 'Overalls Front.svg',
@@ -4887,6 +4861,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'District',
+    stage: 'Final',
     label: 'Spooky Tree',
     searchableTags: ['New', 'Halloween', 'Spooky', 'Spooky Tree', 'Location', 'District'],
     frontFile: 'Spooky Tree.svg',
@@ -4900,6 +4875,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Dress-Ups',
+    stage: 'Final',
     label: 'Halo',
     searchableTags: [],
     frontFile: 'Halo.svg',
@@ -4913,6 +4889,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Headwear',
+    stage: 'Final',
     label: 'Star Clips',
     searchableTags: [],
     frontFile: 'Star Clips.svg',
@@ -4927,6 +4904,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Background',
     headerCategory: 'Time',
+    stage: 'Final',
     label: 'Night',
     searchableTags: ['Night', 'Time', 'Blue', 'VeronicaRadd', 'New'],
     frontFile: 'Night.svg',
@@ -4940,6 +4918,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Rolled Up Jeans',
     searchableTags: [],
     frontFile: 'Rolled Up Jeans.svg',
@@ -4954,6 +4933,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Twin Stars',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Twin Stars.svg',
@@ -4968,6 +4948,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Signs',
+    stage: 'Final',
     label: 'Peace Sign',
     searchableTags: ['Rear Accessory', 'Sign', 'Protest', 'Peace'],
     frontFile: 'Peace Sign.svg',
@@ -4981,6 +4962,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Dresses',
+    stage: 'Final',
     label: 'Frilled Mini Dress',
     searchableTags: [],
     frontFile: 'Frilled Mini Dress.svg',
@@ -4994,6 +4976,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Bottoms',
+    stage: 'Final',
     label: 'Stubbies',
     searchableTags: [],
     frontFile: 'Stubbies.svg',
@@ -5008,6 +4991,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Blue Collar',
     searchableTags: [],
     frontFile: 'Blue Collar.svg',
@@ -5022,6 +5006,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Blue',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -5034,6 +5019,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Tops',
+    stage: 'Final',
     label: 'Uniform Vest',
     searchableTags: [],
     frontFile: 'Uniform Vest Front.svg',
@@ -5047,21 +5033,9 @@ export const traitsData: TraitData[] = [
     name: 'Uniform Vest',
   },
   {
-    mobileUIArea: 'Mid Body',
-    headerCategory: 'Holdables',
-    label: 'Satchel',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    secondaryCategory: 'Bag',
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Satchel',
-  },
-  {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Blue Hoodie (WP)',
     searchableTags: [],
     frontFile: 'Blue Hoodie (WP) Front.svg',
@@ -5074,21 +5048,9 @@ export const traitsData: TraitData[] = [
     name: 'Blue Hoodie (WP)',
   },
   {
-    mobileUIArea: 'Full Body',
-    headerCategory: 'Holdables',
-    label: 'Kite',
-    searchableTags: [],
-    selectionsCategory: 'Accessory',
-    colourTags: [],
-    secondaryCategory: 'Hobby',
-    frontIndex: 1000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Kite',
-  },
-  {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Spikey',
     searchableTags: ['Right Lashes Above', 'Left Lashes Above'],
     frontFile: 'Spikey.svg',
@@ -5103,6 +5065,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'Winter Coat',
     searchableTags: [],
     frontFile: 'Winter Coat.svg',
@@ -5118,6 +5081,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyewear',
+    stage: 'Final',
     label: 'Half Circle Glasses',
     searchableTags: [],
     frontFile: 'Half Circle Glasses.svg',
@@ -5132,6 +5096,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Shoes',
+    stage: 'Final',
     label: 'Gumboots',
     searchableTags: [],
     frontFile: 'Gumboots.svg',
@@ -5145,6 +5110,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Eyes',
+    stage: 'Final',
     label: 'Love',
     searchableTags: ['Eye Style', 'Reflections'],
     frontFile: 'Love.svg',
@@ -5159,6 +5125,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Upper Body',
     headerCategory: 'Hair',
+    stage: 'Final',
     label: 'Mid Brown',
     searchableTags: [],
     selectionsCategory: 'Body',
@@ -5171,6 +5138,7 @@ export const traitsData: TraitData[] = [
   {
     mobileUIArea: 'Full Body',
     headerCategory: 'Outerwear',
+    stage: 'Final',
     label: 'I AM Hoodie',
     searchableTags: [],
     frontFile: 'I AM Hoodie Front.svg',
@@ -5183,19 +5151,8 @@ export const traitsData: TraitData[] = [
     name: 'I AM Hoodie',
   },
   {
-    mobileUIArea: 'Full Body',
-    headerCategory: 'Dresses',
-    label: 'Kimono',
-    searchableTags: [],
-    selectionsCategory: 'Clothing',
-    colourTags: [],
-    frontIndex: 7000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Kimono',
-  },
-  {
     headerCategory: 'Facial Hair',
+    stage: 'Final',
     label: 'Moustache',
     searchableTags: [],
     frontFile: 'Moustache.svg',
