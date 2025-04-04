@@ -197,7 +197,6 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       'Old Category',
       'Name Suggestions',
       'Assigned To',
-      'Type',
       'Rename Guide',
       'Stage',
       'Exclusions',
