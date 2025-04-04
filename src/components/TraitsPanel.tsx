@@ -23,6 +23,11 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({
     return traitsData.filter(
       trait =>
         trait.name.toLowerCase().includes(lowerSearchTerm) ||
+        trait.label?.toLowerCase().includes(lowerSearchTerm) ||
+        trait.mobileUIArea?.toLowerCase().includes(lowerSearchTerm) ||
+        trait.headerCategory?.toLowerCase().includes(lowerSearchTerm) ||
+        trait.secondaryCategory?.toLowerCase().includes(lowerSearchTerm) ||
+        trait.selectionsCategory?.toLowerCase().includes(lowerSearchTerm) ||
         trait.searchableTags.some(tag => tag.toLowerCase().includes(lowerSearchTerm)),
     )
   }, [searchTerm])
