@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useMemo} from 'react'
 
 import {TraitData} from '../data/traits'
 import {useSvgLoader} from '../hooks/useSvgLoader'
@@ -12,7 +12,7 @@ interface CanvasProps {
 
 const Canvas: React.FC<CanvasProps> = ({selectedTraits}) => {
   const {svgContent, loadSvg} = useSvgLoader()
-  const imageEntries = createImageEntries(selectedTraits)
+  const imageEntries = useMemo(() => createImageEntries(selectedTraits), [selectedTraits])
 
   useEffect(() => {
     // Load SVGs for skin tones
