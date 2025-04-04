@@ -215,23 +215,34 @@ function convertJsonToTypeScript(jsonFilePath: string) {
 
     typeDefinition += '}\n\n'
 
+    // Filter and sort the data
+    const validItems = jsonData
+      .filter((item: any) => {
+        const isValid =
+          item['Name'] &&
+          item['Label'] &&
+          item['Stage'] === 'Final' &&
+          item['Selections Category'] &&
+          item['Selections Category'] !== 'Hidden'
+
+        if (!isValid) {
+          console.log(`Skipping invalid item: ${item['Name'] || 'Unnamed'}`)
+        }
+        return isValid
+      })
+      .sort((a: any, b: any) => {
+        const nameA = a['Name'] || ''
+        const nameB = b['Name'] || ''
+        return nameA.localeCompare(nameB)
+      })
+
+    console.log(`Found ${validItems.length} valid items out of ${jsonData.length} total items`)
+
     // Create the data export
     let dataExport = 'export const traitsData: TraitData[] = [\n'
 
     // Add each item to the data export
-    jsonData.forEach((item: any, index: number) => {
-      // Skip hidden or incomplete trait rows
-      if (
-        !item['Name'] ||
-        !item['Label'] ||
-        item['Stage'] !== 'Final' ||
-        !item['Selections Category'] ||
-        item['Selections Category'] === 'Hidden'
-      ) {
-        console.log(`Skipping row ${index} due to being incomplete or hidden: ${item['Name']}`)
-        return
-      }
-
+    validItems.forEach((item: any, index: number) => {
       dataExport += '  {\n'
 
       Object.keys(item).forEach(key => {
@@ -265,7 +276,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
         }
       })
 
-      dataExport += '  }' + (index < jsonData.length - 1 ? ',' : '') + '\n'
+      dataExport += '  }' + (index < validItems.length - 1 ? ',' : '') + '\n'
     })
 
     dataExport += '];\n'
