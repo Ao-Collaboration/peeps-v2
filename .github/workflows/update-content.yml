@@ -63,10 +63,18 @@ jobs:
           echo "BRANCH_NAME=$BRANCH" >> $GITHUB_ENV
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        id: create_pr
+        uses: peter-evans/create-pull-request@v7
         with:
           title: 'Content Update'
-          body: 'Automated content update from Notion and images'
+          body: 'Automated content update from Notion'
           branch: ${{ env.BRANCH_NAME }}
+          delete-branch: true
           base: 'main'
-          commit-message: 'Update content from Notion and images'
+          commit-message: 'Update content from Notion'
+
+      - name: Check outputs
+        if: ${{ steps.create_pr.outputs.pull-request-number }}
+        run: |
+          echo "Pull Request Number - ${{ steps.create_pr.outputs.pull-request-number }}"
+          echo "Pull Request URL - ${{ steps.create_pr.outputs.pull-request-url }}"
