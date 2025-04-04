@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import './App.css'
-import TraitsPanel from './components/TraitsPanel'
 import Canvas from './components/Canvas'
+import TraitsPanel from './components/TraitsPanel'
 import {TraitData} from './data/traits'
+import {getDefaultPeep} from './data/constants'
 
 function App() {
-  const [selectedTraits, setSelectedTraits] = useState<TraitData[]>([])
+  const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
 
   const handleTraitsChange = (traits: TraitData[]) => {
     setSelectedTraits(traits)
@@ -15,7 +16,7 @@ function App() {
     <div className="App">
       <div className="app-container">
         <div className="left-panel">
-          <TraitsPanel onTraitsChange={handleTraitsChange} />
+          <TraitsPanel onTraitsChange={handleTraitsChange} selectedTraits={selectedTraits} />
         </div>
         <div className="right-panel">
           <Canvas selectedTraits={selectedTraits} />

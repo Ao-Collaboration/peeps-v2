@@ -1,3 +1,6 @@
+import {TraitData} from './traits'
+import {requireTraitByName} from './utils'
+
 export const SKIN_TONES: Map<string, string> = new Map([
   ['Almond', '#94613c'],
   ['Band', '#ac8b64'],
@@ -24,3 +27,7 @@ export const SKIN_TONES: Map<string, string> = new Map([
   ['Blue', '#b4e1ef'],
   ['Alien', '#a6f9de'],
 ])
+
+export const getDefaultPeep = (): TraitData[] => {
+  return [requireTraitByName('Basic'), requireTraitByName('Almond'), requireTraitByName('Cat Ears')]
+}

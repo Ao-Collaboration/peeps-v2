@@ -4,11 +4,15 @@ import './TraitsPanel.css'
 
 interface TraitsPanelProps {
   onTraitsChange: (selectedTraits: TraitData[]) => void
+  selectedTraits: TraitData[]
 }
 
-const TraitsPanel: React.FC<TraitsPanelProps> = ({onTraitsChange}) => {
+const TraitsPanel: React.FC<TraitsPanelProps> = ({
+  onTraitsChange,
+  selectedTraits: initialSelectedTraits,
+}) => {
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedTraits, setSelectedTraits] = useState<TraitData[]>([])
+  const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(initialSelectedTraits)
 
   // Filter traits based on search term
   const filteredTraits = useMemo(() => {
