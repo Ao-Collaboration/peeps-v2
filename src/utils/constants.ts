@@ -31,5 +31,20 @@ export const SKIN_TONES: Map<string, string> = new Map([
 ])
 
 export const getDefaultPeep = (): TraitData[] => {
-  return [requireTraitByName('Basic'), requireTraitByName('Almond'), requireTraitByName('Cat Ears')]
+  return [
+    requireTraitByName('Basic'),
+    requireTraitByName('Almond'),
+    requireTraitByName('Fantasy'),
+    requireTraitByName('Hazel'),
+    requireTraitByName('Classic Eyelashes'),
+    requireTraitByName('Twin Braids'),
+    requireTraitByName('Shocked'),
+    requireTraitByName('Bucket Hat'),
+    requireTraitByName('Hoop Earrings'),
+    requireTraitByName('Muscle T-Shirt'),
+    requireTraitByName('Cargo Pants'),
+    requireTraitByName('Crocs'),
+    requireTraitByName('Beach'),
+    requireTraitByName('Sunset'),
+  ]
 }

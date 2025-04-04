@@ -64,6 +64,8 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({
       newSelectedTraits = [...selectedTraits, trait]
     }
 
+    console.log(trait)
+
     setSelectedTraits(newSelectedTraits)
     onTraitsChange(newSelectedTraits)
   }
