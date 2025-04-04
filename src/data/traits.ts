@@ -103,19 +103,6 @@ export interface TraitData {
 
 export const traitsData: TraitData[] = [
   {
-    mobileUIArea: 'Background',
-    headerCategory: 'Animal',
-    stage: 'Final',
-    label: 'Bats',
-    searchableTags: ['Halloween', 'Animal', 'Bat', 'Witch', 'Seasonal', 'Background'],
-    selectionsCategory: 'Accessory',
-    colourTags: ['Black'],
-    frontIndex: 20000,
-    type: 'Indexed',
-    devTags: [],
-    name: 'Bats',
-  },
-  {
     mobileUIArea: 'Mid Body',
     headerCategory: 'Bows/Ties',
     stage: 'Final',
