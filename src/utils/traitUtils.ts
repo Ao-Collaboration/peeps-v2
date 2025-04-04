@@ -80,7 +80,10 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
           // Skip hair colour. See handling for Hair Style below
           return []
         }
-      } else if (trait.headerCategory === 'Hair' && trait.secondaryCategory === 'Style') {
+      } else if (
+        (trait.headerCategory === 'Hair' && trait.secondaryCategory === 'Style') ||
+        trait.headerCategory === 'Facial Hair'
+      ) {
         // Special case for hair handling
         const filePath = [
           trait.selectionsCategory,
