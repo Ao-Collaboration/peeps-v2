@@ -177,8 +177,53 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       fieldMappings[key] = camelCaseKey
     })
 
+    // Collect unique values for each category field
+    const uniqueValues: Record<string, Set<string>> = {
+      mobileUIArea: new Set(),
+      headerCategory: new Set(),
+      selectionsCategory: new Set(),
+      secondaryCategory: new Set(),
+    }
+
+    // Populate unique values
+    jsonData.forEach((item: any) => {
+      if (item['Mobile UI Area']) uniqueValues.mobileUIArea.add(item['Mobile UI Area'])
+      if (item['Header Category']) uniqueValues.headerCategory.add(item['Header Category'])
+      if (item['Selections Category'])
+        uniqueValues.selectionsCategory.add(item['Selections Category'])
+      if (item['Secondary Category']) uniqueValues.secondaryCategory.add(item['Secondary Category'])
+    })
+
     // Create the TypeScript type definition
-    let typeDefinition = 'export interface TraitData {\n'
+    let typeDefinition =
+      'export type MobileUIArea = ' +
+      Array.from(uniqueValues.mobileUIArea)
+        .map(v => `'${v}'`)
+        .join(' | ') +
+      '\n\n'
+
+    typeDefinition +=
+      'export type HeaderCategory = ' +
+      Array.from(uniqueValues.headerCategory)
+        .map(v => `'${v}'`)
+        .join(' | ') +
+      '\n\n'
+
+    typeDefinition +=
+      'export type SelectionsCategory = ' +
+      Array.from(uniqueValues.selectionsCategory)
+        .map(v => `'${v}'`)
+        .join(' | ') +
+      '\n\n'
+
+    typeDefinition +=
+      'export type SecondaryCategory = ' +
+      Array.from(uniqueValues.secondaryCategory)
+        .map(v => `'${v}'`)
+        .join(' | ') +
+      '\n\n'
+
+    typeDefinition += 'export interface TraitData {\n'
 
     // Add properties to the type definition using the mapped names
     Object.keys(sampleItem).forEach(key => {
@@ -204,6 +249,17 @@ function convertJsonToTypeScript(jsonFilePath: string) {
         type = 'string'
       } else {
         type = 'string'
+      }
+
+      // Override types for category fields
+      if (key === 'Mobile UI Area') {
+        type = 'MobileUIArea'
+      } else if (key === 'Header Category') {
+        type = 'HeaderCategory'
+      } else if (key === 'Selections Category') {
+        type = 'SelectionsCategory'
+      } else if (key === 'Secondary Category') {
+        type = 'SecondaryCategory'
       }
 
       if (ALWAYS_DEFINED_FIELDS.has(key) || type === 'string[]') {

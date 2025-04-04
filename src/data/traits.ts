@@ -1,15 +1,99 @@
+export type MobileUIArea =
+  | 'Upper Body'
+  | 'Mid Body'
+  | 'Full Body'
+  | 'Background'
+  | 'Lower Body'
+  | 'Hidden'
+
+export type HeaderCategory =
+  | 'Skin'
+  | 'Holdables'
+  | 'Eyes'
+  | 'Outerwear'
+  | 'Eyewear'
+  | 'Pose'
+  | 'Tops'
+  | 'Hair'
+  | 'District'
+  | 'Set'
+  | 'Headwear'
+  | 'Time'
+  | 'Jewellery'
+  | 'Shoes'
+  | 'Sports Equipment'
+  | 'Dresses'
+  | 'Dress-Ups'
+  | 'Facial Hair'
+  | 'Tools'
+  | 'Bottoms'
+  | 'Expression'
+  | 'Bows/Ties'
+  | 'Signs'
+  | 'Cooking'
+  | 'Companions'
+  | 'Animal'
+  | 'Mobility'
+  | 'Jumpsuits'
+
+export type SelectionsCategory = 'Body' | 'Accessory' | 'Clothing' | 'Pose' | 'Location' | 'Hidden'
+
+export type SecondaryCategory =
+  | 'Tone'
+  | 'Drinks'
+  | 'Style'
+  | 'Jacket'
+  | 'Patch'
+  | 'Dress Shirt'
+  | 'Glasses'
+  | 'Other'
+  | 'Hat'
+  | 'Characteristics'
+  | 'Colour'
+  | 'Hoodie'
+  | 'Beanie'
+  | 'Shirt'
+  | 'Bag'
+  | 'Tank Top'
+  | 'Earrings'
+  | 'Headband'
+  | 'Uniform'
+  | 'Tools'
+  | 'Pants'
+  | 'Shorts'
+  | 'Lashes'
+  | 'Gifts'
+  | 'Umbrella'
+  | 'Suit'
+  | 'Scarfs'
+  | 'Long Sleeve'
+  | 'Food'
+  | 'Hair Accessory'
+  | 'Cardigen'
+  | 'Piercings'
+  | 'Vest'
+  | 'Coat'
+  | 'Cape'
+  | 'Skirt'
+  | 'Gaming'
+  | 'Devices'
+  | 'Tiara/Crowns'
+  | 'Necklace'
+  | 'Set'
+  | 'Hobby'
+
 export interface TraitData {
-  mobileUIArea?: string
-  headerCategory?: string
+  mobileUIArea?: MobileUIArea
+  headerCategory: HeaderCategory
   stage: string
   label: string
   searchableTags: string[]
   frontFile?: string
-  selectionsCategory: string
+  selectionsCategory: SelectionsCategory
   holderExclusive?: string
   backFile?: string
   colourTags: string[]
-  secondaryCategory?: string
+  secondaryCategory?: SecondaryCategory
   frontIndex?: number
   type?: string
   devTags: string[]
