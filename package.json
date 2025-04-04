@@ -33,6 +33,7 @@
     "eject": "react-scripts eject",
     "deploy": "./deploy-surge.sh",
     "script:notion": "ts-node --project scripts/tsconfig.json ./scripts/process-notion.ts && yarn format",
+    "script:images": "ts-node --project scripts/tsconfig.json ./scripts/download-images.ts",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "eslintConfig": {

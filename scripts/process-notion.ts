@@ -4,6 +4,8 @@ import * as path from 'path'
 
 import {Client} from '@notionhq/client'
 
+import {ALWAYS_DEFINED_FIELDS, IGNORED_FIELDS, PATHS} from './constants'
+
 // Load environment variables from .env file
 dotenvConfig()
 
@@ -13,11 +15,7 @@ const notion = new Client({
 })
 
 async function cleanFolders() {
-  const paths = [
-    path.join(process.cwd(), 'public', 'traits'),
-    path.join(process.cwd(), 'data', 'notion-data.json'),
-    path.join(process.cwd(), 'src', 'data', 'traits.ts'),
-  ]
+  const paths = [PATHS.NOTION_DATA_FILE, PATHS.TRAITS_TS_FILE]
   for (const path of paths) {
     if (fs.existsSync(path)) {
       fs.rmSync(path, {recursive: true})
@@ -147,40 +145,6 @@ function readJsonFile(jsonFilePath: string) {
 }
 
 /**
- * Downloads all files.
- */
-async function downloadFiles(jsonFilePath: string) {
-  const jsonData = readJsonFile(jsonFilePath)
-  for (const row of jsonData) {
-    for (const key in row) {
-      if (typeof row[key] === 'object' && row[key] !== null) {
-        const file = row[key]
-        const fileUrl = file.url
-        const fileName = file.name
-
-        if (fileName && fileUrl) {
-          console.log(`Downloading file: ${fileName}`)
-          // Build the folder path
-          const folders = [row['Selections Category'], row['Header Category'], row.Name].filter(
-            Boolean,
-          )
-          const folderPath = path.join(process.cwd(), 'public', 'traits', ...folders)
-          if (!fs.existsSync(folderPath)) {
-            fs.mkdirSync(folderPath, {recursive: true})
-          }
-
-          // Download the file
-          const response = await fetch(fileUrl)
-          const blob = await response.blob()
-          const filePath = path.join(folderPath, fileName)
-          fs.writeFileSync(filePath, Buffer.from(await blob.arrayBuffer()))
-        }
-      }
-    }
-  }
-}
-
-/**
  * Converts the downloaded JSON data into a TypeScript file with a TraitData type
  * @param jsonFilePath Path to the downloaded JSON file
  */
@@ -195,23 +159,10 @@ function convertJsonToTypeScript(jsonFilePath: string) {
     // Define field name mappings (original name -> camelCase name)
     const fieldMappings: Record<string, string> = {}
 
-    const ignoredFields = [
-      'Comments',
-      'Old Category',
-      'Name Suggestions',
-      'Assigned To',
-      'Rename Guide',
-      'Exclusions',
-      'Related to Traits List (Exclusions)',
-      'Rules for Devs',
-      'Back File Name',
-      'Front File Name',
-    ]
-
     // Create mappings for all fields
     Object.keys(sampleItem).forEach(key => {
       // Skip the ignored fields
-      if (ignoredFields.includes(key)) {
+      if (IGNORED_FIELDS.has(key)) {
         return
       }
 
@@ -226,15 +177,13 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       fieldMappings[key] = camelCaseKey
     })
 
-    const alwaysDefinedFields = ['Name', 'Stage', 'Label', 'Selections Category']
-
     // Create the TypeScript type definition
     let typeDefinition = 'export interface TraitData {\n'
 
     // Add properties to the type definition using the mapped names
     Object.keys(sampleItem).forEach(key => {
       // Skip the ignored fields
-      if (ignoredFields.includes(key)) {
+      if (IGNORED_FIELDS.has(key)) {
         return
       }
 
@@ -257,7 +206,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
         type = 'string'
       }
 
-      if (alwaysDefinedFields.includes(key) || type === 'string[]') {
+      if (ALWAYS_DEFINED_FIELDS.has(key) || type === 'string[]') {
         typeDefinition += `  ${camelCaseKey}: ${type};\n`
       } else {
         typeDefinition += `  ${camelCaseKey}?: ${type};\n`
@@ -287,7 +236,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
 
       Object.keys(item).forEach(key => {
         // Skip the ignored fields
-        if (ignoredFields.includes(key)) {
+        if (IGNORED_FIELDS.has(key)) {
           return
         }
 
@@ -322,17 +271,16 @@ function convertJsonToTypeScript(jsonFilePath: string) {
     dataExport += '];\n'
 
     // Create the output directory if it doesn't exist
-    const outputDir = path.join(process.cwd(), 'src', 'data')
+    const outputDir = path.dirname(PATHS.TRAITS_TS_FILE)
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, {recursive: true})
     }
 
     // Write the TypeScript file
-    const outputPath = path.join(outputDir, 'traits.ts')
-    fs.writeFileSync(outputPath, typeDefinition + dataExport)
+    fs.writeFileSync(PATHS.TRAITS_TS_FILE, typeDefinition + dataExport)
 
     console.log(`Successfully converted JSON data to TypeScript`)
-    console.log(`TypeScript file saved to: ${outputPath}`)
+    console.log(`TypeScript file saved to: ${PATHS.TRAITS_TS_FILE}`)
   } catch (error) {
     console.error('Error converting JSON to TypeScript:', error)
     process.exit(1)
@@ -350,7 +298,6 @@ if (require.main === module) {
   ;(async () => {
     await cleanFolders()
     const jsonFilePath = await downloadNotionTable(process.env.NOTION_DATABASE_ID as string)
-    downloadFiles(jsonFilePath)
     convertJsonToTypeScript(jsonFilePath)
   })()
 }

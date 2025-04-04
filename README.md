@@ -36,8 +36,16 @@ There are a number of scripts for updating the data from Notion.
 To download and process the traits from the Peeps Notion database:
 
 ```sh
-yarn script:process
+yarn script:notion
 ```
+
+To update the images:
+
+```sh
+yarn script:images
+```
+
+Be sure to run the image update script after the notion script.
 
 ## License
 
