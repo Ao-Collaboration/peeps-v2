@@ -203,6 +203,8 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       'Exclusions',
       'Related to Traits List (Exclusions)',
       'Rules for Devs',
+      'Back File Name',
+      'Front File Name',
     ]
 
     // Create mappings for all fields

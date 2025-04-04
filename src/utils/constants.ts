@@ -1,5 +1,7 @@
-import {TraitData} from './traits'
-import {requireTraitByName} from './utils'
+import {TraitData} from '../data/traits'
+import {requireTraitByName} from './traitUtils'
+
+export const SKIN_TONE_DEFAULT = '#f7e2ab'
 
 export const SKIN_TONES: Map<string, string> = new Map([
   ['Almond', '#94613c'],
