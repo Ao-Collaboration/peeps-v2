@@ -66,8 +66,21 @@
 .save-load-button-container {
   margin: 1rem 1rem 0;
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
   justify-content: flex-end;
+  align-items: center;
+}
+
+.current-peep-name {
+  margin-right: auto;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .save-load-button-container button {

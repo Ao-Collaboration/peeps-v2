@@ -100,6 +100,13 @@
 .saved-peep-actions {
   display: flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.saved-peep-actions button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
 }
 
 button {

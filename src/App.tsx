@@ -11,6 +11,7 @@ import {decodeTraitsFromString, encodeTraitsToString, getDefaultPeep} from './ut
 function App() {
   const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [currentPeepName, setCurrentPeepName] = useState<string>('')
 
   useEffect(() => {
     // Check for peep data in URL on load
@@ -21,6 +22,7 @@ function App() {
       const decoded = decodeTraitsFromString(encodedPeep)
       if (decoded) {
         setSelectedTraits(decoded.traits)
+        setCurrentPeepName(decoded.name)
       }
       // Remove the query parameter
       window.history.replaceState({}, '', window.location.pathname)
@@ -32,15 +34,17 @@ function App() {
   }
 
   const handleSave = (name: string, traits: TraitData[]) => {
+    setCurrentPeepName(name)
     setIsModalOpen(false)
   }
 
-  const handleLoad = (traits: TraitData[]) => {
+  const handleLoad = (traits: TraitData[], name: string) => {
     setSelectedTraits(traits)
+    setCurrentPeepName(name)
   }
 
-  const handleExport = () => {
-    const encoded = encodeTraitsToString(selectedTraits, 'MyPeep')
+  const handleExport = (name: string, traits: TraitData[]) => {
+    const encoded = encodeTraitsToString(traits, name)
     const url = `${window.location.origin}${window.location.pathname}?peep=${encoded}`
     navigator.clipboard
       .writeText(url)
@@ -61,8 +65,13 @@ function App() {
           </div>
           <div className="right-panel">
             <div className="save-load-button-container">
-              <button onClick={() => setIsModalOpen(true)}>Save/Load Peep</button>
-              <button onClick={handleExport}>Export Peep</button>
+              {currentPeepName && <span className="current-peep-name">{currentPeepName}</span>}
+              <div className="button-group">
+                <button onClick={() => setIsModalOpen(true)}>Save/Load Peep</button>
+                <button onClick={() => handleExport(currentPeepName || 'MyPeep', selectedTraits)}>
+                  Export Peep
+                </button>
+              </div>
             </div>
             <Canvas selectedTraits={selectedTraits} />
           </div>
@@ -71,8 +80,10 @@ function App() {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onSave={handleSave}
-          onLoad={handleLoad}
+          onLoad={(traits, name) => handleLoad(traits, name)}
+          onExport={handleExport}
           currentTraits={selectedTraits}
+          currentName={currentPeepName}
         />
       </div>
     </OrientationCheck>

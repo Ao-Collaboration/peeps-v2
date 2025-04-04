@@ -12,8 +12,10 @@ interface SaveLoadModalProps {
   isOpen: boolean
   onClose: () => void
   onSave: (name: string, traits: TraitData[]) => void
-  onLoad: (traits: TraitData[]) => void
+  onLoad: (traits: TraitData[], name: string) => void
   currentTraits: TraitData[]
+  onExport: (name: string, traits: TraitData[]) => void
+  currentName: string
 }
 
 const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
@@ -22,6 +24,8 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
   onSave,
   onLoad,
   currentTraits,
+  onExport,
+  currentName,
 }) => {
   const [savedPeeps, setSavedPeeps] = useState<SavedPeep[]>([])
   const [newPeepName, setNewPeepName] = useState('')
@@ -33,6 +37,13 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
       setSavedPeeps(JSON.parse(saved))
     }
   }, [])
+
+  useEffect(() => {
+    // Pre-fill the name input if we have a current name
+    if (isOpen && currentName) {
+      setNewPeepName(currentName)
+    }
+  }, [isOpen, currentName])
 
   const handleSave = () => {
     if (!newPeepName.trim()) {
@@ -59,7 +70,7 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
   }
 
   const handleLoad = (peep: SavedPeep) => {
-    onLoad(peep.traits)
+    onLoad(peep.traits, peep.name)
     onClose()
   }
 
@@ -116,6 +127,7 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
                 <div className="saved-peep-actions">
                   <button onClick={() => handleLoad(peep)}>Load</button>
                   <button onClick={() => handleUpdate(peep)}>Update</button>
+                  <button onClick={() => onExport(peep.name, peep.traits)}>Export</button>
                   <button onClick={() => handleDelete(peep.name)} className="delete-button">
                     Delete
                   </button>
