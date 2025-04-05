@@ -21,6 +21,19 @@ function App() {
     // Check for peep data in URL on load
     const params = new URLSearchParams(window.location.search)
     const encodedPeep = params.get('peep')
+    const userEmail = params.get('userEmail')
+    const fromEmail = params.get('fromEmail')
+
+    // Handle email parameters
+    if (userEmail) {
+      // Store the email in localStorage and remove from URL
+      localStorage.setItem('userEmail', userEmail)
+      window.history.replaceState({}, '', window.location.pathname)
+    } else if (fromEmail) {
+      // Log the sender's email and remove from URL
+      console.log('Peep shared from:', atob(fromEmail))
+      window.history.replaceState({}, '', window.location.pathname)
+    }
 
     if (encodedPeep) {
       const decoded = decodeTraitsFromString(encodedPeep)
@@ -49,7 +62,10 @@ function App() {
 
   const handleExport = (name: string, traits: TraitData[]) => {
     const encoded = encodeTraitsToString(traits, name)
-    const url = `${window.location.origin}${window.location.pathname}?peep=${encoded}`
+    const userEmail = localStorage.getItem('userEmail')
+    const url = `${window.location.origin}${window.location.pathname}?peep=${encoded}${
+      userEmail ? `&fromEmail=${btoa(userEmail)}` : ''
+    }`
     navigator.clipboard
       .writeText(url)
       .then(() => {
