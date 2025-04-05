@@ -23,27 +23,25 @@
   background-color: #f5f5f5;
   border-radius: 8px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.trait-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
+.peep-svg {
   width: 100%;
   height: 100%;
-}
-
-.trait-wrapper svg {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
 
-.trait-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.peep-svg g {
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.peep-svg image {
+  transform-origin: center;
+  transform-box: fill-box;
 }
