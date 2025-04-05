@@ -1,10 +1,10 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 
 import {faDownload, faFloppyDisk, faShareNodes} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 import './App.css'
-import Canvas from './components/Canvas'
+import Canvas, {CanvasRef} from './components/Canvas'
 import OrientationCheck from './components/OrientationCheck'
 import SaveLoadModal from './components/SaveLoadModal'
 import TraitsPanel from './components/TraitsPanel'
@@ -15,7 +15,7 @@ function App() {
   const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentPeepName, setCurrentPeepName] = useState<string>('')
-  const [shouldDownload, setShouldDownload] = useState(false)
+  const canvasRef = useRef<CanvasRef>(null)
 
   useEffect(() => {
     // Check for peep data in URL on load
@@ -61,11 +61,7 @@ function App() {
   }
 
   const handleDownload = () => {
-    setShouldDownload(true)
-  }
-
-  const handleDownloadComplete = () => {
-    setShouldDownload(false)
+    canvasRef.current?.download()
   }
 
   return (
@@ -93,11 +89,7 @@ function App() {
                 </button>
               </div>
             </div>
-            <Canvas
-              selectedTraits={selectedTraits}
-              onDownload={shouldDownload ? handleDownloadComplete : undefined}
-              currentName={currentPeepName}
-            />
+            <Canvas ref={canvasRef} selectedTraits={selectedTraits} currentName={currentPeepName} />
           </div>
         </div>
         <SaveLoadModal

@@ -51,7 +51,7 @@ export const useSvgLoader = (): SvgLoaderResult => {
 
         setSvgContent(prev => ({...prev, [filePath]: content}))
       } catch (error) {
-        console.error('Error loading SVG:', error)
+        console.error(`Error loading SVG ${filePath}:`, error)
       }
     },
     [setSvgContent],
