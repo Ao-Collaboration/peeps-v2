@@ -1,5 +1,8 @@
 import {useEffect, useState} from 'react'
 
+import {faFloppyDisk, faShareNodes} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
 import './App.css'
 import Canvas from './components/Canvas'
 import OrientationCheck from './components/OrientationCheck'
@@ -67,9 +70,14 @@ function App() {
             <div className="save-load-button-container">
               {currentPeepName && <span className="current-peep-name">{currentPeepName}</span>}
               <div className="button-group">
-                <button onClick={() => setIsModalOpen(true)}>Save/Load Peep</button>
-                <button onClick={() => handleExport(currentPeepName || 'MyPeep', selectedTraits)}>
-                  Export Peep
+                <button onClick={() => setIsModalOpen(true)} title="Save/Load Peep">
+                  <FontAwesomeIcon icon={faFloppyDisk} />
+                </button>
+                <button
+                  onClick={() => handleExport(currentPeepName || 'MyPeep', selectedTraits)}
+                  title="Export Peep"
+                >
+                  <FontAwesomeIcon icon={faShareNodes} />
                 </button>
               </div>
             </div>

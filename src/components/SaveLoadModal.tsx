@@ -1,5 +1,14 @@
 import React, {useEffect, useState} from 'react'
 
+import {
+  faFloppyDisk,
+  faFolderOpen,
+  faShareNodes,
+  faTrash,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
 import {TraitData} from '../data/traits'
 import './SaveLoadModal.css'
 
@@ -100,7 +109,7 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
     <div className="modal-overlay">
       <div className="modal-content">
         <button className="close-button" onClick={onClose}>
-          ×
+          <FontAwesomeIcon icon={faXmark} />
         </button>
         <div className="save-section">
           <h3>Save Current Peep</h3>
@@ -113,7 +122,9 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
                 placeholder="Enter peep name"
                 className={errorMessage ? 'error' : ''}
               />
-              <button onClick={handleSave}>Save</button>
+              <button onClick={handleSave} title="Save">
+                <FontAwesomeIcon icon={faFloppyDisk} />
+              </button>
             </div>
             {errorMessage && <div className="error-message">{errorMessage}</div>}
           </div>
@@ -125,11 +136,21 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
               <div key={index} className="saved-peep-item">
                 <span>{peep.name}</span>
                 <div className="saved-peep-actions">
-                  <button onClick={() => handleLoad(peep)}>Load</button>
-                  <button onClick={() => handleUpdate(peep)}>Update</button>
-                  <button onClick={() => onExport(peep.name, peep.traits)}>Export</button>
-                  <button onClick={() => handleDelete(peep.name)} className="delete-button">
-                    Delete
+                  <button onClick={() => handleLoad(peep)} title="Load">
+                    <FontAwesomeIcon icon={faFolderOpen} />
+                  </button>
+                  <button onClick={() => handleUpdate(peep)} title="Update">
+                    <FontAwesomeIcon icon={faFloppyDisk} />
+                  </button>
+                  <button onClick={() => onExport(peep.name, peep.traits)} title="Export">
+                    <FontAwesomeIcon icon={faShareNodes} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(peep.name)}
+                    className="delete-button"
+                    title="Delete"
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </div>
               </div>
