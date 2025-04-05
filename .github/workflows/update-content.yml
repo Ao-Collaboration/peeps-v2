@@ -59,6 +59,7 @@ jobs:
           delete-branch: true
           base: 'main'
           commit-message: 'Update content from Notion'
+          assignees: ${{ github.actor }}
 
       - name: Check outputs
         if: ${{ steps.create_pr.outputs.pull-request-number }}
