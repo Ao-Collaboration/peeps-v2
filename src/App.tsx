@@ -11,8 +11,8 @@ import DownloadButton from './components/DownloadButton'
 import OrientationCheck from './components/OrientationCheck'
 import SaveLoadModal from './components/SaveLoadModal'
 import TraitsPanel from './components/TraitsPanel'
+import {useAuth} from './contexts/AuthContext'
 import {TraitData} from './data/traits'
-import {isAdmin} from './utils/authUtils'
 import {
   decodeTraitsFromString,
   encodeTraitsToString,
@@ -24,8 +24,8 @@ function App() {
   const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentPeepName, setCurrentPeepName] = useState<string>('')
-  const [isAuthorized, setIsAuthorized] = useState(false)
   const canvasRef = useRef<SVGSVGElement>(null)
+  const {account, setEmail} = useAuth()
 
   const generateRandomName = () => {
     return uniqueNamesGenerator({
@@ -43,31 +43,27 @@ function App() {
     const userEmail = params.get('userEmail')
     const fromEmail = params.get('fromEmail')
 
-    // Handle email parameters
+    // Initialize user email
     if (userEmail) {
-      // User email entry point
-      localStorage.setItem('userEmail', userEmail)
-      setIsAuthorized(isAdmin(userEmail))
-      window.history.replaceState({}, '', window.location.pathname)
-    } else if (fromEmail) {
-      // Peep shared from another user
-      console.log('Peep shared from:', atob(fromEmail))
-      window.history.replaceState({}, '', window.location.pathname)
-    } else {
-      // Check stored email
-      const storedEmail = localStorage.getItem('userEmail')
-      setIsAuthorized(isAdmin(storedEmail))
+      setEmail(userEmail)
     }
 
+    // Handle peep shared from another user
+    if (fromEmail) {
+      console.log('Peep shared from:', atob(fromEmail))
+    }
+
+    // Handle peep encoded in URL
     if (encodedPeep) {
       const decoded = decodeTraitsFromString(encodedPeep)
       if (decoded) {
         setSelectedTraits(decoded.traits)
         setCurrentPeepName(decoded.name)
       }
-      window.history.replaceState({}, '', window.location.pathname)
     }
-  }, [])
+
+    window.history.replaceState({}, '', window.location.pathname)
+  }, [setEmail])
 
   const handleTraitsChange = (traits: TraitData[]) => {
     setSelectedTraits(traits)
@@ -119,7 +115,7 @@ function App() {
                 >
                   <FontAwesomeIcon icon={faShareNodes} />
                 </button>
-                {isAuthorized && (
+                {account.isAdmin && (
                   <>
                     <button
                       onClick={() => {
