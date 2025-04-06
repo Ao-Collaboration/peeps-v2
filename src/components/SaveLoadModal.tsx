@@ -23,7 +23,7 @@ interface SaveLoadModalProps {
   onSave: (name: string, traits: TraitData[]) => void
   onLoad: (traits: TraitData[], name: string) => void
   currentTraits: TraitData[]
-  onExport: (name: string, traits: TraitData[]) => void
+  onShare: (name: string, traits: TraitData[]) => void
   currentName: string
 }
 
@@ -33,7 +33,7 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
   onSave,
   onLoad,
   currentTraits,
-  onExport,
+  onShare,
   currentName,
 }) => {
   const [savedPeeps, setSavedPeeps] = useState<SavedPeep[]>([])
@@ -142,7 +142,7 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
                   <button onClick={() => handleUpdate(peep)} title="Update">
                     <FontAwesomeIcon icon={faFloppyDisk} />
                   </button>
-                  <button onClick={() => onExport(peep.name, peep.traits)} title="Export">
+                  <button onClick={() => onShare(peep.name, peep.traits)} title="Share">
                     <FontAwesomeIcon icon={faShareNodes} />
                   </button>
                   <button

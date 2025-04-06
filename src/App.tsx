@@ -61,7 +61,7 @@ function App() {
     setCurrentPeepName(name)
   }
 
-  const handleExport = (name: string, traits: TraitData[]) => {
+  const handleShare = (name: string, traits: TraitData[]) => {
     const encoded = encodeTraitsToString(traits, name)
     const userEmail = localStorage.getItem('userEmail')
     const url = `${window.location.origin}${window.location.pathname}?peep=${encoded}${
@@ -70,7 +70,7 @@ function App() {
     navigator.clipboard
       .writeText(url)
       .then(() => {
-        alert('Export URL copied to clipboard!')
+        alert('Share URL copied to clipboard!')
       })
       .catch(() => {
         alert('Failed to copy URL. Your peep URL is:\n' + url)
@@ -92,8 +92,8 @@ function App() {
                   <FontAwesomeIcon icon={faFloppyDisk} />
                 </button>
                 <button
-                  onClick={() => handleExport(currentPeepName || 'MyPeep', selectedTraits)}
-                  title="Export Peep"
+                  onClick={() => handleShare(currentPeepName || 'MyPeep', selectedTraits)}
+                  title="Share"
                 >
                   <FontAwesomeIcon icon={faShareNodes} />
                 </button>
@@ -108,7 +108,7 @@ function App() {
           onClose={() => setIsModalOpen(false)}
           onSave={handleSave}
           onLoad={(traits, name) => handleLoad(traits, name)}
-          onExport={handleExport}
+          onShare={handleShare}
           currentTraits={selectedTraits}
           currentName={currentPeepName}
         />
