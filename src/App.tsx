@@ -12,6 +12,7 @@ import OrientationCheck from './components/OrientationCheck'
 import SaveLoadModal from './components/SaveLoadModal'
 import TraitsPanel from './components/TraitsPanel'
 import {TraitData} from './data/traits'
+import {isAdmin} from './utils/authUtils'
 import {
   decodeTraitsFromString,
   encodeTraitsToString,
@@ -23,6 +24,7 @@ function App() {
   const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentPeepName, setCurrentPeepName] = useState<string>('')
+  const [isAuthorized, setIsAuthorized] = useState(false)
   const canvasRef = useRef<SVGSVGElement>(null)
 
   const generateRandomName = () => {
@@ -43,13 +45,18 @@ function App() {
 
     // Handle email parameters
     if (userEmail) {
-      // Store the email in localStorage and remove from URL
+      // User email entry point
       localStorage.setItem('userEmail', userEmail)
+      setIsAuthorized(isAdmin(userEmail))
       window.history.replaceState({}, '', window.location.pathname)
     } else if (fromEmail) {
-      // Log the sender's email and remove from URL
+      // Peep shared from another user
       console.log('Peep shared from:', atob(fromEmail))
       window.history.replaceState({}, '', window.location.pathname)
+    } else {
+      // Check stored email
+      const storedEmail = localStorage.getItem('userEmail')
+      setIsAuthorized(isAdmin(storedEmail))
     }
 
     if (encodedPeep) {
@@ -58,7 +65,6 @@ function App() {
         setSelectedTraits(decoded.traits)
         setCurrentPeepName(decoded.name)
       }
-      // Remove the query parameter
       window.history.replaceState({}, '', window.location.pathname)
     }
   }, [])
@@ -113,16 +119,20 @@ function App() {
                 >
                   <FontAwesomeIcon icon={faShareNodes} />
                 </button>
-                <button
-                  onClick={() => {
-                    setSelectedTraits(getRandomPeep())
-                    setCurrentPeepName(generateRandomName())
-                  }}
-                  title="Randomize"
-                >
-                  <FontAwesomeIcon icon={faDice} />
-                </button>
-                <DownloadButton svgRef={canvasRef} currentName={currentPeepName} />
+                {isAuthorized && (
+                  <>
+                    <button
+                      onClick={() => {
+                        setSelectedTraits(getRandomPeep())
+                        setCurrentPeepName(generateRandomName())
+                      }}
+                      title="Randomize"
+                    >
+                      <FontAwesomeIcon icon={faDice} />
+                    </button>
+                    <DownloadButton svgRef={canvasRef} currentName={currentPeepName} />
+                  </>
+                )}
               </div>
             </div>
             <Canvas ref={canvasRef} selectedTraits={selectedTraits} />
