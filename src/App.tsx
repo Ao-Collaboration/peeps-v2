@@ -1,6 +1,4 @@
-import {adjectives, names, uniqueNamesGenerator} from 'unique-names-generator'
-
-import {useEffect, useRef, useState} from 'react'
+import {useEffect} from 'react'
 
 import {faDice, faFloppyDisk, faShareNodes} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -12,29 +10,18 @@ import OrientationCheck from './components/OrientationCheck'
 import SaveLoadModal from './components/SaveLoadModal'
 import TraitsPanel from './components/TraitsPanel'
 import {useAuth} from './contexts/AuthContext'
+import {useCanvas} from './contexts/CanvasContext'
+import {useModal} from './contexts/ModalContext'
+import {usePeep} from './contexts/PeepContext'
 import {TraitData} from './data/traits'
-import {
-  decodeTraitsFromString,
-  encodeTraitsToString,
-  getDefaultPeep,
-  getRandomPeep,
-} from './utils/traitUtils'
+import {decodeTraitsFromString, encodeTraitsToString} from './utils/traitUtils'
 
 function App() {
-  const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [currentPeepName, setCurrentPeepName] = useState<string>('')
-  const canvasRef = useRef<SVGSVGElement>(null)
   const {account, setEmail} = useAuth()
-
-  const generateRandomName = () => {
-    return uniqueNamesGenerator({
-      dictionaries: [adjectives, names],
-      separator: ' ',
-      style: 'capital',
-      length: 2,
-    })
-  }
+  const {canvasRef} = useCanvas()
+  const {isModalOpen, openModal, closeModal} = useModal()
+  const {selectedTraits, currentPeepName, setSelectedTraits, setCurrentPeepName, randomizePeep} =
+    usePeep()
 
   useEffect(() => {
     // Check for peep data in URL on load
@@ -43,35 +30,32 @@ function App() {
     const userEmail = params.get('userEmail')
     const fromEmail = params.get('fromEmail')
 
-    // Initialize user email
+    // Handle email parameters
     if (userEmail) {
-      setEmail(userEmail)
-    }
-
-    // Handle peep shared from another user
-    if (fromEmail) {
+      setEmail(atob(userEmail))
+      window.history.replaceState({}, '', window.location.pathname)
+    } else if (fromEmail) {
       console.log('Peep shared from:', atob(fromEmail))
+      window.history.replaceState({}, '', window.location.pathname)
     }
 
-    // Handle peep encoded in URL
     if (encodedPeep) {
       const decoded = decodeTraitsFromString(encodedPeep)
       if (decoded) {
         setSelectedTraits(decoded.traits)
         setCurrentPeepName(decoded.name)
       }
+      window.history.replaceState({}, '', window.location.pathname)
     }
-
-    window.history.replaceState({}, '', window.location.pathname)
-  }, [setEmail])
+  }, [setEmail, setSelectedTraits, setCurrentPeepName])
 
   const handleTraitsChange = (traits: TraitData[]) => {
     setSelectedTraits(traits)
   }
 
-  const handleSave = (name: string, traits: TraitData[]) => {
+  const handleSave = (name: string) => {
     setCurrentPeepName(name)
-    setIsModalOpen(false)
+    closeModal()
   }
 
   const handleLoad = (traits: TraitData[], name: string) => {
@@ -81,9 +65,8 @@ function App() {
 
   const handleShare = (name: string, traits: TraitData[]) => {
     const encoded = encodeTraitsToString(traits, name)
-    const userEmail = localStorage.getItem('userEmail')
     const url = `${window.location.origin}${window.location.pathname}?peep=${encoded}${
-      userEmail ? `&fromEmail=${btoa(userEmail)}` : ''
+      account.email ? `&fromEmail=${btoa(account.email)}` : ''
     }`
     navigator.clipboard
       .writeText(url)
@@ -106,7 +89,7 @@ function App() {
             <div className="save-load-button-container">
               {currentPeepName && <span className="current-peep-name">{currentPeepName}</span>}
               <div className="button-group">
-                <button onClick={() => setIsModalOpen(true)} title="Save/Load Peep">
+                <button onClick={openModal} title="Save/Load Peep">
                   <FontAwesomeIcon icon={faFloppyDisk} />
                 </button>
                 <button
@@ -117,13 +100,7 @@ function App() {
                 </button>
                 {account.isAdmin && (
                   <>
-                    <button
-                      onClick={() => {
-                        setSelectedTraits(getRandomPeep())
-                        setCurrentPeepName(generateRandomName())
-                      }}
-                      title="Randomize"
-                    >
+                    <button onClick={randomizePeep} title="Randomize">
                       <FontAwesomeIcon icon={faDice} />
                     </button>
                     <DownloadButton svgRef={canvasRef} currentName={currentPeepName} />
@@ -136,9 +113,9 @@ function App() {
         </div>
         <SaveLoadModal
           isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          onClose={closeModal}
           onSave={handleSave}
-          onLoad={(traits, name) => handleLoad(traits, name)}
+          onLoad={handleLoad}
           onShare={handleShare}
           currentTraits={selectedTraits}
           currentName={currentPeepName}
