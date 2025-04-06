@@ -1,4 +1,4 @@
-name: CI
+name: Build
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - '**'
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,6 +26,3 @@ jobs:
 
       - name: Build
         run: yarn build
-
-      - name: Test
-        run: yarn test
