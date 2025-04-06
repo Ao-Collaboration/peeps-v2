@@ -39,7 +39,7 @@ const Canvas = forwardRef<SVGSVGElement, CanvasProps>(({selectedTraits}, ref) =>
                 : `/traits/${entry.filePath}`
               return (
                 <image
-                  key={`${entry.traitName}-${idx}`}
+                  key={`${entry.trait?.name ?? 'static'}-${idx}`}
                   href={svgData}
                   x="0"
                   y="0"

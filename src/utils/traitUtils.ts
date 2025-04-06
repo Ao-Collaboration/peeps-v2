@@ -16,7 +16,7 @@ export type FillReplacement = {
 export interface ImageEntry {
   index: number
   filePath: string
-  traitName: string
+  trait?: TraitData
   replacements?: FillReplacement[]
 }
 
@@ -24,12 +24,10 @@ const DEFAULT_IMAGE_ENTRIES: ImageEntry[] = [
   {
     index: 16000,
     filePath: 'Hidden/Eye Whites/Base.svg',
-    traitName: 'Eye Whites',
   },
   {
     index: 17000,
     filePath: 'Hidden/Head/Base.svg',
-    traitName: 'Head',
   },
 ]
 
@@ -53,7 +51,7 @@ const getHairColour = (selectedTraits: TraitData[]): string | undefined => {
 }
 
 export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] => {
-  const entries = [
+  let entries: ImageEntry[] = [
     ...DEFAULT_IMAGE_ENTRIES,
     ...selectedTraits.flatMap(trait => {
       if (trait.type === 'Automated') {
@@ -65,7 +63,7 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
               {
                 index: 18501,
                 filePath: `Hidden/Skin/Basic.svg`,
-                traitName: trait.name,
+                trait,
                 replacements: [
                   {
                     currentFill: SKIN_TONE_DEFAULT,
@@ -102,7 +100,7 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
           {
             index: trait.frontIndex,
             filePath,
-            traitName: trait.name,
+            trait,
             replacements: DEFAULT_HAIR_COLOURS.map(defaultColour => ({
               currentFill: defaultColour,
               replacementFill: hairColour!,
@@ -119,7 +117,7 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
             traitEntries.push({
               index,
               filePath,
-              traitName: trait.name,
+              trait,
             })
           }
         }
@@ -131,6 +129,13 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
       return []
     }),
   ]
+
+  // Handle dev tags
+  const hasHideHair = selectedTraits.some(trait => trait.devTags?.includes('Hide Hair'))
+  if (hasHideHair) {
+    // Remove the hair entries
+    entries = entries.filter(entry => entry.trait?.headerCategory !== 'Hair')
+  }
 
   return entries.sort((a, b) => b.index - a.index)
 }
