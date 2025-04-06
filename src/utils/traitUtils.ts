@@ -230,6 +230,39 @@ export const getDefaultPeep = (): TraitData[] => {
   return legalizeTraits(defaultTraits)
 }
 
+export const getRandomPeep = (): TraitData[] => {
+  const randomTraits: TraitData[] = []
+
+  // For each required category (+ tops and bottoms), find all matching traits and randomly select one
+  const requiredCategories = [
+    ...REQUIRED_CATEGORIES,
+    {
+      headerCategory: 'Tops',
+    },
+    {
+      headerCategory: 'Bottoms',
+    },
+  ]
+  requiredCategories.forEach(requiredCategory => {
+    const matchingTraits = traitsData.filter(trait => {
+      if (requiredCategory.secondaryCategory) {
+        return (
+          trait.headerCategory === requiredCategory.headerCategory &&
+          trait.secondaryCategory === requiredCategory.secondaryCategory
+        )
+      }
+      return trait.headerCategory === requiredCategory.headerCategory
+    })
+
+    if (matchingTraits.length > 0) {
+      const randomIndex = Math.floor(Math.random() * matchingTraits.length)
+      randomTraits.push(matchingTraits[randomIndex])
+    }
+  })
+
+  return legalizeTraits(randomTraits)
+}
+
 // Convert traits array to a URL-safe string
 export function encodeTraitsToString(traits: TraitData[], name: string): string {
   // Create a minimal representation of traits using just the name property

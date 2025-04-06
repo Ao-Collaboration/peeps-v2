@@ -1,6 +1,8 @@
+import {adjectives, names, uniqueNamesGenerator} from 'unique-names-generator'
+
 import {useEffect, useRef, useState} from 'react'
 
-import {faFloppyDisk, faShareNodes} from '@fortawesome/free-solid-svg-icons'
+import {faDice, faFloppyDisk, faShareNodes} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 import './App.css'
@@ -10,13 +12,27 @@ import OrientationCheck from './components/OrientationCheck'
 import SaveLoadModal from './components/SaveLoadModal'
 import TraitsPanel from './components/TraitsPanel'
 import {TraitData} from './data/traits'
-import {decodeTraitsFromString, encodeTraitsToString, getDefaultPeep} from './utils/traitUtils'
+import {
+  decodeTraitsFromString,
+  encodeTraitsToString,
+  getDefaultPeep,
+  getRandomPeep,
+} from './utils/traitUtils'
 
 function App() {
   const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentPeepName, setCurrentPeepName] = useState<string>('')
   const canvasRef = useRef<SVGSVGElement>(null)
+
+  const generateRandomName = () => {
+    return uniqueNamesGenerator({
+      dictionaries: [adjectives, names],
+      separator: ' ',
+      style: 'capital',
+      length: 2,
+    })
+  }
 
   useEffect(() => {
     // Check for peep data in URL on load
@@ -96,6 +112,15 @@ function App() {
                   title="Share"
                 >
                   <FontAwesomeIcon icon={faShareNodes} />
+                </button>
+                <button
+                  onClick={() => {
+                    setSelectedTraits(getRandomPeep())
+                    setCurrentPeepName(generateRandomName())
+                  }}
+                  title="Randomize"
+                >
+                  <FontAwesomeIcon icon={faDice} />
                 </button>
                 <DownloadButton svgRef={canvasRef} currentName={currentPeepName} />
               </div>
