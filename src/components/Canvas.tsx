@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useImperativeHandle, useMemo, useRef} from 'react'
+import React, {forwardRef, useEffect, useMemo} from 'react'
 
 import {TraitData} from '../data/traits'
 import {useSvgLoader} from '../hooks/useSvgLoader'
@@ -7,29 +7,11 @@ import './Canvas.css'
 
 interface CanvasProps {
   selectedTraits: TraitData[]
-  currentName?: string
 }
 
-export interface CanvasRef {
-  download: () => Promise<void>
-}
-
-const Canvas = forwardRef<CanvasRef, CanvasProps>(({selectedTraits, currentName}, ref) => {
+const Canvas = forwardRef<SVGSVGElement, CanvasProps>(({selectedTraits}, ref) => {
   const {svgContent, loadSvg} = useSvgLoader()
   const imageEntries = useMemo(() => createImageEntries(selectedTraits), [selectedTraits])
-  const svgRef = useRef<SVGSVGElement>(null)
-
-  useImperativeHandle(
-    ref,
-    () => ({
-      download: async () => {
-        if (!svgRef.current) return
-        const {downloadSvg} = await import('../utils/downloadUtils')
-        await downloadSvg(svgRef.current, svgContent, loadSvg, currentName)
-      },
-    }),
-    [currentName, svgContent, loadSvg],
-  )
 
   useEffect(() => {
     // Load SVGs for skin tones
@@ -45,7 +27,7 @@ const Canvas = forwardRef<CanvasRef, CanvasProps>(({selectedTraits, currentName}
       <div className="canvas-content">
         <div className="canvas-image-container">
           <svg
-            ref={svgRef}
+            ref={ref}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1200 1200"
             preserveAspectRatio="xMidYMid meet"

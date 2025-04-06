@@ -1,10 +1,11 @@
 import {useEffect, useRef, useState} from 'react'
 
-import {faDownload, faFloppyDisk, faShareNodes} from '@fortawesome/free-solid-svg-icons'
+import {faFloppyDisk, faShareNodes} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 import './App.css'
-import Canvas, {CanvasRef} from './components/Canvas'
+import Canvas from './components/Canvas'
+import DownloadButton from './components/DownloadButton'
 import OrientationCheck from './components/OrientationCheck'
 import SaveLoadModal from './components/SaveLoadModal'
 import TraitsPanel from './components/TraitsPanel'
@@ -15,7 +16,7 @@ function App() {
   const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentPeepName, setCurrentPeepName] = useState<string>('')
-  const canvasRef = useRef<CanvasRef>(null)
+  const canvasRef = useRef<SVGSVGElement>(null)
 
   useEffect(() => {
     // Check for peep data in URL on load
@@ -76,10 +77,6 @@ function App() {
       })
   }
 
-  const handleDownload = () => {
-    canvasRef.current?.download()
-  }
-
   return (
     <OrientationCheck>
       <div className="App">
@@ -100,12 +97,10 @@ function App() {
                 >
                   <FontAwesomeIcon icon={faShareNodes} />
                 </button>
-                <button onClick={handleDownload} title="Download Peep">
-                  <FontAwesomeIcon icon={faDownload} />
-                </button>
+                <DownloadButton svgRef={canvasRef} currentName={currentPeepName} />
               </div>
             </div>
-            <Canvas ref={canvasRef} selectedTraits={selectedTraits} currentName={currentPeepName} />
+            <Canvas ref={canvasRef} selectedTraits={selectedTraits} />
           </div>
         </div>
         <SaveLoadModal

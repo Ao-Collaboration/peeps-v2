@@ -3,6 +3,7 @@ export const downloadSvg = async (
   svgContent: {[key: string]: string},
   loadSvg: (filePath: string) => Promise<void>,
   name?: string,
+  format: 'PNG' | 'SVG' = 'SVG',
 ) => {
   // Update the image hrefs to use data URLs
   const images = Array.from(svg.querySelectorAll('image'))
@@ -43,15 +44,53 @@ export const downloadSvg = async (
     }
   }
 
-  // Serialize and download the SVG
+  // Serialize the SVG
   const svgData = new XMLSerializer().serializeToString(svg)
-  const blob = new Blob([svgData], {type: 'image/svg+xml'})
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = `${name ? name + '_' : ''}Peep.svg`
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  URL.revokeObjectURL(url)
+
+  if (format === 'SVG') {
+    // Download as SVG
+    const blob = new Blob([svgData], {type: 'image/svg+xml'})
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `${name ? name + '_' : ''}Peep.svg`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  } else {
+    // Convert to PNG
+    const img = new Image()
+    const svgBlob = new Blob([svgData], {type: 'image/svg+xml'})
+    const svgUrl = URL.createObjectURL(svgBlob)
+
+    await new Promise((resolve, reject) => {
+      img.onload = resolve
+      img.onerror = reject
+      img.src = svgUrl
+    })
+
+    const canvas = document.createElement('canvas')
+    // Set canvas dimensions to match the SVG viewBox
+    canvas.width = 1200
+    canvas.height = 1200
+    const ctx = canvas.getContext('2d')
+    if (ctx) {
+      // Fill with white background
+      ctx.fillStyle = 'white'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      // Draw the image
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+      // Convert to PNG and download
+      const pngUrl = canvas.toDataURL('image/png')
+      const link = document.createElement('a')
+      link.href = pngUrl
+      link.download = `${name ? name + '_' : ''}Peep.png`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }
+    URL.revokeObjectURL(svgUrl)
+  }
 }
