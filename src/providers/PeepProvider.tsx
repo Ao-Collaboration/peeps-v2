@@ -4,14 +4,16 @@ import {useState} from 'react'
 
 import {TraitData} from '../data/traits'
 import {getDefaultPeep, getRandomPeep} from '../utils/traitUtils'
+import {useAuth} from './contexts/AuthContext'
 import {PeepContext} from './contexts/PeepContext'
 
 export const PeepProvider = ({children}: {children: React.ReactNode}) => {
+  const {traitData} = useAuth()
   const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
   const [currentPeepName, setCurrentPeepName] = useState<string>('')
 
   const randomizePeep = () => {
-    setSelectedTraits(getRandomPeep())
+    setSelectedTraits(getRandomPeep(traitData))
     setCurrentPeepName(generateRandomName())
   }
 
