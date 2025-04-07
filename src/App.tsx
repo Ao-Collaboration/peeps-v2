@@ -32,7 +32,7 @@ function App() {
 
     // Handle email parameters
     if (userEmail) {
-      setEmail(atob(userEmail))
+      setEmail(userEmail)
       window.history.replaceState({}, '', window.location.pathname)
     } else if (fromEmail) {
       console.log('Peep shared from:', atob(fromEmail))
