@@ -53,8 +53,9 @@ export const useSvgLoader = (): SvgLoaderResult => {
               }
               return content
             } catch (error) {
-              console.error(`Error loading SVG ${filePath}:`, error)
-              throw new Error(`Error loading SVG ${filePath}`)
+              const traitName = filePath.split('/').pop()?.split('.')[0]
+              console.error(`Error loading SVG ${traitName} at ${filePath}:`, error)
+              throw new Error(`Error loading image for ${traitName}.`)
             }
           })()
         }
