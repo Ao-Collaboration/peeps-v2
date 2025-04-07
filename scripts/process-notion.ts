@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {config as dotenvConfig} from 'dotenv'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -97,6 +98,9 @@ async function downloadNotionTable(databaseId: string): Promise<string> {
             case 'status':
               row[key] = property.status?.name
               break
+            case 'unique_id':
+              row[key] = property.unique_id?.number
+              break
             case 'relation':
             case 'people':
             case 'formula':
@@ -168,61 +172,72 @@ function convertJsonToTypeScript(jsonFilePath: string) {
 
       // Convert key to camelCase for TypeScript convention
       // First, replace spaces with underscores, then convert to camelCase
-      const camelCaseKey = key
+      let camelCaseKey = key
         .replace(/\s+/g, '_') // Replace spaces with underscores
-        .replace(/[()]/g, '') // Remove parentheses
-        .replace(/_([a-zA-Z])/g, (_, letter) => letter.toUpperCase()) // Convert snake_case to camelCase
+        .replace(/[^a-zA-Z0-9_]/g, '') // Remove non alpha_numeric characters
+        .replace(/_([a-zA-Z0-9])/g, (_, letter) => letter.toUpperCase()) // Convert snake_case to camelCase
         .replace(/^[A-Z]/, letter => letter.toLowerCase()) // Ensure first letter is lowercase
+
+      if (camelCaseKey === 'iD') {
+        camelCaseKey = 'id' // Normalize the id field
+      }
 
       fieldMappings[key] = camelCaseKey
     })
 
     // Collect unique values for each category field
     const uniqueValues: Record<string, Set<string>> = {
-      mobileUIArea: new Set(),
-      headerCategory: new Set(),
-      selectionsCategory: new Set(),
-      secondaryCategory: new Set(),
+      ZoomArea: new Set(),
+      Category1: new Set(),
+      Category2: new Set(),
+      Category3: new Set(),
     }
 
     // Populate unique values
     jsonData.forEach((item: any) => {
-      if (item['Mobile UI Area']) uniqueValues.mobileUIArea.add(item['Mobile UI Area'])
-      if (item['Header Category']) uniqueValues.headerCategory.add(item['Header Category'])
-      if (item['Selections Category'])
-        uniqueValues.selectionsCategory.add(item['Selections Category'])
-      if (item['Secondary Category']) uniqueValues.secondaryCategory.add(item['Secondary Category'])
+      if (item['Zoom Area']) uniqueValues.ZoomArea.add(item['Zoom Area'])
+      if (item['Category 1']) uniqueValues.Category1.add(item['Category 1'])
+      if (item['Category 2']) uniqueValues.Category2.add(item['Category 2'])
+      if (item['Category 3']) uniqueValues.Category3.add(item['Category 3'])
     })
+
+    // Remove Hidden from all sets
+    uniqueValues.ZoomArea.delete('Hidden')
+    uniqueValues.Category1.delete('Hidden')
+    uniqueValues.Category2.delete('Hidden')
+    uniqueValues.Category3.delete('Hidden')
 
     // Create the TypeScript type definition
     let typeDefinition =
-      'export type MobileUIArea = ' +
-      Array.from(uniqueValues.mobileUIArea)
+      'export type ZoomArea = ' +
+      Array.from(uniqueValues.ZoomArea)
         .map(v => `'${v}'`)
         .join(' | ') +
       '\n\n'
 
     typeDefinition +=
-      'export type HeaderCategory = ' +
-      Array.from(uniqueValues.headerCategory)
+      'export type Category1 = ' +
+      Array.from(uniqueValues.Category1)
         .map(v => `'${v}'`)
         .join(' | ') +
       '\n\n'
 
     typeDefinition +=
-      'export type SelectionsCategory = ' +
-      Array.from(uniqueValues.selectionsCategory)
+      'export type Category2 = ' +
+      Array.from(uniqueValues.Category2)
         .filter(v => v !== 'Hidden')
         .map(v => `'${v}'`)
         .join(' | ') +
       '\n\n'
 
     typeDefinition +=
-      'export type SecondaryCategory = ' +
-      Array.from(uniqueValues.secondaryCategory)
+      'export type Category3 = ' +
+      Array.from(uniqueValues.Category3)
         .map(v => `'${v}'`)
         .join(' | ') +
       '\n\n'
+
+    typeDefinition += "export type Stage = 'Final' | 'In Quality Control'\n\n"
 
     typeDefinition += 'export interface TraitData {\n'
 
@@ -253,14 +268,16 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       }
 
       // Override types for category fields
-      if (key === 'Mobile UI Area') {
-        type = 'MobileUIArea'
-      } else if (key === 'Header Category') {
-        type = 'HeaderCategory'
-      } else if (key === 'Selections Category') {
-        type = 'SelectionsCategory'
-      } else if (key === 'Secondary Category') {
-        type = 'SecondaryCategory'
+      if (key === 'Zoom Area') {
+        type = 'ZoomArea'
+      } else if (key === 'Category 1') {
+        type = 'Category1'
+      } else if (key === 'Category 2') {
+        type = 'Category2'
+      } else if (key === 'Category 3') {
+        type = 'Category3'
+      } else if (key === 'Stage') {
+        type = 'Stage'
       }
 
       if (ALWAYS_DEFINED_FIELDS.has(key) || type === 'string[]') {
@@ -277,10 +294,9 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       .filter((item: any) => {
         const isValid =
           item['Name'] &&
-          item['Label'] &&
-          item['Stage'] === 'Final' &&
-          item['Selections Category'] &&
-          item['Selections Category'] !== 'Hidden'
+          (item['Stage'] === 'Final' || item['Stage'] === 'In Quality Control') &&
+          item['Category 1'] &&
+          item['Category 1'] !== 'Hidden'
 
         if (!isValid) {
           console.log(`Skipping invalid item: ${item['Name'] || 'Unnamed'}`)
@@ -296,22 +312,19 @@ function convertJsonToTypeScript(jsonFilePath: string) {
         }
 
         // First sort by Selections Category
-        const selectionsCompare = compareNullable(
-          a['Selections Category'],
-          b['Selections Category'],
-        )
+        const selectionsCompare = compareNullable(a['Category 1'], b['Category 1'])
         if (selectionsCompare !== 0) {
           return selectionsCompare
         }
 
         // Then by Header Category
-        const headerCompare = compareNullable(a['Header Category'], b['Header Category'])
+        const headerCompare = compareNullable(a['Category 2'], b['Category 2'])
         if (headerCompare !== 0) {
           return headerCompare
         }
 
         // Then by Secondary Category
-        const secondaryCompare = compareNullable(a['Secondary Category'], b['Secondary Category'])
+        const secondaryCompare = compareNullable(a['Category 3'], b['Category 3'])
         if (secondaryCompare !== 0) {
           return secondaryCompare
         }
@@ -322,8 +335,8 @@ function convertJsonToTypeScript(jsonFilePath: string) {
 
     console.log(`Found ${validItems.length} valid items out of ${jsonData.length} total items`)
 
-    // Create the data export
-    let dataExport = 'export const traitsData: TraitData[] = [\n'
+    // Create the data
+    let dataExport = 'const traitsData: TraitData[] = [\n'
 
     // Add each item to the data export
     validItems.forEach((item: any, index: number) => {
@@ -363,7 +376,10 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       dataExport += '  }' + (index < validItems.length - 1 ? ',' : '') + '\n'
     })
 
-    dataExport += '];\n'
+    dataExport += '];\n\n'
+
+    dataExport +=
+      'export const getTraitsData = (all?: boolean) => traitsData.filter(t => all ? true : t.stage === "Final");\n'
 
     // Create the output directory if it doesn't exist
     const outputDir = path.dirname(PATHS.TRAITS_TS_FILE)

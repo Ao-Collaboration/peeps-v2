@@ -1,5 +1,7 @@
 import {createContext, useContext} from 'react'
 
+import {TraitData} from '../../data/traits'
+
 interface Account {
   email: string | null
   isAdmin: boolean
@@ -8,6 +10,7 @@ interface Account {
 interface AuthContextType {
   account: Account
   setEmail: (email: string | null) => void
+  traitData: TraitData[]
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined)

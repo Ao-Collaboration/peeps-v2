@@ -91,3 +91,7 @@
 .trait-label span {
   color: #666;
 }
+
+.trait-label span.trait-quality-control {
+  color: #c66;
+}

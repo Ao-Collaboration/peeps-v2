@@ -1,4 +1,4 @@
-import {TraitData, traitsData} from '../data/traits'
+import {TraitData, getTraitsData} from '../data/traits'
 import {
   DEFAULT_HAIR_COLOURS,
   HAIR_COLOURS,
@@ -23,15 +23,15 @@ export interface ImageEntry {
 const DEFAULT_IMAGE_ENTRIES: ImageEntry[] = [
   {
     index: 16000,
-    filePath: 'Hidden/Eye Whites/Base.svg',
+    filePath: 'Hidden/Eye Whites/Basic/Base.svg',
   },
   {
     index: 17000,
-    filePath: 'Hidden/Head/Base.svg',
+    filePath: 'Hidden/Head/Basic/Base.svg',
   },
 ]
 
-export const requireTraitByName = (name: string): TraitData => {
+export const requireTraitByName = (traitsData: TraitData[], name: string): TraitData => {
   const trait = traitsData.find(trait => trait.name === name)
   if (!trait) {
     throw new Error(`Trait not found: ${name}`)
@@ -41,53 +41,65 @@ export const requireTraitByName = (name: string): TraitData => {
 
 const getHairColour = (selectedTraits: TraitData[]): string | undefined => {
   const hairColour = selectedTraits.find(
-    trait => trait.headerCategory === 'Hair' && trait.secondaryCategory === 'Colour',
+    trait => trait.category2 === 'Hair' && trait.category3 === 'Colour',
   )
   if (hairColour) {
-    return HAIR_COLOURS.get(hairColour.label)
+    return HAIR_COLOURS.get(hairColour.name)
   }
   // Should never happen for a legal peep
   return undefined
 }
 
 export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] => {
+  // Get the pose trait
+  const pose = selectedTraits.find(trait => trait.category1 === 'Pose')
+  if (!pose) {
+    // Should never happen for a legal peep
+    console.error('No pose trait found')
+    return []
+  }
+
+  const poseNameCamel = pose.name.replace(/\s+/g, '').replace(/^[A-Z]/, c => c.toLowerCase())
+  const frontFileVar = `${poseNameCamel}FrontFile` as keyof TraitData
+  const backFileVar = `${poseNameCamel}BackFile` as keyof TraitData
+
   let entries: ImageEntry[] = [
     ...DEFAULT_IMAGE_ENTRIES,
     ...selectedTraits.flatMap(trait => {
-      if (trait.type === 'Automated') {
-        if (trait.headerCategory === 'Skin' && trait.secondaryCategory === 'Tone') {
-          const skinTone = SKIN_TONES.get(trait.label)
-          if (skinTone) {
-            return [
-              //FIXME Don't do skin like this. Use the pose
-              {
-                index: 18501,
-                filePath: `Hidden/Skin/Basic.svg`,
-                trait,
-                replacements: [
-                  {
-                    currentFill: SKIN_TONE_DEFAULT,
-                    replacementFill: skinTone,
-                  },
-                ],
-              },
-            ]
-          }
+      if (trait.category2 === 'Skin' && trait.category3 === 'Tone') {
+        const skinTone = SKIN_TONES.get(trait.name)
+        if (skinTone) {
+          return [
+            //FIXME Don't do skin like this. Use the pose
+            {
+              index: 18501,
+              filePath: `Hidden/Skin/Basic.svg`,
+              trait,
+              replacements: [
+                {
+                  currentFill: SKIN_TONE_DEFAULT,
+                  replacementFill: skinTone,
+                },
+              ],
+            },
+          ]
         }
-        if (trait.headerCategory === 'Hair' && trait.secondaryCategory === 'Colour') {
-          // Skip hair colour. See handling for Hair Style below
-          return []
-        }
-      } else if (
-        (trait.headerCategory === 'Hair' && trait.secondaryCategory === 'Style') ||
-        trait.headerCategory === 'Facial Hair'
+      }
+      if (trait.category2 === 'Hair' && trait.category3 === 'Colour') {
+        // Skip hair colour. See handling for Hair Style below
+        return []
+      }
+      if (
+        (trait.category2 === 'Hair' && trait.category3 === 'Style') ||
+        trait.category2 === 'Facial Hair'
       ) {
         // Special case for hair handling
         const filePath = [
-          trait.selectionsCategory,
-          trait.headerCategory,
+          trait.category1,
+          trait.category2,
           trait.name,
-          trait.frontFile,
+          pose.name,
+          trait[frontFileVar],
         ]
           .filter(Boolean)
           .join('/')
@@ -109,9 +121,14 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
         ]
       } else {
         const traitEntries: ImageEntry[] = []
-        const addEntry = (trait: TraitData, index?: number, fileName?: string) => {
+        const addEntry = (
+          trait: TraitData,
+          poseName: string,
+          index?: number,
+          fileName?: string,
+        ) => {
           if (index && fileName) {
-            const filePath = [trait.selectionsCategory, trait.headerCategory, trait.name, fileName]
+            const filePath = [trait.category1, trait.category2, trait.name, poseName, fileName]
               .filter(Boolean)
               .join('/')
             traitEntries.push({
@@ -121,12 +138,10 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
             })
           }
         }
-        addEntry(trait, trait.backIndex, trait.backFile)
-        addEntry(trait, trait.frontIndex, trait.frontFile)
+        addEntry(trait, pose.name, trait.backIndex, trait[backFileVar] as string)
+        addEntry(trait, pose.name, trait.frontIndex, trait[frontFileVar] as string)
         return traitEntries
       }
-      console.error(`Unable to process trait: ${trait.name}`, trait)
-      return []
     }),
   ]
 
@@ -134,13 +149,16 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
   const hasHideHair = selectedTraits.some(trait => trait.devTags?.includes('Hide Hair'))
   if (hasHideHair) {
     // Remove the hair entries
-    entries = entries.filter(entry => entry.trait?.headerCategory !== 'Hair')
+    entries = entries.filter(entry => entry.trait?.category2 !== 'Hair')
   }
 
   return entries.sort((a, b) => b.index - a.index)
 }
 
-export const legalizeTraits = (selectedTraits: TraitData[]): TraitData[] => {
+export const legalizeTraits = (
+  allTraitData: TraitData[],
+  selectedTraits: TraitData[],
+): TraitData[] => {
   // Create a map of required category to selected trait
   const categoryToTrait = new Map<RequiredCategory, TraitData>()
 
@@ -150,13 +168,10 @@ export const legalizeTraits = (selectedTraits: TraitData[]): TraitData[] => {
 
     // Find matching required category for this trait
     const matchingCategory = REQUIRED_CATEGORIES.find(required => {
-      if (required.secondaryCategory) {
-        return (
-          trait.headerCategory === required.headerCategory &&
-          trait.secondaryCategory === required.secondaryCategory
-        )
+      if (required.category3) {
+        return trait.category2 === required.category2 && trait.category3 === required.category3
       }
-      return trait.headerCategory === required.headerCategory
+      return trait.category2 === required.category2
     })
 
     if (matchingCategory && !categoryToTrait.has(matchingCategory)) {
@@ -170,13 +185,10 @@ export const legalizeTraits = (selectedTraits: TraitData[]): TraitData[] => {
   // Add all non-required category traits
   selectedTraits.forEach(trait => {
     const isRequired = REQUIRED_CATEGORIES.some(required => {
-      if (required.secondaryCategory) {
-        return (
-          trait.headerCategory === required.headerCategory &&
-          trait.secondaryCategory === required.secondaryCategory
-        )
+      if (required.category3) {
+        return trait.category2 === required.category2 && trait.category3 === required.category3
       }
-      return trait.headerCategory === required.headerCategory
+      return trait.category2 === required.category2
     })
 
     if (!isRequired) {
@@ -191,14 +203,13 @@ export const legalizeTraits = (selectedTraits: TraitData[]): TraitData[] => {
       result.push(trait)
     } else {
       // If no trait was selected for this category, add the first available one
-      const firstTrait = traitsData.find(t => {
-        if (requiredCategory.secondaryCategory) {
+      const firstTrait = allTraitData.find(t => {
+        if (requiredCategory.category3) {
           return (
-            t.headerCategory === requiredCategory.headerCategory &&
-            t.secondaryCategory === requiredCategory.secondaryCategory
+            t.category2 === requiredCategory.category2 && t.category3 === requiredCategory.category3
           )
         }
-        return t.headerCategory === requiredCategory.headerCategory
+        return t.category2 === requiredCategory.category2
       })
       if (firstTrait) {
         result.push(firstTrait)
@@ -210,48 +221,49 @@ export const legalizeTraits = (selectedTraits: TraitData[]): TraitData[] => {
 }
 
 export const getDefaultPeep = (): TraitData[] => {
+  const traitsData = getTraitsData()
   const defaultTraits: TraitData[] = [
-    requireTraitByName('Basic'),
-    requireTraitByName('Almond'),
-    requireTraitByName('Fantasy'),
-    requireTraitByName('Hazel'),
-    requireTraitByName('Classic Eyelashes'),
-    requireTraitByName('Twin Braids'),
-    requireTraitByName('Shocked'),
-    requireTraitByName('Bucket Hat'),
-    requireTraitByName('Hoop Earrings'),
-    requireTraitByName('Muscle T-Shirt'),
-    requireTraitByName('Cargo Pants'),
-    requireTraitByName('Crocs'),
-    requireTraitByName('Beach'),
-    requireTraitByName('Sunset'),
+    requireTraitByName(traitsData, 'Basic'),
+    requireTraitByName(traitsData, 'Almond'),
+    requireTraitByName(traitsData, 'Fantasy'),
+    requireTraitByName(traitsData, 'Hazel'),
+    requireTraitByName(traitsData, 'Classic Eyelashes'),
+    requireTraitByName(traitsData, 'Twin Braids'),
+    requireTraitByName(traitsData, 'Shocked'),
+    requireTraitByName(traitsData, 'Bucket Hat'),
+    requireTraitByName(traitsData, 'Hoop Earrings'),
+    requireTraitByName(traitsData, 'Muscle T-Shirt'),
+    requireTraitByName(traitsData, 'Cargo Pants'),
+    requireTraitByName(traitsData, 'Crocs'),
+    requireTraitByName(traitsData, 'Beach'),
+    requireTraitByName(traitsData, 'Sunset'),
   ]
 
-  return legalizeTraits(defaultTraits)
+  return legalizeTraits(traitsData, defaultTraits)
 }
 
-export const getRandomPeep = (): TraitData[] => {
+export const getRandomPeep = (allTraitData: TraitData[]): TraitData[] => {
   const randomTraits: TraitData[] = []
 
   // For each required category (+ tops and bottoms), find all matching traits and randomly select one
   const requiredCategories = [
     ...REQUIRED_CATEGORIES,
     {
-      headerCategory: 'Tops',
+      category2: 'Tops',
     },
     {
-      headerCategory: 'Bottoms',
+      category2: 'Bottoms',
     },
   ]
   requiredCategories.forEach(requiredCategory => {
-    const matchingTraits = traitsData.filter(trait => {
-      if (requiredCategory.secondaryCategory) {
+    const matchingTraits = allTraitData.filter(trait => {
+      if (requiredCategory.category3) {
         return (
-          trait.headerCategory === requiredCategory.headerCategory &&
-          trait.secondaryCategory === requiredCategory.secondaryCategory
+          trait.category2 === requiredCategory.category2 &&
+          trait.category3 === requiredCategory.category3
         )
       }
-      return trait.headerCategory === requiredCategory.headerCategory
+      return trait.category2 === requiredCategory.category2
     })
 
     if (matchingTraits.length > 0) {
@@ -260,13 +272,13 @@ export const getRandomPeep = (): TraitData[] => {
     }
   })
 
-  return legalizeTraits(randomTraits)
+  return legalizeTraits(allTraitData, randomTraits)
 }
 
 // Convert traits array to a URL-safe string
 export function encodeTraitsToString(traits: TraitData[], name: string): string {
   // Create a minimal representation of traits using just the name property
-  const minimalTraits = traits.map((t: TraitData) => t.name)
+  const minimalTraits = traits.map((t: TraitData) => t.id)
   const data = {traits: minimalTraits, name: name}
   // Convert to base64 and make URL safe
   return btoa(JSON.stringify(data)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
@@ -276,6 +288,7 @@ export function encodeTraitsToString(traits: TraitData[], name: string): string 
 export function decodeTraitsFromString(
   encoded: string,
 ): {traits: TraitData[]; name: string} | null {
+  const allTraitData = getTraitsData(true) // Override admin check
   try {
     // Restore base64 padding and decode
     const padded = encoded + '='.repeat((4 - (encoded.length % 4)) % 4)
@@ -289,17 +302,17 @@ export function decodeTraitsFromString(
 
     // Convert trait names back to full trait objects
     const decodedTraits: TraitData[] = []
-    for (const name of data.traits) {
-      const trait = traitsData.find((t: TraitData) => t.name === name)
+    for (const id of data.traits) {
+      const trait = allTraitData.find((t: TraitData) => t.id === id)
       if (trait) {
         decodedTraits.push(trait)
       } else {
-        console.error('Invalid trait name in encoded string', name)
+        console.error('Invalid trait id in encoded string', id)
       }
     }
 
     // Legalize the traits
-    const legalizedTraits = legalizeTraits(decodedTraits)
+    const legalizedTraits = legalizeTraits(allTraitData, decodedTraits)
 
     return {traits: legalizedTraits, name: data.name}
   } catch (e) {

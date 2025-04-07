@@ -1,6 +1,7 @@
 import React, {useMemo, useState} from 'react'
 
-import {SelectionsCategory, TraitData, traitsData} from '../data/traits'
+import {Category1, TraitData} from '../data/traits'
+import {useAuth} from '../providers/contexts/AuthContext'
 import {legalizeTraits} from '../utils/traitUtils'
 import './TraitsPanel.css'
 
@@ -11,27 +12,26 @@ interface TraitsPanelProps {
 
 const TraitsPanel: React.FC<TraitsPanelProps> = ({onTraitsChange, selectedTraits}) => {
   const [searchTerm, setSearchTerm] = useState('')
-
+  const {traitData} = useAuth()
   // Filter traits based on search term
   const filteredTraits = useMemo(() => {
-    if (!searchTerm) return traitsData
+    if (!searchTerm) return traitData
 
     const lowerSearchTerm = searchTerm.toLowerCase()
-    return traitsData.filter(
+    return traitData.filter(
       trait =>
         trait.name.toLowerCase().includes(lowerSearchTerm) ||
-        trait.label?.toLowerCase().includes(lowerSearchTerm) ||
-        trait.mobileUIArea?.toLowerCase().includes(lowerSearchTerm) ||
-        trait.headerCategory?.toLowerCase().includes(lowerSearchTerm) ||
-        trait.secondaryCategory?.toLowerCase().includes(lowerSearchTerm) ||
-        trait.selectionsCategory?.toLowerCase().includes(lowerSearchTerm) ||
+        trait.category1?.toLowerCase().includes(lowerSearchTerm) ||
+        trait.category2?.toLowerCase().includes(lowerSearchTerm) ||
+        trait.category3?.toLowerCase().includes(lowerSearchTerm) ||
+        trait.zoomArea?.toLowerCase().includes(lowerSearchTerm) ||
         trait.searchableTags.some(tag => tag.toLowerCase().includes(lowerSearchTerm)),
     )
-  }, [searchTerm])
+  }, [traitData, searchTerm])
 
   // Group traits by category hierarchy
   const groupedTraits = useMemo(() => {
-    const groups: Record<SelectionsCategory, Record<string, Record<string, TraitData[]>>> = {
+    const groups: Record<Category1, Record<string, Record<string, TraitData[]>>> = {
       Location: {},
       Body: {},
       Pose: {},
@@ -40,23 +40,23 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({onTraitsChange, selectedTraits
     }
 
     filteredTraits.forEach(trait => {
-      const {selectionsCategory} = trait
-      const headerCategory = trait.headerCategory ?? ''
-      const secondaryCategory = trait.secondaryCategory ?? ''
+      const {category1} = trait
+      const category2 = trait.category2 ?? ''
+      const category3 = trait.category3 ?? ''
 
-      if (!groups[selectionsCategory]) {
-        groups[selectionsCategory] = {}
+      if (!groups[category1]) {
+        groups[category1] = {}
       }
 
-      if (!groups[selectionsCategory][headerCategory]) {
-        groups[selectionsCategory][headerCategory] = {}
+      if (!groups[category1][category2]) {
+        groups[category1][category2] = {}
       }
 
-      if (!groups[selectionsCategory][headerCategory][secondaryCategory]) {
-        groups[selectionsCategory][headerCategory][secondaryCategory] = []
+      if (!groups[category1][category2][category3]) {
+        groups[category1][category2][category3] = []
       }
 
-      groups[selectionsCategory][headerCategory][secondaryCategory].push(trait)
+      groups[category1][category2][category3].push(trait)
     })
 
     return groups
@@ -72,7 +72,7 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({onTraitsChange, selectedTraits
       newSelectedTraits = [...selectedTraits, trait]
     }
 
-    newSelectedTraits = legalizeTraits(newSelectedTraits)
+    newSelectedTraits = legalizeTraits(traitData, newSelectedTraits)
     onTraitsChange(newSelectedTraits)
   }
 
@@ -110,7 +110,13 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({onTraitsChange, selectedTraits
                               checked={selectedTraits.some(t => t.name === trait.name)}
                               onChange={() => handleTraitToggle(trait)}
                             />
-                            <span>{trait.label}</span>
+                            <span
+                              className={`${
+                                trait.stage === 'In Quality Control' ? 'trait-quality-control' : ''
+                              }`}
+                            >
+                              {trait.name}
+                            </span>
                           </label>
                         </li>
                       ))}

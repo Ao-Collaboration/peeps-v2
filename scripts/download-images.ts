@@ -41,12 +41,12 @@ async function downloadFiles() {
         const fileUrl = file.url
         const fileName = file.name
 
+        const poseName = key.split(' ').slice(0, -2).join(' ')
+
         if (fileName && fileUrl) {
-          console.log(`Downloading file: ${fileName}`)
+          console.log(`Downloading ${fileName} for ${poseName} pose`)
           // Build the folder path
-          const folders = [row['Selections Category'], row['Header Category'], row.Name].filter(
-            Boolean,
-          )
+          const folders = [row['Category 1'], row['Category 2'], row.Name, poseName].filter(Boolean)
           const folderPath = path.join(PATHS.TRAITS_DIR, ...folders)
           if (!fs.existsSync(folderPath)) {
             fs.mkdirSync(folderPath, {recursive: true})

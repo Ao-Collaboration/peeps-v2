@@ -8,22 +8,18 @@ export const PATHS = {
 } as const
 
 export const IGNORED_FIELDS = new Set([
-  'Comments',
+  'Notes / Bugs',
   'Old Category',
   'Name Suggestions',
   'Assigned To',
-  'Rename Guide',
-  'Exclusions',
-  'Related to Traits List (Exclusions)',
-  'Rules for Devs',
-  'Back File Name',
-  'Front File Name',
+  'Type',
 ])
 
 export const ALWAYS_DEFINED_FIELDS = new Set([
+  'ID',
   'Name',
   'Stage',
   'Label',
-  'Selections Category',
-  'Header Category',
+  'Category 1',
+  'Category 2',
 ])
