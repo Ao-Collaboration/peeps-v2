@@ -1,18 +1,13 @@
-import {createContext, useContext, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
+
+import {AuthContext} from './contexts/AuthContext'
+
+const AdminEmailDomain = 'aocollab.tech'
 
 interface Account {
   email: string | null
   isAdmin: boolean
 }
-
-interface AuthContextType {
-  account: Account
-  setEmail: (email: string | null) => void
-}
-
-const AdminEmailDomain = 'aocollab.tech'
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({children}: {children: React.ReactNode}) => {
   const [account, setAccount] = useState<Account>({
@@ -47,12 +42,4 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
   }, [])
 
   return <AuthContext.Provider value={{account, setEmail}}>{children}</AuthContext.Provider>
-}
-
-export const useAuth = () => {
-  const context = useContext(AuthContext)
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider')
-  }
-  return context
 }

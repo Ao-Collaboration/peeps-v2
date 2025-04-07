@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useMemo} from 'react'
+import {forwardRef, useEffect, useMemo} from 'react'
 
 import {TraitData} from '../data/traits'
 import {useSvgLoader} from '../hooks/useSvgLoader'

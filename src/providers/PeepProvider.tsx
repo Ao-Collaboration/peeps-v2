@@ -1,19 +1,10 @@
 import {adjectives, names, uniqueNamesGenerator} from 'unique-names-generator'
 
-import {createContext, useContext, useState} from 'react'
+import {useState} from 'react'
 
 import {TraitData} from '../data/traits'
 import {getDefaultPeep, getRandomPeep} from '../utils/traitUtils'
-
-interface PeepContextType {
-  selectedTraits: TraitData[]
-  currentPeepName: string
-  setSelectedTraits: (traits: TraitData[]) => void
-  setCurrentPeepName: (name: string) => void
-  randomizePeep: () => void
-}
-
-const PeepContext = createContext<PeepContextType | undefined>(undefined)
+import {PeepContext} from './contexts/PeepContext'
 
 export const PeepProvider = ({children}: {children: React.ReactNode}) => {
   const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
@@ -46,12 +37,4 @@ export const PeepProvider = ({children}: {children: React.ReactNode}) => {
       {children}
     </PeepContext.Provider>
   )
-}
-
-export const usePeep = () => {
-  const context = useContext(PeepContext)
-  if (context === undefined) {
-    throw new Error('usePeep must be used within a PeepProvider')
-  }
-  return context
 }
