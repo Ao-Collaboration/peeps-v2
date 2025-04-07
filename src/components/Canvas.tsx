@@ -10,14 +10,14 @@ interface CanvasProps {
 }
 
 const Canvas = forwardRef<SVGSVGElement, CanvasProps>(({selectedTraits}, ref) => {
-  const {svgContent, loadSvg} = useSvgLoader()
+  const {getSvgContent, loadSvg} = useSvgLoader()
   const [loadingTraits, setLoadingTraits] = useState<string[]>([])
   const [loadingErrors, setLoadingErrors] = useState<string[]>([])
   const imageEntries = useMemo(() => createImageEntries(selectedTraits), [selectedTraits])
 
   useEffect(() => {
     const traitsToLoad = imageEntries
-      .filter(entry => !svgContent[entry.filePath])
+      .filter(entry => !getSvgContent(entry.filePath, entry.replacements))
       .filter(entry => entry.trait)
       .map(entry => entry.trait!.name)
 
@@ -38,7 +38,7 @@ const Canvas = forwardRef<SVGSVGElement, CanvasProps>(({selectedTraits}, ref) =>
     Promise.all(loadPromises).finally(() => {
       setLoadingTraits([])
     })
-  }, [imageEntries, loadSvg, svgContent])
+  }, [imageEntries, loadSvg, getSvgContent])
 
   const isLoading = loadingTraits.length > 0
 
@@ -84,7 +84,7 @@ const Canvas = forwardRef<SVGSVGElement, CanvasProps>(({selectedTraits}, ref) =>
               return (
                 <image
                   key={`${entry.trait?.name ?? 'static'}-${idx}`}
-                  href={svgContent[entry.filePath]}
+                  href={getSvgContent(entry.filePath, entry.replacements)}
                   x="0"
                   y="0"
                   width="1200"
