@@ -12,6 +12,7 @@ interface CanvasProps {
 const Canvas = forwardRef<SVGSVGElement, CanvasProps>(({selectedTraits}, ref) => {
   const {svgContent, loadSvg} = useSvgLoader()
   const [loadingTraits, setLoadingTraits] = useState<string[]>([])
+  const [loadingErrors, setLoadingErrors] = useState<string[]>([])
   const imageEntries = useMemo(() => createImageEntries(selectedTraits), [selectedTraits])
 
   useEffect(() => {
@@ -21,12 +22,17 @@ const Canvas = forwardRef<SVGSVGElement, CanvasProps>(({selectedTraits}, ref) =>
       .map(entry => entry.trait!.name)
 
     setLoadingTraits(traitsToLoad)
+    setLoadingErrors([])
 
     // Load all SVGs into cache
     const loadPromises = imageEntries.map(entry => {
-      return loadSvg(entry.filePath, entry.replacements).then(() => {
-        setLoadingTraits(prev => prev.filter(trait => trait !== entry.trait?.name))
-      })
+      return loadSvg(entry.filePath, entry.replacements)
+        .then(() => {
+          setLoadingTraits(prev => prev.filter(trait => trait !== entry.trait?.name))
+        })
+        .catch(error => {
+          setLoadingErrors(prev => [...prev, error.message])
+        })
     })
 
     Promise.all(loadPromises).finally(() => {
@@ -50,6 +56,19 @@ const Canvas = forwardRef<SVGSVGElement, CanvasProps>(({selectedTraits}, ref) =>
                     <li key={trait}>{trait}</li>
                   ))}
                 </ul>
+              </div>
+            </div>
+          )}
+          {!isLoading && loadingErrors.length > 0 && (
+            <div className="error-container">
+              <div className="error-icon">⚠️</div>
+              <h2 className="error-title">Loading Errors</h2>
+              <div className="error-messages">
+                {loadingErrors.map(error => (
+                  <div key={error} className="error-message">
+                    {error}
+                  </div>
+                ))}
               </div>
             </div>
           )}

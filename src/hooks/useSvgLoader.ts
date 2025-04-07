@@ -61,10 +61,7 @@ export const useSvgLoader = (): SvgLoaderResult => {
           setSvgContent(prev => ({...prev, [filePath]: content}))
         } catch (error) {
           console.error(`Error loading SVG ${filePath}:`, error)
-          throw error // Re-throw to propagate the error
-        } finally {
-          // Clean up the promise from the cache
-          delete promiseCache[filePath]
+          throw new Error(`Error loading SVG ${filePath}`)
         }
       })()
 
