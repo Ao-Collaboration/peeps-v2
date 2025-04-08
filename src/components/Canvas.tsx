@@ -79,6 +79,7 @@ const Canvas = forwardRef<SVGSVGElement, CanvasProps>(({selectedTraits}, ref) =>
             preserveAspectRatio="xMidYMid meet"
             className="peep-svg"
             style={{opacity: isLoading ? 0.2 : 1}}
+            onContextMenu={e => e.preventDefault()}
           >
             {imageEntries.map((entry, idx) => {
               return (
