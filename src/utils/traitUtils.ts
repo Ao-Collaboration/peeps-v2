@@ -138,8 +138,12 @@ export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] =>
             })
           }
         }
-        addEntry(trait, pose.name, trait.backIndex, trait[backFileVar] as string)
-        addEntry(trait, pose.name, trait.frontIndex, trait[frontFileVar] as string)
+        if (!trait[backFileVar] && !trait[frontFileVar]) {
+          console.error(`Trait ${trait.name} has no back or front file for pose ${pose.name}`)
+          return []
+        }
+        addEntry(trait, pose.name, trait.backIndex, trait[backFileVar] as string | undefined)
+        addEntry(trait, pose.name, trait.frontIndex, trait[frontFileVar] as string | undefined)
         return traitEntries
       }
     }),
