@@ -3,7 +3,7 @@ import {forwardRef, useEffect, useMemo, useState} from 'react'
 import {TraitData} from '../data/traits'
 import {useSvgLoader} from '../hooks/useSvgLoader'
 import {createImageEntries} from '../utils/traitUtils'
-import './Canvas.css'
+import Spinner from './Spinner'
 
 interface CanvasProps {
   selectedTraits: TraitData[]
@@ -43,60 +43,67 @@ const Canvas = forwardRef<SVGSVGElement, CanvasProps>(({selectedTraits}, ref) =>
   const isLoading = loadingTraits.length > 0
 
   return (
-    <div className="canvas">
-      <div className="canvas-content">
-        <div className="canvas-image-container">
-          {isLoading && (
-            <div className="loading-spinner">
-              <div className="spinner"></div>
-              <div className="loading-text">
-                Loading traits:
-                <ul className="loading-traits">
-                  {loadingTraits.map(trait => (
-                    <li key={trait}>{trait}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          )}
-          {!isLoading && loadingErrors.length > 0 && (
-            <div className="error-container">
-              <div className="error-icon">⚠️</div>
-              <h2 className="error-title">Loading Errors</h2>
-              <div className="error-messages">
-                {loadingErrors.map(error => (
-                  <div key={error} className="error-message">
-                    {error}
-                  </div>
+    <div className="flex flex-col h-full w-full overflow-hidden px-4 pb-2">
+      <div className="relative h-full w-full bg-gray-50 p-4 rounded-4xl">
+        {isLoading && (
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 justify-center items-center bg-gray-50/90 z-50 px-8 py-4 rounded-lg">
+            <Spinner />
+            <div className="text-sm text-center">
+              <p className="text-gray-800 mb-3">Loading...</p>
+              <ul className="list-none">
+                {loadingTraits.map(trait => (
+                  <li
+                    key={trait}
+                    className="my-2 px-2 py-1 bg-gray-100 rounded-md text-gray-500 flex justify-between gap-2"
+                  >
+                    <span className="mr-2">{trait}</span>
+                    <Spinner size="sm" className="inline-block" />
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
-          )}
-          <svg
-            ref={ref}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1200 1200"
-            preserveAspectRatio="xMidYMid meet"
-            className="peep-svg"
-            style={{opacity: isLoading ? 0.2 : 1}}
-            onContextMenu={e => e.preventDefault()}
-          >
-            {imageEntries.map((entry, idx) => {
-              return (
-                <image
-                  key={`${entry.trait?.name ?? 'static'}-${idx}`}
-                  href={getSvgContent(entry.filePath, entry.replacements)}
-                  x="0"
-                  y="0"
-                  width="1200"
-                  height="1200"
-                  preserveAspectRatio="xMidYMid meet"
-                  style={{zIndex: idx}}
-                />
-              )
-            })}
-          </svg>
-        </div>
+          </div>
+        )}
+        {!isLoading && loadingErrors.length > 0 && (
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 justify-center items-center bg-gray-50/90 z-50 px-8 py-4 rounded-lg">
+            <h2 className="text-2xl text-red-500">⚠️</h2>
+            <h2 className="text-lg text-red-500">Errors...</h2>
+            <ul className="list-none">
+              {loadingErrors.map(error => (
+                <li
+                  key={error}
+                  className="my-2 px-2 py-1 bg-gray-100 rounded-md text-red-600 flex justify-between gap-2"
+                >
+                  {error}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <svg
+          ref={ref}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 1200"
+          preserveAspectRatio="xMidYMid meet"
+          className="w-full h-full max-w-full max-h-full object-contain"
+          style={{opacity: isLoading ? 0.2 : 1}}
+          onContextMenu={e => e.preventDefault()}
+        >
+          {imageEntries.map((entry, idx) => {
+            return (
+              <image
+                key={`${entry.trait?.name ?? 'static'}-${idx}`}
+                href={getSvgContent(entry.filePath, entry.replacements)}
+                x="0"
+                y="0"
+                width="1200"
+                height="1200"
+                preserveAspectRatio="xMidYMid meet"
+                style={{zIndex: idx}}
+              />
+            )
+          })}
+        </svg>
       </div>
     </div>
   )

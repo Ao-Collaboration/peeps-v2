@@ -1,3 +1,5 @@
+@import 'tailwindcss';
+
 body {
   margin: 0;
   font-family:
@@ -9,4 +11,16 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+@theme {
+  --color-mint-dark: #4fb89b;
+  --color-mint-500: #6fe3c4;
+  --color-mint-light: #a1f5db;
+  --color-sky: #9bf4d1;
+  --color-sand-light: #fdf0a1;
+  --color-sand-500: #f7dc72;
+  --color-sand-deep: #edbd6b;
+  --color-red-500: #dc3545;
+  --color-red-600: #c82333;
 }

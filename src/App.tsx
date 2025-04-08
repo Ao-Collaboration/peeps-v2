@@ -3,7 +3,7 @@ import {useEffect} from 'react'
 import {faDice, faFloppyDisk, faShareNodes} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
-import './App.css'
+import Button from './components/Button'
 import Canvas from './components/Canvas'
 import DownloadButton from './components/DownloadButton'
 import OrientationCheck from './components/OrientationCheck'
@@ -80,29 +80,29 @@ function App() {
 
   return (
     <OrientationCheck>
-      <div className="App">
-        <div className="app-container">
-          <div className="left-panel">
+      <div className="h-screen w-screen overflow-hidden">
+        <div className="flex h-full w-full overflow-hidden">
+          <div className="w-xs h-full overflow-hidden">
             <TraitsPanel onTraitsChange={handleTraitsChange} selectedTraits={selectedTraits} />
           </div>
-          <div className="right-panel">
-            <div className="save-load-button-container">
-              {currentPeepName && <span className="current-peep-name">{currentPeepName}</span>}
-              <div className="button-group">
-                <button onClick={openModal} title="Save/Load Peep">
+          <div className="flex-1 flex flex-col h-full overflow-hidden">
+            <div className="flex justify-between items-center mx-4 my-2">
+              <h2 className="text-xl font-bold">{currentPeepName}</h2>
+              <div className="flex gap-2">
+                <Button onClick={openModal} title="Save/Load Peep">
                   <FontAwesomeIcon icon={faFloppyDisk} />
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => handleShare(currentPeepName || 'MyPeep', selectedTraits)}
                   title="Share"
                 >
                   <FontAwesomeIcon icon={faShareNodes} />
-                </button>
+                </Button>
                 {account.isAdmin && (
                   <>
-                    <button onClick={randomizePeep} title="Randomize">
+                    <Button onClick={randomizePeep} title="Randomize">
                       <FontAwesomeIcon icon={faDice} />
-                    </button>
+                    </Button>
                     <DownloadButton svgRef={canvasRef} currentName={currentPeepName} />
                   </>
                 )}

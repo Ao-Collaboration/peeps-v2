@@ -1,7 +1,5 @@
 import {useEffect, useState} from 'react'
 
-import './OrientationCheck.css'
-
 const MIN_WIDTH = 600
 
 const OrientationCheck = ({children}: {children: React.ReactNode}) => {
@@ -23,11 +21,11 @@ const OrientationCheck = ({children}: {children: React.ReactNode}) => {
 
   if (isTooNarrow) {
     return (
-      <div className="orientation-message">
-        <div className="orientation-content">
-          <div className="rotate-icon">↻</div>
-          <h2>Please rotate your device</h2>
-          <p>This app requires a minimum width of {MIN_WIDTH}px</p>
+      <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-900 z-50">
+        <div className="flex flex-col gap-4 items-center text-center text-white">
+          <h1 className="animate-spin text-8xl">↻</h1>
+          <h2 className="text-white">Please rotate your device</h2>
+          <p className="text-gray-300">This app requires a minimum width of {MIN_WIDTH}px</p>
         </div>
       </div>
     )

@@ -10,7 +10,7 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 import {TraitData} from '../data/traits'
-import './SaveLoadModal.css'
+import Button from './Button'
 
 interface SavedPeep {
   name: string
@@ -106,52 +106,55 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
   if (!isOpen) return null
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <button className="close-button" onClick={onClose}>
+    <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/50 flex justify-center items-center">
+      <div className="relative bg-white px-8 py-4 rounded-2xl">
+        <button
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 cursor-pointer"
+          onClick={onClose}
+        >
           <FontAwesomeIcon icon={faXmark} />
         </button>
-        <div className="save-section">
-          <h3>Save Current Peep</h3>
-          <div className="save-container">
-            <div className="save-input">
+        <div className="flex flex-col gap-4">
+          <h3 className="text-lg font-bold text-gray-800">Save Peep</h3>
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-2">
               <input
                 type="text"
                 value={newPeepName}
                 onChange={handleNameChange}
                 placeholder="Enter peep name"
-                className={errorMessage ? 'error' : ''}
+                className={`px-2 py-1 flex-1 rounded-md border border-gray-300 focus:outline-none ${errorMessage ? 'border-red-500!' : ''}`}
               />
-              <button onClick={handleSave} title="Save">
+              <Button onClick={handleSave} title="Save">
                 <FontAwesomeIcon icon={faFloppyDisk} />
-              </button>
+              </Button>
             </div>
-            {errorMessage && <div className="error-message">{errorMessage}</div>}
+            {errorMessage && <div className="text-red-500 text-xs">{errorMessage}</div>}
           </div>
         </div>
-        <div className="load-section">
-          <h3>Saved Peeps</h3>
-          <div className="saved-peeps-list">
+        <hr className="border-gray-200 my-4" />
+        <div className="flex flex-col gap-4 mb-4">
+          <h3 className="text-md font-bold text-gray-600">Saved Peeps</h3>
+          <div className="flex flex-col gap-2">
             {savedPeeps.map((peep, index) => (
-              <div key={index} className="saved-peep-item">
-                <span>{peep.name}</span>
-                <div className="saved-peep-actions">
-                  <button onClick={() => handleLoad(peep)} title="Load">
+              <div
+                key={index}
+                className="flex justify-between items-center py-2 px-4 rounded-lg bg-gray-50 border border-gray-200"
+              >
+                <span className="text-sm text-gray-800 mr-8">{peep.name}</span>
+                <div className="flex gap-2">
+                  <Button onClick={() => handleLoad(peep)} title="Load">
                     <FontAwesomeIcon icon={faFolderOpen} />
-                  </button>
-                  <button onClick={() => handleUpdate(peep)} title="Update">
+                  </Button>
+                  <Button onClick={() => handleUpdate(peep)} title="Update">
                     <FontAwesomeIcon icon={faFloppyDisk} />
-                  </button>
-                  <button onClick={() => onShare(peep.name, peep.traits)} title="Share">
+                  </Button>
+                  <Button onClick={() => onShare(peep.name, peep.traits)} title="Share">
                     <FontAwesomeIcon icon={faShareNodes} />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(peep.name)}
-                    className="delete-button"
-                    title="Delete"
-                  >
+                  </Button>
+                  <Button onClick={() => handleDelete(peep.name)} title="Delete" type="error">
                     <FontAwesomeIcon icon={faTrash} />
-                  </button>
+                  </Button>
                 </div>
               </div>
             ))}

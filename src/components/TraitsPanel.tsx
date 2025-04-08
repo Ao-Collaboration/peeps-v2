@@ -3,7 +3,6 @@ import React, {useMemo, useState} from 'react'
 import {Category1, TraitData} from '../data/traits'
 import {useAuth} from '../providers/contexts/AuthContext'
 import {legalizeTraits} from '../utils/traitUtils'
-import './TraitsPanel.css'
 
 interface TraitsPanelProps {
   onTraitsChange: (selectedTraits: TraitData[]) => void
@@ -77,42 +76,43 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({onTraitsChange, selectedTraits
   }
 
   return (
-    <div className="traits-panel">
-      <div className="search-container">
+    <div className="h-full w-full overflow-hidden flex flex-col border-r border-gray-200 bg-gray-50 px-4">
+      <div className="my-2">
         <input
           type="text"
           placeholder="Search traits..."
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
-          className="search-input"
+          className="w-full p-2 border border-gray-300 rounded-md"
         />
       </div>
 
-      <div className="traits-list">
+      <div className="flex-1 overflow-y-auto my-2">
         {Object.entries(groupedTraits).map(([selectionsCategory, headerCategories]) => (
-          <div key={selectionsCategory} className="category-group">
-            <h2 className="selections-category">{selectionsCategory}</h2>
+          <div key={selectionsCategory} className="mb-4">
+            <h2 className="font-bold border-b border-gray-200 pb-2 mb-2">{selectionsCategory}</h2>
 
             {Object.entries(headerCategories).map(([headerCategory, secondaryCategories]) => (
-              <div key={headerCategory} className="subcategory-group">
-                <h3 className="header-category">{headerCategory}</h3>
+              <div key={headerCategory} className="ml-2 mb-4">
+                <h3 className="font-bold mb-2 text-gray-700">{headerCategory}</h3>
 
                 {Object.entries(secondaryCategories).map(([secondaryCategory, traits]) => (
-                  <div key={secondaryCategory} className="traits-group">
-                    <h4 className="secondary-category">{secondaryCategory}</h4>
+                  <div key={secondaryCategory} className="ml-2 mb-2">
+                    <h4 className="font-bold text-sm mb-2 text-gray-500">{secondaryCategory}</h4>
 
-                    <ul className="traits-items">
+                    <ul className="list-none ml-2">
                       {traits.map(trait => (
-                        <li key={trait.name} className="trait-item">
-                          <label className="trait-label">
+                        <li key={trait.name} className="mb-1.5">
+                          <label className="flex items-center cursor-pointer text-sm text-gray-600">
                             <input
                               type="checkbox"
                               checked={selectedTraits.some(t => t.name === trait.name)}
                               onChange={() => handleTraitToggle(trait)}
+                              className="mr-2"
                             />
                             <span
                               className={`${
-                                trait.stage === 'In Quality Control' ? 'trait-quality-control' : ''
+                                trait.stage === 'In Quality Control' ? 'text-red-400' : ''
                               }`}
                             >
                               {trait.name}

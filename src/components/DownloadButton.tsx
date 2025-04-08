@@ -4,7 +4,7 @@ import {faDownload} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 import {downloadSvg} from '../utils/downloadUtils'
-import './DownloadButton.css'
+import Button from './Button'
 
 interface DownloadButtonProps {
   svgRef: React.RefObject<SVGSVGElement | null>
@@ -22,25 +22,21 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({svgRef, currentName}) =>
 
   return (
     <>
-      <button
-        className="download-button"
-        onClick={() => setShowFormatDialog(true)}
-        title="Download Peep"
-      >
+      <Button onClick={() => setShowFormatDialog(true)} title="Download Peep">
         <FontAwesomeIcon icon={faDownload} />
-      </button>
+      </Button>
 
       {showFormatDialog && (
-        <div className="format-dialog-overlay">
-          <div className="format-dialog">
-            <h3>Select Download Format</h3>
-            <div className="format-buttons">
-              <button className="format-button" onClick={() => handleDownload('SVG')}>
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-black/70 z-50">
+          <div className="bg-white p-4 rounded-lg flex flex-col gap-4 items-center">
+            <h3 className="text-lg font-bold">Select Download Format</h3>
+            <div className="flex gap-2">
+              <Button onClick={() => handleDownload('SVG')} title="Download Peep as SVG">
                 SVG
-              </button>
-              <button className="format-button" onClick={() => handleDownload('PNG')}>
+              </Button>
+              <Button onClick={() => handleDownload('PNG')} title="Download Peep as PNG">
                 PNG
-              </button>
+              </Button>
             </div>
           </div>
         </div>
