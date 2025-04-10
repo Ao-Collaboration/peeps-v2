@@ -24,3 +24,14 @@ code {
   --color-red-500: #dc3545;
   --color-red-600: #c82333;
 }
+
+@layer utilities {
+  .bg-mint-sand-sky {
+    background: linear-gradient(
+      135deg,
+      var(--color-mint-light) 0%,
+      var(--color-sand-light) 50%,
+      var(--color-sky) 100%
+    );
+  }
+}

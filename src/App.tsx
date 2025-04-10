@@ -80,7 +80,7 @@ function App() {
 
   return (
     <OrientationCheck>
-      <div className="h-screen w-screen overflow-hidden">
+      <div className="h-screen w-screen overflow-hidden bg-mint-sand-sky">
         <div className="flex h-full w-full overflow-hidden">
           <div className="w-xs h-full overflow-hidden">
             <TraitsPanel onTraitsChange={handleTraitsChange} selectedTraits={selectedTraits} />
