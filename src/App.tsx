@@ -19,7 +19,7 @@ import {decodeTraitsFromString, encodeTraitsToString} from './utils/traitUtils'
 function App() {
   const {account, setEmail} = useAuth()
   const {canvasRef} = useCanvas()
-  const {isModalOpen, openModal, closeModal} = useModal()
+  const {openModal, closeModal} = useModal()
   const {selectedTraits, currentPeepName, setSelectedTraits, setCurrentPeepName, randomizePeep} =
     usePeep()
 
@@ -55,7 +55,6 @@ function App() {
 
   const handleSave = (name: string) => {
     setCurrentPeepName(name)
-    closeModal()
   }
 
   const handleLoad = (traits: TraitData[], name: string) => {
@@ -89,7 +88,7 @@ function App() {
             <div className="flex justify-between items-center mx-4 my-2">
               <h2 className="text-xl font-bold">{currentPeepName}</h2>
               <div className="flex gap-2">
-                <Button onClick={openModal} title="Save/Load Peep">
+                <Button onClick={() => openModal('saveLoad')} title="Save/Load Peep">
                   <FontAwesomeIcon icon={faFloppyDisk} />
                 </Button>
                 <Button
@@ -112,8 +111,6 @@ function App() {
           </div>
         </div>
         <SaveLoadModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
           onSave={handleSave}
           onLoad={handleLoad}
           onShare={handleShare}

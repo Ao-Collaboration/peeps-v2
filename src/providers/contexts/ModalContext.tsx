@@ -1,9 +1,11 @@
 import {createContext, useContext} from 'react'
 
+export type ModalType = 'saveLoad' | 'download'
+
 interface ModalContextType {
-  isModalOpen: boolean
-  openModal: () => void
-  closeModal: () => void
+  openModal: (type: ModalType) => void
+  closeModal: (type: ModalType) => void
+  isModalOpen: (type: ModalType) => boolean
 }
 
 export const ModalContext = createContext<ModalContextType | undefined>(undefined)
