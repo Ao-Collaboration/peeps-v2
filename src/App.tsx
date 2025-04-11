@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import Button from './components/Button'
 import Canvas from './components/Canvas'
 import DownloadButton from './components/DownloadButton'
+import Footer from './components/Footer'
 import OrientationCheck from './components/OrientationCheck'
 import SaveLoadModal from './components/SaveLoadModal'
 import TraitsPanel from './components/TraitsPanel'
@@ -107,7 +108,10 @@ function App() {
                 )}
               </div>
             </div>
-            <Canvas ref={canvasRef} selectedTraits={selectedTraits} />
+            <div className="flex-1 overflow-hidden">
+              <Canvas ref={canvasRef} selectedTraits={selectedTraits} />
+            </div>
+            <Footer />
           </div>
         </div>
         <SaveLoadModal
