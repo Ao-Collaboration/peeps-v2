@@ -1,8 +1,10 @@
 export type ZoomArea = 'Upper Body' | 'Mid Body' | 'Full Body' | 'Background' | 'Lower Body'
 
-export type Category1 = 'Body' | 'Accessory' | 'Clothing' | 'Pose' | 'Location'
+export type Category1 = 'Location' | 'Body' | 'Accessory' | 'Clothing' | 'Pose'
 
 export type Category2 =
+  | 'Time'
+  | 'District'
   | 'Skin'
   | 'Holdables'
   | 'Eyes'
@@ -11,10 +13,8 @@ export type Category2 =
   | 'Pose'
   | 'Tops'
   | 'Hair'
-  | 'District'
   | 'Set'
   | 'Headwear'
-  | 'Time'
   | 'Jewellery'
   | 'Shoes'
   | 'Sports Equipment'
