@@ -50,13 +50,21 @@ const getHairColour = (selectedTraits: TraitData[]): string | undefined => {
   return undefined
 }
 
-export const createImageEntries = (selectedTraits: TraitData[]): ImageEntry[] => {
+export const createImageEntries = (
+  selectedTraits: TraitData[],
+  backgroundHidden: boolean = false,
+): ImageEntry[] => {
   // Get the pose trait
   const pose = selectedTraits.find(trait => trait.category1 === 'Pose')
   if (!pose) {
     // Should never happen for a legal peep
     console.error('No pose trait found')
     return []
+  }
+
+  if (backgroundHidden) {
+    // Remove all "Location" traits
+    selectedTraits = selectedTraits.filter(trait => trait.category1 !== 'Location')
   }
 
   const poseNameCamel = pose.name.replace(/\s+/g, '').replace(/^[A-Z]/, c => c.toLowerCase())

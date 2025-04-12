@@ -1,4 +1,10 @@
-import {faDice, faFloppyDisk, faShareNodes} from '@fortawesome/free-solid-svg-icons'
+import {
+  faDice,
+  faEye,
+  faEyeSlash,
+  faFloppyDisk,
+  faShareNodes,
+} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 import {TraitData} from '../data/traits'
@@ -19,7 +25,7 @@ export default function ButtonsBar({currentPeepName, selectedTraits}: ButtonsBar
   const {account} = useAuth()
   const {canvasRef} = useCanvas()
   const {openModal} = useModal()
-  const {randomizePeep} = usePeep()
+  const {randomizePeep, backgroundHidden, setBackgroundHidden} = usePeep()
 
   const handleShare = (name: string, traits: TraitData[]) => {
     const encoded = encodeTraitsToString(traits, name)
@@ -57,6 +63,9 @@ export default function ButtonsBar({currentPeepName, selectedTraits}: ButtonsBar
             <DownloadButton svgRef={canvasRef} currentName={currentPeepName} />
           </>
         )}
+        <Button onClick={() => setBackgroundHidden(!backgroundHidden)} title="Toggle Background">
+          <FontAwesomeIcon icon={backgroundHidden ? faEye : faEyeSlash} />
+        </Button>
       </div>
     </div>
   )

@@ -11,6 +11,7 @@ export const PeepProvider = ({children}: {children: React.ReactNode}) => {
   const {traitData} = useAuth()
   const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
   const [currentPeepName, setCurrentPeepName] = useState<string>('')
+  const [backgroundHidden, setBackgroundHidden] = useState<boolean>(false)
 
   const randomizePeep = () => {
     setSelectedTraits(getRandomPeep(traitData))
@@ -29,11 +30,13 @@ export const PeepProvider = ({children}: {children: React.ReactNode}) => {
   return (
     <PeepContext.Provider
       value={{
-        selectedTraits,
-        currentPeepName,
-        setSelectedTraits,
-        setCurrentPeepName,
         randomizePeep,
+        selectedTraits,
+        setSelectedTraits,
+        currentPeepName,
+        setCurrentPeepName,
+        backgroundHidden,
+        setBackgroundHidden,
       }}
     >
       {children}
