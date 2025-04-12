@@ -1,80 +1,81 @@
-export type ZoomArea = 'Upper Body' | 'Mid Body' | 'Full Body' | 'Background' | 'Lower Body'
+export type ZoomArea = 'Background' | 'Full Body' | 'Lower Body' | 'Mid Body' | 'Upper Body'
 
-export type Category1 = 'Location' | 'Body' | 'Accessory' | 'Clothing' | 'Pose'
+export type Category1 = 'Accessory' | 'Body' | 'Clothing' | 'Location' | 'Pose'
 
 export type Category2 =
-  | 'Time'
-  | 'District'
-  | 'Skin'
-  | 'Holdables'
-  | 'Eyes'
-  | 'Outerwear'
-  | 'Eyewear'
-  | 'Pose'
-  | 'Tops'
-  | 'Hair'
-  | 'Set'
-  | 'Headwear'
-  | 'Jewellery'
-  | 'Shoes'
-  | 'Sports Equipment'
-  | 'Dresses'
-  | 'Dress-Ups'
-  | 'Facial Hair'
-  | 'Tools'
-  | 'Bottoms'
-  | 'Expression'
-  | 'Bows/Ties'
-  | 'Signs'
-  | 'Cooking'
-  | 'Companions'
   | 'Animal'
-  | 'Mobility'
+  | 'Bottoms'
+  | 'Bows/Ties'
+  | 'Chibi Poses'
+  | 'Companions'
+  | 'Cooking'
+  | 'District'
+  | 'Dress-Ups'
+  | 'Dresses'
+  | 'Expression'
+  | 'Eyes'
+  | 'Eyewear'
+  | 'Facial Hair'
+  | 'Hair'
+  | 'Headwear'
+  | 'Holdables'
+  | 'Jewellery'
   | 'Jumpsuits'
+  | 'Mobility'
+  | 'Outerwear'
+  | 'Set'
+  | 'Shoes'
+  | 'Signs'
+  | 'Skin'
+  | 'Sports Equipment'
+  | 'Stick Figure Poses'
+  | 'Time'
+  | 'Tools'
+  | 'Tops'
 
 export type Category3 =
-  | 'Tone'
-  | 'Drinks'
-  | 'Style'
-  | 'Jacket'
-  | 'Patch'
-  | 'Dress Shirt'
-  | 'Glasses'
-  | 'Other'
-  | 'Hat'
-  | 'Characteristics'
-  | 'Colour'
-  | 'Hoodie'
-  | 'Beanie'
-  | 'Shirt'
   | 'Bag'
-  | 'Tank Top'
-  | 'Earrings'
-  | 'Headband'
-  | 'Uniform'
-  | 'Tools'
-  | 'Pants'
-  | 'Shorts'
-  | 'Lashes'
-  | 'Gifts'
-  | 'Umbrella'
-  | 'Suit'
-  | 'Scarfs'
-  | 'Long Sleeve'
-  | 'Food'
-  | 'Hair Accessory'
-  | 'Cardigen'
-  | 'Piercings'
-  | 'Vest'
-  | 'Coat'
+  | 'Beanie'
   | 'Cape'
-  | 'Skirt'
-  | 'Gaming'
+  | 'Cardigen'
+  | 'Characteristics'
+  | 'Coat'
+  | 'Colour'
   | 'Devices'
-  | 'Tiara/Crowns'
-  | 'Necklace'
-  | 'Set'
+  | 'Dress Shirt'
+  | 'Drinks'
+  | 'Earrings'
+  | 'Food'
+  | 'Gaming'
+  | 'Gifts'
+  | 'Glasses'
+  | 'Hair Accessory'
+  | 'Hat'
+  | 'Headband'
   | 'Hobby'
+  | 'Hoodie'
+  | 'Jacket'
+  | 'Lashes'
+  | 'Long Sleeve'
+  | 'Necklace'
+  | 'Other'
+  | 'Pants'
+  | 'Patch'
+  | 'Piercings'
+  | 'Scarfs'
+  | 'Set'
+  | 'Shirt'
+  | 'Shorts'
+  | 'Skirt'
+  | 'Style'
+  | 'Suit'
+  | 'Tank Top'
+  | 'Tiara/Crowns'
+  | 'Tone'
+  | 'Tools'
+  | 'Umbrella'
+  | 'Uniform'
+  | 'Vest'
 
 export type Stage = 'Final' | 'In Quality Control'
 
@@ -4496,7 +4497,19 @@ const traitsData: TraitData[] = [
   },
   {
     zoomArea: 'Full Body',
-    category2: 'Pose',
+    category2: 'Chibi Poses',
+    stage: 'In Quality Control',
+    id: 387,
+    searchableTags: [],
+    basicFrontFile: 'Chibi Basic.svg',
+    category1: 'Pose',
+    frontIndex: 11000,
+    devTags: [],
+    name: 'Chibi Basic',
+  },
+  {
+    zoomArea: 'Full Body',
+    category2: 'Stick Figure Poses',
     stage: 'In Quality Control',
     id: 379,
     searchableTags: ['Hold'],
@@ -4510,7 +4523,7 @@ const traitsData: TraitData[] = [
   },
   {
     zoomArea: 'Full Body',
-    category2: 'Pose',
+    category2: 'Stick Figure Poses',
     stage: 'Final',
     id: 295,
     searchableTags: [],
@@ -4518,7 +4531,7 @@ const traitsData: TraitData[] = [
     category1: 'Pose',
     frontIndex: 11000,
     devTags: ['hidden_opensea'],
-    name: 'Basic',
+    name: 'OG Basic',
   },
 ]
 

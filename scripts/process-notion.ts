@@ -211,6 +211,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
     let typeDefinition =
       'export type ZoomArea = ' +
       Array.from(uniqueValues.ZoomArea)
+        .sort()
         .map(v => `'${v}'`)
         .join(' | ') +
       '\n\n'
@@ -218,6 +219,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
     typeDefinition +=
       'export type Category1 = ' +
       Array.from(uniqueValues.Category1)
+        .sort()
         .map(v => `'${v}'`)
         .join(' | ') +
       '\n\n'
@@ -225,7 +227,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
     typeDefinition +=
       'export type Category2 = ' +
       Array.from(uniqueValues.Category2)
-        .filter(v => v !== 'Hidden')
+        .sort()
         .map(v => `'${v}'`)
         .join(' | ') +
       '\n\n'
@@ -233,6 +235,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
     typeDefinition +=
       'export type Category3 = ' +
       Array.from(uniqueValues.Category3)
+        .sort()
         .map(v => `'${v}'`)
         .join(' | ') +
       '\n\n'
