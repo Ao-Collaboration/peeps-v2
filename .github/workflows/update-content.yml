@@ -52,13 +52,13 @@ jobs:
         id: create_pr
         uses: peter-evans/create-pull-request@v7
         with:
-          title: 'Content Update'
-          body: 'Automated content update from Notion'
+          title: 'Content Update: ${{ github.event.inputs.reason }}'
+          body: 'Automated content update: ${{ github.event.inputs.reason }}'
           branch: content-update
           branch-suffix: timestamp
           delete-branch: true
           base: 'main'
-          commit-message: 'Update content from Notion'
+          commit-message: 'Update content: ${{ github.event.inputs.reason }}'
           assignees: ${{ github.actor }}
 
       - name: Check outputs
