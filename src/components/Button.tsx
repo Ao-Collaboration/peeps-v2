@@ -9,10 +9,12 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({onClick, title, children, type = 'normal'}) => {
   const classColours =
-    type === 'error' ? 'bg-red-600 hover:bg-red-800' : 'bg-mint-500 hover:bg-mint-dark'
+    type === 'error'
+      ? 'bg-orange-500 hover:bg-orange-500/50 text-white'
+      : 'bg-navy-500 hover:bg-navy-500/50 text-white'
   return (
     <button
-      className={`cursor-pointer px-4 py-2 ${classColours} text-white rounded-md transition-colors`}
+      className={`cursor-pointer px-4 py-2 ${classColours} rounded-md transition-colors`}
       onClick={onClick}
       title={title}
     >

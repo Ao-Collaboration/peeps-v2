@@ -28,7 +28,7 @@ const Footer = () => {
                   href="https://aocollab.tech"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-mint-500 hover:text-mint-dark"
+                  className="text-navy-500 hover:text-navy-500/50"
                 >
                   Ao Collaboration Ltd
                 </a>
@@ -39,7 +39,7 @@ const Footer = () => {
                   href="https://peeps.club"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-mint-500 hover:text-mint-dark"
+                  className="text-navy-500 hover:text-navy-500/50"
                 >
                   Visit Main Site
                 </a>
@@ -47,7 +47,7 @@ const Footer = () => {
                   href="https://peeps.club"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-mint-500 hover:text-mint-dark"
+                  className="text-navy-500 hover:text-navy-500/50"
                 >
                   Visit Shop
                 </a>
@@ -59,13 +59,13 @@ const Footer = () => {
               <div className="space-y-2">
                 <a
                   href="https://peeps.club/terms-and-conditions"
-                  className="block text-mint-500 hover:text-mint-dark"
+                  className="block text-navy-500 hover:text-navy-500/50"
                 >
                   Terms & Conditions
                 </a>
                 <a
                   href="https://aocollab.tech/privacypolicy"
-                  className="block text-mint-500 hover:text-mint-dark"
+                  className="block text-navy-500 hover:text-navy-500/50"
                 >
                   Privacy Policy
                 </a>
@@ -80,7 +80,7 @@ const Footer = () => {
                     href="https://twitter.com/peeps_club"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-mint-500 hover:text-mint-dark"
+                    className="text-navy-500 hover:text-navy-500/50"
                   >
                     <FontAwesomeIcon icon={faXTwitter} />
                   </a>
@@ -88,7 +88,7 @@ const Footer = () => {
                     href="http://discord.gg/MFWHjMzfqR"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-mint-500 hover:text-mint-dark"
+                    className="text-navy-500 hover:text-navy-500/50"
                   >
                     <FontAwesomeIcon icon={faDiscord} />
                   </a>
