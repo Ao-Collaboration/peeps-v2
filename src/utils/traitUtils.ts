@@ -26,10 +26,6 @@ const DEFAULT_IMAGE_ENTRIES: ImageEntry[] = [
     index: 16000,
     filePath: 'Hidden/Eye Whites/Basic/Base.svg',
   },
-  {
-    index: 17000,
-    filePath: 'Hidden/Head/Basic/Base.svg',
-  },
 ]
 
 export const requireTraitByName = (traitsData: TraitData[], name: string): TraitData => {
@@ -112,10 +108,10 @@ export const createImageEntries = (
     ...selectedTraits.flatMap(trait => {
       if (trait.category2 === 'Skin' && trait.category3 === 'Tone') {
         return [
-          // This is the peep head skin.
+          // This is the peep head with skin.
           {
             index: 18501,
-            filePath: `Hidden/Skin/Basic.svg`,
+            filePath: `Peep Head/Basic/Peep Head.svg`,
             trait,
             replacements: [
               {
