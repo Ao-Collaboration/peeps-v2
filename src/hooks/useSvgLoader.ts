@@ -79,6 +79,20 @@ export const useSvgLoader = (): SvgLoaderResult => {
                 elements.forEach(element => {
                   element.setAttribute('fill', fillReplacement.replacementFill)
                 })
+                // Also check for elements with style="fill:#..." attribute
+                const allElements = svgElement.querySelectorAll('*')
+                allElements.forEach(element => {
+                  const style = element.getAttribute('style')
+                  if (style && style.includes(`fill:${fillReplacement.currentFill}`)) {
+                    element.setAttribute(
+                      'style',
+                      style.replace(
+                        `fill:${fillReplacement.currentFill}`,
+                        `fill:${fillReplacement.replacementFill}`,
+                      ),
+                    )
+                  }
+                })
               })
             }
 

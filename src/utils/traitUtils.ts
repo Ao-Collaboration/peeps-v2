@@ -51,6 +51,13 @@ const getHairColour = (selectedTraits: TraitData[]): string | undefined => {
   return undefined
 }
 
+const getSkinTone = (selectedTraits: TraitData[]): string | undefined => {
+  const skinTone = selectedTraits.find(
+    trait => trait.category2 === 'Skin' && trait.category3 === 'Tone',
+  )
+  return skinTone ? SKIN_TONES.get(skinTone.name) : undefined
+}
+
 export const createImageEntries = (
   selectedTraits: TraitData[],
   backgroundHidden: boolean = false,
@@ -63,6 +70,13 @@ export const createImageEntries = (
     return []
   }
 
+  const skinTone = getSkinTone(selectedTraits)
+  if (!skinTone) {
+    // Should never happen for a legal peep
+    console.error('No skin tone found')
+    return []
+  }
+
   if (backgroundHidden) {
     // Remove all "Location" traits
     selectedTraits = selectedTraits.filter(trait => trait.category1 !== 'Location')
@@ -72,31 +86,76 @@ export const createImageEntries = (
   const frontFileVar = `${poseNameCamel}FrontFile` as keyof TraitData
   const backFileVar = `${poseNameCamel}BackFile` as keyof TraitData
 
+  const addEntry = (
+    traitEntries: ImageEntry[],
+    trait: TraitData,
+    poseName: string,
+    index?: number,
+    fileName?: string,
+    replacements?: FillReplacement[],
+  ) => {
+    if (index && fileName) {
+      const filePath = [trait.category1, trait.category2, trait.name, poseName, fileName]
+        .filter(Boolean)
+        .join('/')
+      traitEntries.push({
+        index,
+        filePath,
+        trait,
+        replacements,
+      })
+    }
+  }
+
   let entries: ImageEntry[] = [
     ...DEFAULT_IMAGE_ENTRIES,
     ...selectedTraits.flatMap(trait => {
       if (trait.category2 === 'Skin' && trait.category3 === 'Tone') {
-        const skinTone = SKIN_TONES.get(trait.name)
-        if (skinTone) {
-          return [
-            //FIXME Don't do skin like this. Use the pose
-            {
-              index: 18501,
-              filePath: `Hidden/Skin/Basic.svg`,
-              trait,
-              replacements: [
-                {
-                  currentFill: SKIN_TONE_DEFAULT,
-                  replacementFill: skinTone,
-                },
-              ],
-            },
-          ]
-        }
+        return [
+          // This is the peep head skin.
+          {
+            index: 18501,
+            filePath: `Hidden/Skin/Basic.svg`,
+            trait,
+            replacements: [
+              {
+                currentFill: SKIN_TONE_DEFAULT,
+                replacementFill: skinTone,
+              },
+            ],
+          },
+        ]
       }
       if (trait.category2 === 'Hair' && trait.category3 === 'Colour') {
-        // Skip hair colour. See handling for Hair Style below
+        // Skip these colour layers. See handling below
         return []
+      }
+      if (trait.category1 === 'Pose') {
+        // Replace the skin tone in the pose
+        const traitEntries: ImageEntry[] = []
+        const replacements: FillReplacement[] = [
+          {
+            currentFill: SKIN_TONE_DEFAULT,
+            replacementFill: skinTone,
+          },
+        ]
+        addEntry(
+          traitEntries,
+          trait,
+          pose.name,
+          trait.backIndex,
+          trait[backFileVar] as string | undefined,
+          replacements,
+        )
+        addEntry(
+          traitEntries,
+          trait,
+          pose.name,
+          trait.frontIndex,
+          trait[frontFileVar] as string | undefined,
+          replacements,
+        )
+        return traitEntries
       }
       if (
         (trait.category2 === 'Hair' && trait.category3 === 'Style') ||
@@ -130,29 +189,20 @@ export const createImageEntries = (
         ]
       } else {
         const traitEntries: ImageEntry[] = []
-        const addEntry = (
-          trait: TraitData,
-          poseName: string,
-          index?: number,
-          fileName?: string,
-        ) => {
-          if (index && fileName) {
-            const filePath = [trait.category1, trait.category2, trait.name, poseName, fileName]
-              .filter(Boolean)
-              .join('/')
-            traitEntries.push({
-              index,
-              filePath,
-              trait,
-            })
-          }
-        }
-        if (!trait[backFileVar] && !trait[frontFileVar]) {
-          console.error(`Trait ${trait.name} has no back or front file for pose ${pose.name}`)
-          return []
-        }
-        addEntry(trait, pose.name, trait.backIndex, trait[backFileVar] as string | undefined)
-        addEntry(trait, pose.name, trait.frontIndex, trait[frontFileVar] as string | undefined)
+        addEntry(
+          traitEntries,
+          trait,
+          pose.name,
+          trait.backIndex,
+          trait[backFileVar] as string | undefined,
+        )
+        addEntry(
+          traitEntries,
+          trait,
+          pose.name,
+          trait.frontIndex,
+          trait[frontFileVar] as string | undefined,
+        )
         return traitEntries
       }
     }),
