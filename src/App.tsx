@@ -1,11 +1,7 @@
 import {useEffect} from 'react'
 
-import {faDice, faFloppyDisk, faShareNodes} from '@fortawesome/free-solid-svg-icons'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-
-import Button from './components/Button'
+import ButtonsBar from './components/ButtonsBar'
 import Canvas from './components/Canvas'
-import DownloadButton from './components/DownloadButton'
 import Footer from './components/Footer'
 import OrientationCheck from './components/OrientationCheck'
 import SaveLoadModal from './components/SaveLoadModal'
@@ -13,16 +9,13 @@ import TraitsPanel from './components/TraitsPanel'
 import {TraitData} from './data/traits'
 import {useAuth} from './providers/contexts/AuthContext'
 import {useCanvas} from './providers/contexts/CanvasContext'
-import {useModal} from './providers/contexts/ModalContext'
 import {usePeep} from './providers/contexts/PeepContext'
 import {decodeTraitsFromString, encodeTraitsToString} from './utils/traitUtils'
 
 function App() {
   const {account, setEmail} = useAuth()
   const {canvasRef} = useCanvas()
-  const {openModal, closeModal} = useModal()
-  const {selectedTraits, currentPeepName, setSelectedTraits, setCurrentPeepName, randomizePeep} =
-    usePeep()
+  const {selectedTraits, currentPeepName, setSelectedTraits, setCurrentPeepName} = usePeep()
 
   useEffect(() => {
     // Check for peep data in URL on load
@@ -86,28 +79,7 @@ function App() {
             <TraitsPanel onTraitsChange={handleTraitsChange} selectedTraits={selectedTraits} />
           </div>
           <div className="flex-1 flex flex-col h-full overflow-hidden">
-            <div className="flex justify-between items-center mx-4 my-2">
-              <h2 className="text-xl font-bold">{currentPeepName}</h2>
-              <div className="flex gap-2">
-                <Button onClick={() => openModal('saveLoad')} title="Save/Load Peep">
-                  <FontAwesomeIcon icon={faFloppyDisk} />
-                </Button>
-                <Button
-                  onClick={() => handleShare(currentPeepName || 'MyPeep', selectedTraits)}
-                  title="Share"
-                >
-                  <FontAwesomeIcon icon={faShareNodes} />
-                </Button>
-                {account.isAdmin && (
-                  <>
-                    <Button onClick={randomizePeep} title="Randomize">
-                      <FontAwesomeIcon icon={faDice} />
-                    </Button>
-                    <DownloadButton svgRef={canvasRef} currentName={currentPeepName} />
-                  </>
-                )}
-              </div>
-            </div>
+            <ButtonsBar currentPeepName={currentPeepName} selectedTraits={selectedTraits} />
             <div className="flex-1 overflow-hidden">
               <Canvas ref={canvasRef} selectedTraits={selectedTraits} />
             </div>
