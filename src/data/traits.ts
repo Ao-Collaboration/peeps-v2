@@ -1,16 +1,17 @@
-export type ZoomArea = 'Upper Body' | 'Mid Body' | 'Full Body' | 'Background' | 'Lower Body'
+export type ZoomArea = 'Full Body' | 'Upper Body' | 'Mid Body' | 'Background' | 'Lower Body'
 
-export type Category1 = 'Location' | 'Body' | 'Accessory' | 'Clothing' | 'Pose'
+export type Category1 = 'Location' | 'Pose' | 'Body' | 'Accessory' | 'Clothing'
 
 export type Category2 =
   | 'Time'
   | 'District'
+  | 'Chibi Poses'
   | 'Skin'
   | 'Holdables'
   | 'Eyes'
   | 'Outerwear'
   | 'Eyewear'
-  | 'Pose'
+  | 'Stick Figure Poses'
   | 'Tops'
   | 'Hair'
   | 'Set'
@@ -4496,7 +4497,19 @@ const traitsData: TraitData[] = [
   },
   {
     zoomArea: 'Full Body',
-    category2: 'Pose',
+    category2: 'Chibi Poses',
+    stage: 'In Quality Control',
+    id: 387,
+    searchableTags: [],
+    basicFrontFile: 'Chibi Basic.svg',
+    category1: 'Pose',
+    frontIndex: 11000,
+    devTags: [],
+    name: 'Chibi Basic',
+  },
+  {
+    zoomArea: 'Full Body',
+    category2: 'Stick Figure Poses',
     stage: 'In Quality Control',
     id: 379,
     searchableTags: ['Hold'],
@@ -4510,7 +4523,7 @@ const traitsData: TraitData[] = [
   },
   {
     zoomArea: 'Full Body',
-    category2: 'Pose',
+    category2: 'Stick Figure Poses',
     stage: 'Final',
     id: 295,
     searchableTags: [],
@@ -4518,7 +4531,7 @@ const traitsData: TraitData[] = [
     category1: 'Pose',
     frontIndex: 11000,
     devTags: ['hidden_opensea'],
-    name: 'Basic',
+    name: 'OG Basic',
   },
 ]
 
