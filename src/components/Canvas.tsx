@@ -1,23 +1,18 @@
 import {forwardRef, useEffect, useMemo, useState} from 'react'
 
-import {TraitData} from '../data/traits'
 import {useSvgLoader} from '../hooks/useSvgLoader'
 import {usePeep} from '../providers/contexts/PeepContext'
 import {createImageEntries} from '../utils/traitUtils'
 import Spinner from './Spinner'
 
-interface CanvasProps {
-  selectedTraits: TraitData[]
-}
-
-const Canvas = forwardRef<SVGSVGElement, CanvasProps>(({selectedTraits}, ref) => {
+const Canvas = forwardRef<SVGSVGElement>((_, ref) => {
   const {getSvgContent, loadSvg} = useSvgLoader()
-  const {backgroundHidden} = usePeep()
+  const {peep, backgroundHidden} = usePeep()
   const [loadingTraits, setLoadingTraits] = useState<string[]>([])
   const [loadingErrors, setLoadingErrors] = useState<string[]>([])
   const imageEntries = useMemo(
-    () => createImageEntries(selectedTraits, backgroundHidden),
-    [selectedTraits, backgroundHidden],
+    () => createImageEntries(peep.traits, backgroundHidden),
+    [peep.traits, backgroundHidden],
   )
 
   useEffect(() => {

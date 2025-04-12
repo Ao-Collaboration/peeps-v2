@@ -1,4 +1,5 @@
 import {TraitData, getTraitsData} from '../data/traits'
+import {PeepMetadata} from '../types/metadata'
 import {
   DEFAULT_HAIR_COLOURS,
   HAIR_COLOURS,
@@ -288,18 +289,20 @@ export const getRandomPeep = (allTraitData: TraitData[]): TraitData[] => {
 }
 
 // Convert traits array to a URL-safe string
-export function encodeTraitsToString(traits: TraitData[], name: string): string {
+export const encodePeepToString = (peep: PeepMetadata): string => {
   // Create a minimal representation of traits using just the name property
-  const minimalTraits = traits.map((t: TraitData) => t.id)
-  const data = {traits: minimalTraits, name: name}
+  const minimalTraits = peep.traits.map((t: TraitData) => t.id)
+  const data = {
+    traits: minimalTraits,
+    name: peep.name,
+    birthday: peep.birthday,
+  }
   // Convert to base64 and make URL safe
   return btoa(JSON.stringify(data)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
 }
 
 // Convert URL string back to traits array
-export function decodeTraitsFromString(
-  encoded: string,
-): {traits: TraitData[]; name: string} | null {
+export const decodePeepFromString = (encoded: string): PeepMetadata | null => {
   const allTraitData = getTraitsData(true) // Override admin check
   try {
     // Restore base64 padding and decode
@@ -326,8 +329,24 @@ export function decodeTraitsFromString(
     // Legalize the traits
     const legalizedTraits = legalizeTraits(allTraitData, decodedTraits)
 
-    return {traits: legalizedTraits, name: data.name}
+    // Ensure birthday data is properly structured
+    const birthday =
+      data.birthday && typeof data.birthday === 'object'
+        ? {
+            day: typeof data.birthday.day === 'number' ? data.birthday.day : 1,
+            month: typeof data.birthday.month === 'number' ? data.birthday.month : 1,
+          }
+        : {day: 1, month: 1}
+
+    const metadata: PeepMetadata = {
+      traits: legalizedTraits,
+      name: data.name,
+      birthday,
+    }
+
+    return metadata
   } catch (e) {
+    console.error('Failed to decode peep data:', e)
     return null
   }
 }

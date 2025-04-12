@@ -1,13 +1,11 @@
 import {createContext, useContext} from 'react'
 
-import {TraitData} from '../../data/traits'
+import {PeepMetadata} from '../../types/metadata'
 
 interface PeepContextType {
   randomizePeep: () => void
-  selectedTraits: TraitData[]
-  setSelectedTraits: (traits: TraitData[]) => void
-  currentPeepName: string
-  setCurrentPeepName: (name: string) => void
+  peep: PeepMetadata
+  setPeep: (peep: PeepMetadata) => void
   backgroundHidden: boolean
   setBackgroundHidden: (hidden: boolean) => void
 }

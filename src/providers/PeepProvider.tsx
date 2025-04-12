@@ -2,20 +2,28 @@ import {adjectives, names, uniqueNamesGenerator} from 'unique-names-generator'
 
 import {useState} from 'react'
 
-import {TraitData} from '../data/traits'
+import {PeepMetadata} from '../types/metadata'
 import {getDefaultPeep, getRandomPeep} from '../utils/traitUtils'
 import {useAuth} from './contexts/AuthContext'
 import {PeepContext} from './contexts/PeepContext'
 
 export const PeepProvider = ({children}: {children: React.ReactNode}) => {
   const {traitData} = useAuth()
-  const [selectedTraits, setSelectedTraits] = useState<TraitData[]>(getDefaultPeep())
-  const [currentPeepName, setCurrentPeepName] = useState<string>('')
   const [backgroundHidden, setBackgroundHidden] = useState<boolean>(false)
+  const [peep, setPeep] = useState<PeepMetadata>({
+    name: '',
+    traits: getDefaultPeep(),
+    birthday: {day: 1, month: 1},
+  })
 
   const randomizePeep = () => {
-    setSelectedTraits(getRandomPeep(traitData))
-    setCurrentPeepName(generateRandomName())
+    const newTraits = getRandomPeep(traitData)
+    const newName = generateRandomName()
+    setPeep(prev => ({
+      ...prev,
+      traits: newTraits,
+      name: newName,
+    }))
   }
 
   const generateRandomName = () => {
@@ -31,10 +39,8 @@ export const PeepProvider = ({children}: {children: React.ReactNode}) => {
     <PeepContext.Provider
       value={{
         randomizePeep,
-        selectedTraits,
-        setSelectedTraits,
-        currentPeepName,
-        setCurrentPeepName,
+        peep,
+        setPeep,
         backgroundHidden,
         setBackgroundHidden,
       }}

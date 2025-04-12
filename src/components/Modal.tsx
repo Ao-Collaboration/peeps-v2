@@ -4,22 +4,25 @@ import {faXmark} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 interface ModalProps {
-  children: React.ReactNode
-  title?: string
+  title: string
   onClose: () => void
+  children: React.ReactNode
+  'data-modal'?: string
 }
 
-const Modal: React.FC<ModalProps> = ({children, title, onClose}) => {
+const Modal: React.FC<ModalProps> = ({title, onClose, children, 'data-modal': dataModal}) => {
   return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/50 flex justify-center items-center z-100">
-      <div className="relative bg-white px-8 py-6 rounded-2xl">
-        <button
-          className="absolute top-1 right-3 text-gray-500 hover:text-gray-700 cursor-pointer"
-          onClick={onClose}
-        >
-          <FontAwesomeIcon icon={faXmark} />
-        </button>
-        {title && <h3 className="text-lg font-bold text-gray-800 mb-2">{title}</h3>}
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-6 max-w-md w-full" data-modal={dataModal}>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold">{title}</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 focus:outline-none"
+          >
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
+        </div>
         {children}
       </div>
     </div>

@@ -3,33 +3,23 @@ import React, {useEffect, useState} from 'react'
 import {faFloppyDisk, faFolderOpen, faShareNodes, faTrash} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
-import {TraitData} from '../data/traits'
 import {useModal} from '../providers/contexts/ModalContext'
+import {usePeep} from '../providers/contexts/PeepContext'
+import {PeepMetadata} from '../types/metadata'
 import Button from './Button'
 import Modal from './Modal'
 
-interface SavedPeep {
-  name: string
-  traits: TraitData[]
-}
-
 interface SaveLoadModalProps {
-  onSave: (name: string, traits: TraitData[]) => void
-  onLoad: (traits: TraitData[], name: string) => void
-  currentTraits: TraitData[]
-  onShare: (name: string, traits: TraitData[]) => void
-  currentName: string
+  onSave: (peep: PeepMetadata) => void
+  onLoad: (peep: PeepMetadata) => void
+  onShare: (peep: PeepMetadata) => void
+  peep: PeepMetadata
 }
 
-const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
-  onSave,
-  onLoad,
-  currentTraits,
-  onShare,
-  currentName,
-}) => {
+const SaveLoadModal: React.FC<SaveLoadModalProps> = ({onSave, onLoad, onShare}) => {
   const {isModalOpen, closeModal} = useModal()
-  const [savedPeeps, setSavedPeeps] = useState<SavedPeep[]>([])
+  const {peep, setPeep} = usePeep()
+  const [savedPeeps, setSavedPeeps] = useState<PeepMetadata[]>([])
   const [newPeepName, setNewPeepName] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -41,10 +31,10 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
   }, [])
 
   useEffect(() => {
-    if (isModalOpen('saveLoad') && currentName) {
-      setNewPeepName(currentName)
+    if (isModalOpen('saveLoad') && peep.name) {
+      setNewPeepName(peep.name)
     }
-  }, [isModalOpen, currentName])
+  }, [isModalOpen, peep.name])
 
   const handleSave = () => {
     if (!newPeepName.trim()) {
@@ -57,28 +47,31 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
       return
     }
 
-    const newPeep: SavedPeep = {
+    const newPeep: PeepMetadata = {
       name: newPeepName.trim(),
-      traits: currentTraits,
+      traits: peep.traits,
+      birthday: peep.birthday,
     }
 
     const updatedPeeps = [...savedPeeps, newPeep]
     setSavedPeeps(updatedPeeps)
     localStorage.setItem('savedPeeps', JSON.stringify(updatedPeeps))
-    onSave(newPeepName, currentTraits)
+    onSave(newPeep)
     setNewPeepName('')
     setErrorMessage('')
     closeModal('saveLoad')
   }
 
-  const handleLoad = (peep: SavedPeep) => {
-    onLoad(peep.traits, peep.name)
+  const handleLoad = (peep: PeepMetadata) => {
+    setPeep(peep)
+    setNewPeepName(peep.name)
+    onLoad(peep)
     closeModal('saveLoad')
   }
 
-  const handleUpdate = (peep: SavedPeep) => {
+  const handleUpdate = (peep: PeepMetadata) => {
     const updatedPeeps = savedPeeps.map(p =>
-      p.name === peep.name ? {...p, traits: currentTraits} : p,
+      p.name === peep.name ? {...p, traits: peep.traits, birthday: peep.birthday} : p,
     )
     setSavedPeeps(updatedPeeps)
     localStorage.setItem('savedPeeps', JSON.stringify(updatedPeeps))
@@ -96,10 +89,20 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
     setErrorMessage('')
   }
 
+  const handleBirthdayChange = (e: React.ChangeEvent<HTMLSelectElement>, type: 'day' | 'month') => {
+    setPeep({
+      ...peep,
+      birthday: {
+        ...peep.birthday,
+        [type]: parseInt(e.target.value),
+      },
+    })
+  }
+
   if (!isModalOpen('saveLoad')) return null
 
   return (
-    <Modal title="Save Peep" onClose={() => closeModal('saveLoad')}>
+    <Modal title="Save Peep" onClose={() => closeModal('saveLoad')} data-modal="saveLoad">
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <div className="flex gap-2">
@@ -116,6 +119,32 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
           </div>
           {errorMessage && <div className="text-red-500 text-xs">{errorMessage}</div>}
         </div>
+        <div className="flex gap-2">
+          <select
+            value={peep.birthday.month}
+            onChange={e => handleBirthdayChange(e, 'month')}
+            className="px-2 py-1 rounded-md border border-gray-300 focus:outline-none"
+            data-value="month"
+          >
+            {Array.from({length: 12}, (_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {new Date(2000, i, 1).toLocaleString('default', {month: 'long'})}
+              </option>
+            ))}
+          </select>
+          <select
+            value={peep.birthday.day}
+            onChange={e => handleBirthdayChange(e, 'day')}
+            className="px-2 py-1 rounded-md border border-gray-300 focus:outline-none"
+            data-value="day"
+          >
+            {Array.from({length: 31}, (_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {i + 1}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <hr className="border-gray-200 my-4" />
       <div className="flex flex-col gap-4 mb-4">
@@ -126,7 +155,20 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
               key={index}
               className="flex justify-between items-center py-2 px-4 rounded-lg bg-gray-50 border border-gray-200"
             >
-              <span className="text-sm text-gray-800 mr-8">{peep.name}</span>
+              <div className="flex flex-col">
+                <span className="text-sm text-gray-800">{peep.name}</span>
+                {peep.birthday && (
+                  <span className="text-xs text-gray-500">
+                    {new Date(2000, peep.birthday.month - 1, peep.birthday.day).toLocaleString(
+                      'default',
+                      {
+                        month: 'long',
+                        day: 'numeric',
+                      },
+                    )}
+                  </span>
+                )}
+              </div>
               <div className="flex gap-2">
                 <Button onClick={() => handleLoad(peep)} title="Load">
                   <FontAwesomeIcon icon={faFolderOpen} />
@@ -134,7 +176,7 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
                 <Button onClick={() => handleUpdate(peep)} title="Update">
                   <FontAwesomeIcon icon={faFloppyDisk} />
                 </Button>
-                <Button onClick={() => onShare(peep.name, peep.traits)} title="Share">
+                <Button onClick={() => onShare(peep)} title="Share">
                   <FontAwesomeIcon icon={faShareNodes} />
                 </Button>
                 <Button onClick={() => handleDelete(peep.name)} title="Delete" type="error">

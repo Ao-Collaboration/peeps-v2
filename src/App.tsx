@@ -6,16 +6,16 @@ import Footer from './components/Footer'
 import OrientationCheck from './components/OrientationCheck'
 import SaveLoadModal from './components/SaveLoadModal'
 import TraitsPanel from './components/TraitsPanel'
-import {TraitData} from './data/traits'
 import {useAuth} from './providers/contexts/AuthContext'
 import {useCanvas} from './providers/contexts/CanvasContext'
 import {usePeep} from './providers/contexts/PeepContext'
-import {decodeTraitsFromString, encodeTraitsToString} from './utils/traitUtils'
+import {PeepMetadata} from './types/metadata'
+import {decodePeepFromString, encodePeepToString} from './utils/traitUtils'
 
 function App() {
   const {account, setEmail} = useAuth()
   const {canvasRef} = useCanvas()
-  const {selectedTraits, currentPeepName, setSelectedTraits, setCurrentPeepName} = usePeep()
+  const {peep, setPeep} = usePeep()
 
   useEffect(() => {
     // Check for peep data in URL on load
@@ -34,30 +34,24 @@ function App() {
     }
 
     if (encodedPeep) {
-      const decoded = decodeTraitsFromString(encodedPeep)
+      const decoded = decodePeepFromString(encodedPeep)
       if (decoded) {
-        setSelectedTraits(decoded.traits)
-        setCurrentPeepName(decoded.name)
+        setPeep(decoded)
       }
       window.history.replaceState({}, '', window.location.pathname)
     }
-  }, [setEmail, setSelectedTraits, setCurrentPeepName])
+  }, [setEmail, setPeep])
 
-  const handleTraitsChange = (traits: TraitData[]) => {
-    setSelectedTraits(traits)
+  const handleSave = (newPeep: PeepMetadata) => {
+    setPeep(newPeep)
   }
 
-  const handleSave = (name: string) => {
-    setCurrentPeepName(name)
+  const handleLoad = (newPeep: PeepMetadata) => {
+    setPeep(newPeep)
   }
 
-  const handleLoad = (traits: TraitData[], name: string) => {
-    setSelectedTraits(traits)
-    setCurrentPeepName(name)
-  }
-
-  const handleShare = (name: string, traits: TraitData[]) => {
-    const encoded = encodeTraitsToString(traits, name)
+  const handleShare = (peep: PeepMetadata) => {
+    const encoded = encodePeepToString(peep)
     const url = `${window.location.origin}${window.location.pathname}?peep=${encoded}${
       account.email ? `&fromEmail=${btoa(account.email)}` : ''
     }`
@@ -76,23 +70,17 @@ function App() {
       <div className="h-screen w-screen overflow-hidden bg-mint-sand-sky">
         <div className="flex h-full w-full overflow-hidden">
           <div className="w-xs h-full overflow-hidden">
-            <TraitsPanel onTraitsChange={handleTraitsChange} selectedTraits={selectedTraits} />
+            <TraitsPanel />
           </div>
           <div className="flex-1 flex flex-col h-full overflow-hidden">
-            <ButtonsBar currentPeepName={currentPeepName} selectedTraits={selectedTraits} />
+            <ButtonsBar peep={peep} />
             <div className="flex-1 overflow-hidden">
-              <Canvas ref={canvasRef} selectedTraits={selectedTraits} />
+              <Canvas ref={canvasRef} />
             </div>
             <Footer />
           </div>
         </div>
-        <SaveLoadModal
-          onSave={handleSave}
-          onLoad={handleLoad}
-          onShare={handleShare}
-          currentTraits={selectedTraits}
-          currentName={currentPeepName}
-        />
+        <SaveLoadModal onSave={handleSave} onLoad={handleLoad} onShare={handleShare} peep={peep} />
       </div>
     </OrientationCheck>
   )

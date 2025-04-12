@@ -2,16 +2,14 @@ import React, {useMemo, useState} from 'react'
 
 import {Category1, TraitData} from '../data/traits'
 import {useAuth} from '../providers/contexts/AuthContext'
+import {usePeep} from '../providers/contexts/PeepContext'
 import {legalizeTraits} from '../utils/traitUtils'
 
-interface TraitsPanelProps {
-  onTraitsChange: (selectedTraits: TraitData[]) => void
-  selectedTraits: TraitData[]
-}
-
-const TraitsPanel: React.FC<TraitsPanelProps> = ({onTraitsChange, selectedTraits}) => {
+const TraitsPanel: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const {traitData} = useAuth()
+  const {peep, setPeep} = usePeep()
+
   // Filter traits based on search term
   const filteredTraits = useMemo(() => {
     if (!searchTerm) return traitData
@@ -62,17 +60,17 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({onTraitsChange, selectedTraits
   }, [filteredTraits])
 
   const handleTraitToggle = (trait: TraitData) => {
-    const isSelected = selectedTraits.some(t => t.name === trait.name)
+    const isSelected = peep.traits.some(t => t.name === trait.name)
 
-    let newSelectedTraits: TraitData[]
+    let newTraits: TraitData[]
     if (isSelected) {
-      newSelectedTraits = selectedTraits.filter(t => t.name !== trait.name)
+      newTraits = peep.traits.filter(t => t.name !== trait.name)
     } else {
-      newSelectedTraits = [...selectedTraits, trait]
+      newTraits = [...peep.traits, trait]
     }
 
-    newSelectedTraits = legalizeTraits(traitData, newSelectedTraits)
-    onTraitsChange(newSelectedTraits)
+    newTraits = legalizeTraits(traitData, newTraits)
+    setPeep({...peep, traits: newTraits})
   }
 
   return (
@@ -106,7 +104,7 @@ const TraitsPanel: React.FC<TraitsPanelProps> = ({onTraitsChange, selectedTraits
                           <label className="flex items-center cursor-pointer text-sm text-gray-600">
                             <input
                               type="checkbox"
-                              checked={selectedTraits.some(t => t.name === trait.name)}
+                              checked={peep.traits.some(t => t.name === trait.name)}
                               onChange={() => handleTraitToggle(trait)}
                               className="mr-2"
                             />
