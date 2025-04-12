@@ -86,15 +86,26 @@ export interface TraitData {
   id: number
   searchableTags: string[]
   basicFrontFile?: string
-  holdBackFile?: string
+  formula?: string
+  armBehindBackFrontFile?: string
+  holdingBackFile?: string
+  peaceBackFile?: string
+  chibiBasicFrontFile?: string
+  waveBackFile?: string
+  chibiBasicBackFile?: string
   category1: Category1
   holderExclusive?: string
   basicBackFile?: string
+  armBehindBackBackFile?: string
+  waveFrontFile?: string
+  hipFrontFile?: string
   category3?: Category3
   frontIndex?: number
+  hipBackFile?: string
+  peaceFrontFile?: string
   devTags: string[]
   backIndex?: number
-  holdFrontFile?: string
+  holdingFrontFile?: string
   name: string
 }
 
@@ -172,7 +183,7 @@ const traitsData: TraitData[] = [
     holderExclusive: 'Chonk Society',
     frontIndex: 1000,
     devTags: ['Hold'],
-    holdFrontFile: 'Exclusive CS Plushie.svg',
+    holdingFrontFile: 'Exclusive CS Plushie.svg',
     name: 'Exclusive CS Plushie',
   },
   {
@@ -827,7 +838,7 @@ const traitsData: TraitData[] = [
     category3: 'Bag',
     frontIndex: 1000,
     devTags: ['Hold'],
-    holdFrontFile: 'Handbag.svg',
+    holdingFrontFile: 'Handbag.svg',
     name: 'Handbag',
   },
   {
@@ -841,7 +852,7 @@ const traitsData: TraitData[] = [
     category3: 'Devices',
     frontIndex: 1000,
     devTags: ['Hold'],
-    holdFrontFile: 'Laptop.svg',
+    holdingFrontFile: 'Laptop.svg',
     name: 'Laptop',
   },
   {
@@ -868,7 +879,7 @@ const traitsData: TraitData[] = [
     category3: 'Drinks',
     frontIndex: 1000,
     devTags: ['Hold'],
-    holdFrontFile: 'Coffee.svg',
+    holdingFrontFile: 'Coffee.svg',
     name: 'Coffee',
   },
   {
@@ -935,7 +946,7 @@ const traitsData: TraitData[] = [
     category3: 'Gaming',
     frontIndex: 1000,
     devTags: ['Hold'],
-    holdFrontFile: 'Controller.svg',
+    holdingFrontFile: 'Controller.svg',
     name: 'Controller',
   },
   {
@@ -949,7 +960,7 @@ const traitsData: TraitData[] = [
     category3: 'Gifts',
     frontIndex: 1000,
     devTags: ['Hold'],
-    holdFrontFile: 'Sunflowers.svg',
+    holdingFrontFile: 'Sunflowers.svg',
     name: 'Sunflowers',
   },
   {
@@ -963,7 +974,7 @@ const traitsData: TraitData[] = [
     category3: 'Gifts',
     frontIndex: 1000,
     devTags: ['Hold'],
-    holdFrontFile: 'Present.svg',
+    holdingFrontFile: 'Present.svg',
     name: 'Present',
   },
   {
@@ -977,7 +988,7 @@ const traitsData: TraitData[] = [
     category3: 'Gifts',
     frontIndex: 1000,
     devTags: ['Hold'],
-    holdFrontFile: 'Plant.svg',
+    holdingFrontFile: 'Plant.svg',
     name: 'Plant',
   },
   {
@@ -991,7 +1002,7 @@ const traitsData: TraitData[] = [
     category3: 'Gifts',
     frontIndex: 1000,
     devTags: ['Hold'],
-    holdFrontFile: 'Balloonie.svg',
+    holdingFrontFile: 'Balloonie.svg',
     name: 'Balloonie',
   },
   {
@@ -1147,7 +1158,7 @@ const traitsData: TraitData[] = [
     category1: 'Accessory',
     frontIndex: 1000,
     devTags: ['Hold'],
-    holdFrontFile: 'Walking Stick.svg',
+    holdingFrontFile: 'Walking Stick.svg',
     name: 'Walking Stick',
   },
   {
@@ -4501,7 +4512,7 @@ const traitsData: TraitData[] = [
     stage: 'In Quality Control',
     id: 387,
     searchableTags: [],
-    basicFrontFile: 'Chibi Basic.svg',
+    chibiBasicFrontFile: 'Chibi Basic.svg',
     category1: 'Pose',
     frontIndex: 11000,
     devTags: [],
@@ -4513,12 +4524,12 @@ const traitsData: TraitData[] = [
     stage: 'In Quality Control',
     id: 379,
     searchableTags: ['Hold'],
-    basicFrontFile: 'Holding Top.svg',
+    holdingBackFile: 'Holding.svg',
     category1: 'Pose',
-    basicBackFile: 'Holding.svg',
     frontIndex: 5500,
     devTags: ['hidden_opensea'],
     backIndex: 11000,
+    holdingFrontFile: 'Holding Top.svg',
     name: 'Holding',
   },
   {
