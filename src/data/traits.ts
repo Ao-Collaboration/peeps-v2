@@ -4531,7 +4531,7 @@ const traitsData: TraitData[] = [
     category1: 'Pose',
     frontIndex: 11000,
     devTags: ['hidden_opensea'],
-    name: 'OG Basic',
+    name: 'Basic',
   },
 ]
 

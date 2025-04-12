@@ -37,8 +37,8 @@ export const requireTraitByName = (traitsData: TraitData[], name: string): Trait
 }
 
 const getHairColour = (selectedTraits: TraitData[]): string | undefined => {
-  const hairColour = selectedTraits.find(
-    trait => trait.category2 === 'Hair' && trait.category3 === 'Colour',
+  const hairColour = selectedTraits.find(trait =>
+    requiredCategoryMatches(trait, {category1: 'Body', category2: 'Hair', category3: 'Colour'}),
   )
   if (hairColour) {
     return HAIR_COLOURS.get(hairColour.name)
@@ -48,8 +48,8 @@ const getHairColour = (selectedTraits: TraitData[]): string | undefined => {
 }
 
 const getSkinTone = (selectedTraits: TraitData[]): string | undefined => {
-  const skinTone = selectedTraits.find(
-    trait => trait.category2 === 'Skin' && trait.category3 === 'Tone',
+  const skinTone = selectedTraits.find(trait =>
+    requiredCategoryMatches(trait, {category1: 'Body', category2: 'Skin', category3: 'Tone'}),
   )
   return skinTone ? SKIN_TONES.get(skinTone.name) : undefined
 }
@@ -214,6 +214,20 @@ export const createImageEntries = (
   return entries.sort((a, b) => b.index - a.index)
 }
 
+const requiredCategoryMatches = (trait: TraitData, required: RequiredCategory): boolean => {
+  if (required.category3) {
+    return (
+      trait.category1 === required.category1 &&
+      trait.category2 === required.category2 &&
+      trait.category3 === required.category3
+    )
+  }
+  if (required.category2) {
+    return trait.category1 === required.category1 && trait.category2 === required.category2
+  }
+  return trait.category1 === required.category1
+}
+
 export const legalizeTraits = (
   allTraitData: TraitData[],
   selectedTraits: TraitData[],
@@ -226,12 +240,9 @@ export const legalizeTraits = (
     const trait = selectedTraits[i]
 
     // Find matching required category for this trait
-    const matchingCategory = REQUIRED_CATEGORIES.find(required => {
-      if (required.category3) {
-        return trait.category2 === required.category2 && trait.category3 === required.category3
-      }
-      return trait.category2 === required.category2
-    })
+    const matchingCategory = REQUIRED_CATEGORIES.find(required =>
+      requiredCategoryMatches(trait, required),
+    )
 
     if (matchingCategory && !categoryToTrait.has(matchingCategory)) {
       categoryToTrait.set(matchingCategory, trait)
@@ -243,12 +254,9 @@ export const legalizeTraits = (
 
   // Add all non-required category traits
   selectedTraits.forEach(trait => {
-    const isRequired = REQUIRED_CATEGORIES.some(required => {
-      if (required.category3) {
-        return trait.category2 === required.category2 && trait.category3 === required.category3
-      }
-      return trait.category2 === required.category2
-    })
+    const isRequired = REQUIRED_CATEGORIES.some(required =>
+      requiredCategoryMatches(trait, required),
+    )
 
     if (!isRequired) {
       result.push(trait)
@@ -262,14 +270,7 @@ export const legalizeTraits = (
       result.push(trait)
     } else {
       // If no trait was selected for this category, add the first available one
-      const firstTrait = allTraitData.find(t => {
-        if (requiredCategory.category3) {
-          return (
-            t.category2 === requiredCategory.category2 && t.category3 === requiredCategory.category3
-          )
-        }
-        return t.category2 === requiredCategory.category2
-      })
+      const firstTrait = allTraitData.find(t => requiredCategoryMatches(t, requiredCategory))
       if (firstTrait) {
         result.push(firstTrait)
       }
@@ -305,25 +306,21 @@ export const getRandomPeep = (allTraitData: TraitData[]): TraitData[] => {
   const randomTraits: TraitData[] = []
 
   // For each required category (+ tops and bottoms), find all matching traits and randomly select one
-  const requiredCategories = [
+  const requiredCategories: RequiredCategory[] = [
     ...REQUIRED_CATEGORIES,
     {
+      category1: 'Clothing',
       category2: 'Tops',
     },
     {
+      category1: 'Clothing',
       category2: 'Bottoms',
     },
   ]
   requiredCategories.forEach(requiredCategory => {
-    const matchingTraits = allTraitData.filter(trait => {
-      if (requiredCategory.category3) {
-        return (
-          trait.category2 === requiredCategory.category2 &&
-          trait.category3 === requiredCategory.category3
-        )
-      }
-      return trait.category2 === requiredCategory.category2
-    })
+    const matchingTraits = allTraitData.filter(trait =>
+      requiredCategoryMatches(trait, requiredCategory),
+    )
 
     if (matchingTraits.length > 0) {
       const randomIndex = Math.floor(Math.random() * matchingTraits.length)

@@ -50,19 +50,20 @@ export const HAIR_COLOURS: Map<string, string> = new Map([
 ])
 
 export type RequiredCategory = {
-  category2: string
+  category1: string
+  category2?: string
   category3?: string
 }
 
 export const REQUIRED_CATEGORIES: RequiredCategory[] = [
-  {category2: 'District'},
-  {category2: 'Time'},
-  {category2: 'Eyes', category3: 'Style'},
-  {category2: 'Eyes', category3: 'Colour'},
-  {category2: 'Eyes', category3: 'Lashes'},
-  {category2: 'Skin', category3: 'Tone'},
-  {category2: 'Hair', category3: 'Style'},
-  {category2: 'Hair', category3: 'Colour'},
-  {category2: 'Expression'},
-  {category2: 'Pose'},
+  {category1: 'Location', category2: 'District'},
+  {category1: 'Location', category2: 'Time'},
+  {category1: 'Body', category2: 'Eyes', category3: 'Style'},
+  {category1: 'Body', category2: 'Eyes', category3: 'Colour'},
+  {category1: 'Body', category2: 'Eyes', category3: 'Lashes'},
+  {category1: 'Body', category2: 'Skin', category3: 'Tone'},
+  {category1: 'Body', category2: 'Hair', category3: 'Style'},
+  {category1: 'Body', category2: 'Hair', category3: 'Colour'},
+  {category1: 'Body', category2: 'Expression'},
+  {category1: 'Pose'},
 ]
