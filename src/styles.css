@@ -59,6 +59,18 @@ code {
   --color-navy-900: oklch(0.135 0.081 246.4);
   --color-navy-950: oklch(0.065 0.071 241.4);
 
+  --color-blue-50: oklch(1 0 229);
+  --color-blue-100: oklch(1 0 214);
+  --color-blue-200: oklch(1 0 209);
+  --color-blue-300: oklch(0.953 0.059 208);
+  --color-blue-400: oklch(0.873 0.089 214);
+  --color-blue-500: #60cde9;
+  --color-blue-600: oklch(0.703 0.119 214);
+  --color-blue-700: oklch(0.633 0.119 219);
+  --color-blue-800: oklch(0.553 0.109 224);
+  --color-blue-900: oklch(0.493 0.109 224);
+  --color-blue-950: oklch(0.423 0.099 219);
+
   --color-yellow-50: oklch(1 0.026 113.17);
   --color-yellow-100: oklch(1 0.071 114.15);
   --color-yellow-200: oklch(1 0.129 112.49);
@@ -86,11 +98,11 @@ code {
 
 @layer utilities {
   .bg-app-gradient {
-    /* background: linear-gradient(
-      135deg,
-      var(--color-navy-300) 0%,
-      var(--color-yellow-100) 50%,
-      var(--color-yellow-100) 100%
-    ); */
+    background: linear-gradient(
+      315deg,
+      var(--color-blue-500) 0%,
+      var(--color-blue-500) 30%,
+      var(--color-yellow-500) 100%
+    );
   }
 }

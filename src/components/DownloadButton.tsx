@@ -11,9 +11,10 @@ import Modal from './Modal'
 interface DownloadButtonProps {
   svgRef: React.RefObject<SVGSVGElement | null>
   currentName?: string
+  invert?: boolean
 }
 
-const DownloadButton: React.FC<DownloadButtonProps> = ({svgRef, currentName}) => {
+const DownloadButton: React.FC<DownloadButtonProps> = ({svgRef, currentName, invert = false}) => {
   const {isModalOpen, openModal, closeModal} = useModal()
 
   const handleDownload = async (format: 'SVG' | 'PNG') => {
@@ -24,7 +25,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({svgRef, currentName}) =>
 
   return (
     <>
-      <Button onClick={() => openModal('download')} title="Download Peep">
+      <Button onClick={() => openModal('download')} title="Download Peep" invert={invert}>
         <FontAwesomeIcon icon={faDownload} />
       </Button>
 

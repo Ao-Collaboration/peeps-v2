@@ -18,9 +18,10 @@ import DownloadButton from './DownloadButton'
 
 interface ButtonsBarProps {
   peep: PeepMetadata
+  invert?: boolean
 }
 
-export default function ButtonsBar({peep}: ButtonsBarProps) {
+export default function ButtonsBar({peep, invert = false}: ButtonsBarProps) {
   const {account} = useAuth()
   const {canvasRef} = useCanvas()
   const {openModal} = useModal()
@@ -45,21 +46,25 @@ export default function ButtonsBar({peep}: ButtonsBarProps) {
     <div className="flex justify-between items-center mx-4 my-2">
       <h2 className="text-xl font-bold">{peep.name}</h2>
       <div className="flex gap-2">
-        <Button onClick={() => openModal('saveLoad')} title="Save/Load Peep">
+        <Button onClick={() => openModal('saveLoad')} title="Save/Load Peep" invert={invert}>
           <FontAwesomeIcon icon={faFloppyDisk} />
         </Button>
-        <Button onClick={() => handleShare(peep)} title="Share">
+        <Button onClick={() => handleShare(peep)} title="Share" invert={invert}>
           <FontAwesomeIcon icon={faShareNodes} />
         </Button>
         {account.isAdmin && (
           <>
-            <Button onClick={randomizePeep} title="Randomize">
+            <Button onClick={randomizePeep} title="Randomize" invert={invert}>
               <FontAwesomeIcon icon={faDice} />
             </Button>
-            <DownloadButton svgRef={canvasRef} currentName={peep.name} />
+            <DownloadButton svgRef={canvasRef} currentName={peep.name} invert={invert} />
           </>
         )}
-        <Button onClick={() => setBackgroundHidden(!backgroundHidden)} title="Toggle Background">
+        <Button
+          onClick={() => setBackgroundHidden(!backgroundHidden)}
+          title="Toggle Background"
+          invert={invert}
+        >
           <FontAwesomeIcon icon={backgroundHidden ? faEye : faEyeSlash} />
         </Button>
       </div>
