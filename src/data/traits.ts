@@ -2913,7 +2913,7 @@ const traitsData: TraitData[] = [
     category1: 'Body',
     category3: 'Tone',
     devTags: ['hidden_opensea'],
-    name: 'Blue Skin Tone',
+    name: 'Blue',
   },
   {
     zoomArea: 'Upper Body',
