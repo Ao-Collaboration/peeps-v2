@@ -153,7 +153,7 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({onSave, onLoad, onShare}) 
           {savedPeeps.map((peep, index) => (
             <div
               key={index}
-              className="flex justify-between items-center py-2 px-4 rounded-lg bg-gray-50 border border-gray-200"
+              className="flex justify-between items-center gap-4 py-2 px-4 rounded-lg bg-gray-50 border border-gray-200"
             >
               <div className="flex flex-col">
                 <span className="text-sm text-gray-800">{peep.name}</span>

@@ -13,8 +13,11 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({title, onClose, children, 'data-modal': dataModal}) => {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 max-w-md w-full" data-modal={dataModal}>
-        <div className="flex justify-between items-center mb-4">
+      <div
+        className="bg-white rounded-lg p-6 max-w-[100vw] max-h-[100vh] overflow-y-auto"
+        data-modal={dataModal}
+      >
+        <div className="flex justify-between items-center mb-4 top-0 bg-white">
           <h2 className="text-xl font-bold">{title}</h2>
           <button
             onClick={onClose}
