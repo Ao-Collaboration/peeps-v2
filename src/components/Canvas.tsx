@@ -51,9 +51,9 @@ const Canvas = forwardRef<SVGSVGElement>((_, ref) => {
             <div className="text-sm text-center">
               <p className="text-gray-800 mb-3">Loading...</p>
               <ul className="list-none">
-                {loadingTraits.map(trait => (
+                {loadingTraits.map((trait, i) => (
                   <li
-                    key={trait}
+                    key={`${trait}-${i}`}
                     className="my-2 px-2 py-1 bg-gray-100 rounded-md text-gray-500 flex justify-between gap-2"
                   >
                     <span className="mr-2">{trait}</span>
