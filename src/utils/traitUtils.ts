@@ -62,6 +62,7 @@ export const createImageEntries = (
   const pose = selectedTraits.find(trait => trait.category1 === 'Pose')
   if (!pose) {
     // Should never happen for a legal peep
+    console.log(selectedTraits)
     console.error('No pose trait found')
     return []
   }
@@ -69,6 +70,7 @@ export const createImageEntries = (
   const skinTone = getSkinTone(selectedTraits)
   if (!skinTone) {
     // Should never happen for a legal peep
+    console.log(selectedTraits)
     console.error('No skin tone found')
     return []
   }
