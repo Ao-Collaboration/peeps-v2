@@ -82,15 +82,26 @@ export const createImageEntries = (
   const frontFileVar = `${poseNameCamel}FrontFile` as keyof TraitData
   const backFileVar = `${poseNameCamel}BackFile` as keyof TraitData
 
+  const backupPose = 'Basic'
+  const frontBackupFileVar = `basicFrontFile` as keyof TraitData
+  const backBackupFileVar = `basicBackFile` as keyof TraitData
+
   const addEntry = (
     traitEntries: ImageEntry[],
     trait: TraitData,
     poseName: string,
+    fileNameVar: keyof TraitData,
+    backupFilenameVar: keyof TraitData,
     index?: number,
-    fileName?: string,
     replacements?: FillReplacement[],
   ) => {
-    if (index && fileName) {
+    if (index) {
+      let fileName = trait[fileNameVar] as string | undefined
+      if (!fileName) {
+        // Use backups
+        poseName = backupPose
+        fileName = trait[backupFilenameVar] as string | undefined
+      }
       const filePath = [trait.category1, trait.category2, trait.name, poseName, fileName]
         .filter(Boolean)
         .join('/')
@@ -139,16 +150,18 @@ export const createImageEntries = (
           traitEntries,
           trait,
           pose.name,
+          backFileVar,
+          backBackupFileVar,
           trait.backIndex,
-          trait[backFileVar] as string | undefined,
           replacements,
         )
         addEntry(
           traitEntries,
           trait,
           pose.name,
+          frontFileVar,
+          frontBackupFileVar,
           trait.frontIndex,
-          trait[frontFileVar] as string | undefined,
           replacements,
         )
         return traitEntries
@@ -158,20 +171,22 @@ export const createImageEntries = (
         trait.category2 === 'Facial Hair'
       ) {
         // Special case for hair handling
-        const filePath = [
-          trait.category1,
-          trait.category2,
-          trait.name,
-          pose.name,
-          trait[frontFileVar],
-        ]
-          .filter(Boolean)
-          .join('/')
         const hairColour = getHairColour(selectedTraits)
         if (!trait.frontIndex) {
           console.error(`Hair style ${trait.name} has no front index`)
           return []
         }
+
+        let fileName = trait[frontFileVar] as string | undefined
+        let poseName = pose.name
+        if (!fileName) {
+          // Use backups
+          fileName = trait[frontBackupFileVar] as string | undefined
+          poseName = backupPose
+        }
+        const filePath = [trait.category1, trait.category2, trait.name, poseName, fileName]
+          .filter(Boolean)
+          .join('/')
         return [
           {
             index: trait.frontIndex,
@@ -185,20 +200,8 @@ export const createImageEntries = (
         ]
       } else {
         const traitEntries: ImageEntry[] = []
-        addEntry(
-          traitEntries,
-          trait,
-          pose.name,
-          trait.backIndex,
-          trait[backFileVar] as string | undefined,
-        )
-        addEntry(
-          traitEntries,
-          trait,
-          pose.name,
-          trait.frontIndex,
-          trait[frontFileVar] as string | undefined,
-        )
+        addEntry(traitEntries, trait, pose.name, backFileVar, backBackupFileVar, trait.backIndex)
+        addEntry(traitEntries, trait, pose.name, frontFileVar, frontBackupFileVar, trait.frontIndex)
         return traitEntries
       }
     }),
