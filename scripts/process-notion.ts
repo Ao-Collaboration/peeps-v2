@@ -60,16 +60,16 @@ async function downloadNotionTable(databaseId: string): Promise<string> {
           // Handle different property types
           switch (property.type) {
             case 'title':
-              row[key] = property.title?.[0]?.plain_text || ''
+              row[key] = property.title?.[0]?.plain_text?.trim() || ''
               break
             case 'rich_text':
-              row[key] = property.rich_text?.[0]?.plain_text || ''
+              row[key] = property.rich_text?.[0]?.plain_text?.trim() || ''
               break
             case 'number':
               row[key] = property.number
               break
             case 'select':
-              row[key] = property.select?.name || ''
+              row[key] = property.select?.name?.trim() || ''
               break
             case 'multi_select':
               row[key] = property.multi_select?.map((item: any) => item.name) || []
@@ -96,7 +96,7 @@ async function downloadNotionTable(databaseId: string): Promise<string> {
               }
               break
             case 'status':
-              row[key] = property.status?.name
+              row[key] = property.status?.name?.trim() || ''
               break
             case 'unique_id':
               row[key] = property.unique_id?.number
