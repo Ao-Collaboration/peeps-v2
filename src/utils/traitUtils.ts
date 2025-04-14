@@ -28,14 +28,6 @@ const DEFAULT_IMAGE_ENTRIES: ImageEntry[] = [
   },
 ]
 
-export const requireTraitByName = (traitsData: TraitData[], name: string): TraitData => {
-  const trait = traitsData.find(trait => trait.name === name)
-  if (!trait) {
-    throw new Error(`Trait not found: ${name}`)
-  }
-  return trait
-}
-
 const getHairColour = (selectedTraits: TraitData[]): string | undefined => {
   const hairColour = selectedTraits.find(trait =>
     requiredCategoryMatches(trait, {category1: 'Body', category2: 'Hair', category3: 'Colour'}),
@@ -287,22 +279,30 @@ export const legalizeTraits = (
 
 export const getDefaultPeep = (): TraitData[] => {
   const traitsData = getTraitsData()
-  const defaultTraits: TraitData[] = [
-    requireTraitByName(traitsData, 'Basic'),
-    requireTraitByName(traitsData, 'Almond'),
-    requireTraitByName(traitsData, 'Fantasy'),
-    requireTraitByName(traitsData, 'Hazel'),
-    requireTraitByName(traitsData, 'Classic Eyelashes'),
-    requireTraitByName(traitsData, 'Twin Braids'),
-    requireTraitByName(traitsData, 'Shocked'),
-    requireTraitByName(traitsData, 'Bucket Hat'),
-    requireTraitByName(traitsData, 'Hoop Earrings'),
-    requireTraitByName(traitsData, 'Muscle T-Shirt'),
-    requireTraitByName(traitsData, 'Cargo Pants'),
-    requireTraitByName(traitsData, 'Crocs'),
-    requireTraitByName(traitsData, 'Beach'),
-    requireTraitByName(traitsData, 'Sunset'),
+
+  const defaultTraits: TraitData[] = []
+  const defaultTraitNames = [
+    'Basic',
+    'Almond',
+    'Stars',
+    'Hazel',
+    'Outline',
+    'Twin Braids',
+    'Blush',
+    'Bucket Hat',
+    'Muscle T-Shirt',
+    'Cargo Pants',
+    'Crocs',
+    'Mountains',
+    'Night',
   ]
+
+  for (const traitName of defaultTraitNames) {
+    const trait = traitsData.find(trait => trait.name === traitName)
+    if (trait) {
+      defaultTraits.push(trait)
+    }
+  }
 
   return legalizeTraits(traitsData, defaultTraits)
 }
