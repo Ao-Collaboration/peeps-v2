@@ -111,6 +111,17 @@ export interface TraitData {
 
 const traitsData: TraitData[] = [
   {
+    zoomArea: 'Background',
+    category2: 'Animal',
+    stage: 'Art Updates',
+    id: 213,
+    searchableTags: ['Halloween', 'Animal', 'Bat', 'Witch', 'Seasonal', 'Background', 'Black'],
+    category1: 'Accessory',
+    frontIndex: 20000,
+    devTags: [],
+    name: 'Bats',
+  },
+  {
     zoomArea: 'Mid Body',
     category2: 'Bows/Ties',
     stage: 'Final',
@@ -1424,7 +1435,7 @@ const traitsData: TraitData[] = [
   },
   {
     category2: 'Expression',
-    stage: 'Final',
+    stage: 'Bug',
     id: 220,
     searchableTags: [],
     basicFrontFile: 'Shocked.svg',
@@ -1599,7 +1610,7 @@ const traitsData: TraitData[] = [
     category3: 'Colour',
     frontIndex: 15000,
     devTags: ['hidden_opensea'],
-    name: 'Black Eye Colour',
+    name: 'Black',
   },
   {
     zoomArea: 'Upper Body',
@@ -1664,7 +1675,7 @@ const traitsData: TraitData[] = [
     category3: 'Colour',
     frontIndex: 15000,
     devTags: ['hidden_opensea'],
-    name: 'Purple Eye Colour',
+    name: 'Purple',
   },
   {
     zoomArea: 'Upper Body',
@@ -1702,7 +1713,7 @@ const traitsData: TraitData[] = [
     category3: 'Colour',
     frontIndex: 15000,
     devTags: ['hidden_opensea'],
-    name: 'Dark Brown Eye Colour',
+    name: 'Dark Brown',
   },
   {
     zoomArea: 'Upper Body',
@@ -1715,7 +1726,7 @@ const traitsData: TraitData[] = [
     category3: 'Colour',
     frontIndex: 15000,
     devTags: ['hidden_opensea'],
-    name: 'Blue Eye Colour',
+    name: 'Blue',
   },
   {
     zoomArea: 'Upper Body',
@@ -1741,7 +1752,7 @@ const traitsData: TraitData[] = [
     category3: 'Colour',
     frontIndex: 15000,
     devTags: ['hidden_opensea'],
-    name: 'Grey Eye Colour',
+    name: 'Grey',
   },
   {
     zoomArea: 'Upper Body',
@@ -1754,7 +1765,7 @@ const traitsData: TraitData[] = [
     category3: 'Colour',
     frontIndex: 15000,
     devTags: ['hidden_opensea'],
-    name: 'Green Eye Colour',
+    name: 'Green',
   },
   {
     zoomArea: 'Upper Body',
@@ -1798,7 +1809,7 @@ const traitsData: TraitData[] = [
   {
     zoomArea: 'Upper Body',
     category2: 'Eyes',
-    stage: 'Final',
+    stage: 'Bug',
     id: 200,
     searchableTags: ['Eyelashes', 'Classic', 'Lashes'],
     basicFrontFile: 'Classic Eyelashes.svg',
@@ -2045,7 +2056,7 @@ const traitsData: TraitData[] = [
   {
     zoomArea: 'Upper Body',
     category2: 'Eyes',
-    stage: 'Final',
+    stage: 'Bug',
     id: 45,
     searchableTags: ['Eye Style', 'Reflections'],
     basicFrontFile: 'Fantasy.svg',
@@ -2151,7 +2162,7 @@ const traitsData: TraitData[] = [
   },
   {
     category2: 'Facial Hair',
-    stage: 'Final',
+    stage: 'Bug',
     id: 6,
     searchableTags: [],
     basicFrontFile: 'Moustache.svg',
@@ -2213,7 +2224,7 @@ const traitsData: TraitData[] = [
     category1: 'Body',
     category3: 'Colour',
     devTags: ['hidden_opensea'],
-    name: 'Purple Hair Colour',
+    name: 'Purple',
   },
   {
     zoomArea: 'Upper Body',
@@ -2246,7 +2257,7 @@ const traitsData: TraitData[] = [
     category1: 'Body',
     category3: 'Colour',
     devTags: ['hidden_opensea'],
-    name: 'Green Hair Colour',
+    name: 'Green',
   },
   {
     zoomArea: 'Upper Body',
@@ -2257,7 +2268,7 @@ const traitsData: TraitData[] = [
     category1: 'Body',
     category3: 'Colour',
     devTags: ['hidden_opensea'],
-    name: 'Blonde Hair',
+    name: 'Blonde',
   },
   {
     zoomArea: 'Upper Body',
@@ -2301,7 +2312,7 @@ const traitsData: TraitData[] = [
     category1: 'Body',
     category3: 'Colour',
     devTags: ['hidden_opensea'],
-    name: 'Grey Hair Colour',
+    name: 'Grey',
   },
   {
     zoomArea: 'Upper Body',
@@ -2312,7 +2323,7 @@ const traitsData: TraitData[] = [
     category1: 'Body',
     category3: 'Colour',
     devTags: ['hidden_opensea'],
-    name: 'Black Hair Colour',
+    name: 'Black',
   },
   {
     zoomArea: 'Upper Body',
@@ -2323,7 +2334,7 @@ const traitsData: TraitData[] = [
     category1: 'Body',
     category3: 'Colour',
     devTags: ['hidden_opensea'],
-    name: 'Dark Brown Hair Colour',
+    name: 'Dark Brown',
   },
   {
     zoomArea: 'Upper Body',
@@ -2334,7 +2345,7 @@ const traitsData: TraitData[] = [
     category1: 'Body',
     category3: 'Colour',
     devTags: ['hidden_opensea'],
-    name: 'Blue Hair Colour',
+    name: 'Blue',
   },
   {
     zoomArea: 'Upper Body',
@@ -2389,7 +2400,7 @@ const traitsData: TraitData[] = [
   {
     zoomArea: 'Upper Body',
     category2: 'Hair',
-    stage: 'Final',
+    stage: 'Art Updates',
     id: 367,
     searchableTags: [
       'New',
@@ -3617,7 +3628,7 @@ const traitsData: TraitData[] = [
   {
     zoomArea: 'Full Body',
     category2: 'Outerwear',
-    stage: 'Final',
+    stage: 'Art Updates',
     id: 236,
     searchableTags: ['New', 'Cape', 'Halloween', 'Seasonal', 'Outerwear', 'Red', 'Red Riding Hood'],
     basicFrontFile: 'Red Riding Hood Cape Front.svg',
@@ -3632,7 +3643,7 @@ const traitsData: TraitData[] = [
   {
     zoomArea: 'Full Body',
     category2: 'Outerwear',
-    stage: 'Final',
+    stage: 'Art Updates',
     id: 60,
     searchableTags: ['New', 'Halloween', 'Seasonal', 'Cape', 'Dracula', 'Black', 'Red'],
     basicFrontFile: 'Dracula Cape Front.svg',
@@ -4414,7 +4425,7 @@ const traitsData: TraitData[] = [
   {
     zoomArea: 'Background',
     category2: 'District',
-    stage: 'Final',
+    stage: 'Bug',
     id: 118,
     searchableTags: ['Beach', 'District', 'Sand', 'Ocean', 'Location', 'VeronicaRadd'],
     basicFrontFile: 'Beach.svg',
@@ -4462,7 +4473,7 @@ const traitsData: TraitData[] = [
   {
     zoomArea: 'Background',
     category2: 'Time',
-    stage: 'Final',
+    stage: 'Bug',
     id: 178,
     searchableTags: ['Sunset', 'Time', 'Orange', 'VeronicaRadd'],
     basicFrontFile: 'Sunset.svg',
@@ -4548,6 +4559,18 @@ const traitsData: TraitData[] = [
   {
     zoomArea: 'Full Body',
     category2: 'Stick Figure Poses',
+    stage: 'Art Updates',
+    id: 327,
+    searchableTags: [],
+    category1: 'Pose',
+    frontIndex: 11000,
+    peaceFrontFile: 'Peace.svg',
+    devTags: ['hidden_opensea'],
+    name: 'Peace',
+  },
+  {
+    zoomArea: 'Full Body',
+    category2: 'Stick Figure Poses',
     stage: 'Final',
     id: 295,
     searchableTags: [],
@@ -4556,6 +4579,42 @@ const traitsData: TraitData[] = [
     frontIndex: 11000,
     devTags: ['hidden_opensea'],
     name: 'Basic',
+  },
+  {
+    zoomArea: 'Full Body',
+    category2: 'Stick Figure Poses',
+    stage: 'Art Updates',
+    id: 245,
+    searchableTags: [],
+    category1: 'Pose',
+    hipFrontFile: 'Hip.svg',
+    frontIndex: 11000,
+    devTags: ['hidden_opensea'],
+    name: 'Hip',
+  },
+  {
+    zoomArea: 'Full Body',
+    category2: 'Stick Figure Poses',
+    stage: 'Art Updates',
+    id: 95,
+    searchableTags: [],
+    armBehindBackFrontFile: 'Arm Behind Back.svg',
+    category1: 'Pose',
+    frontIndex: 11000,
+    devTags: ['hidden_opensea'],
+    name: 'Arm Behind Back',
+  },
+  {
+    zoomArea: 'Full Body',
+    category2: 'Stick Figure Poses',
+    stage: 'Art Updates',
+    id: 44,
+    searchableTags: [],
+    category1: 'Pose',
+    waveFrontFile: 'Wave.svg',
+    frontIndex: 11000,
+    devTags: ['hidden_opensea'],
+    name: 'Wave',
   },
 ]
 
