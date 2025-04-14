@@ -10,6 +10,7 @@ import {useAuth} from './providers/contexts/AuthContext'
 import {useCanvas} from './providers/contexts/CanvasContext'
 import {usePeep} from './providers/contexts/PeepContext'
 import {PeepMetadata} from './types/metadata'
+import {notifyDevelopers} from './utils/adminUtils'
 import {decodePeepFromString, encodePeepToString} from './utils/traitUtils'
 
 function App() {
@@ -42,7 +43,16 @@ function App() {
     }
   }, [setEmail, setPeep])
 
+  const buildUrl = (peep: PeepMetadata) => {
+    const encoded = encodePeepToString(peep)
+    return `${window.location.origin}${window.location.pathname}?peep=${encoded}${
+      account.email ? `&fromEmail=${btoa(account.email)}` : ''
+    }`
+  }
+
   const handleSave = (newPeep: PeepMetadata) => {
+    const url = buildUrl(newPeep)
+    notifyDevelopers('save', newPeep, account.email, url)
     setPeep(newPeep)
   }
 
@@ -51,10 +61,8 @@ function App() {
   }
 
   const handleShare = (peep: PeepMetadata) => {
-    const encoded = encodePeepToString(peep)
-    const url = `${window.location.origin}${window.location.pathname}?peep=${encoded}${
-      account.email ? `&fromEmail=${btoa(account.email)}` : ''
-    }`
+    const url = buildUrl(peep)
+    notifyDevelopers('share', peep, account.email, url)
     navigator.clipboard
       .writeText(url)
       .then(() => {

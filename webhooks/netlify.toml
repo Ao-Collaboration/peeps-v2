@@ -1,0 +1,7 @@
+[build]
+  functions = "webhooks/functions"
+  command = "yarn install && yarn build"
+
+[dev]
+  functions = "functions"
+  port = 8888

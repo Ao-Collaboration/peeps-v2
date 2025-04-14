@@ -1,0 +1,17 @@
+{
+  "name": "webhook-relay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@netlify/functions": "^3.0.4"
+  },
+  "devDependencies": {
+    "netlify-cli": "^20.0.0",
+    "typescript": "^4.4.2"
+  },
+  "scripts": {
+    "start": "netlify dev -d webhooks",
+    "deploy": "netlify deploy"
+  }
+}

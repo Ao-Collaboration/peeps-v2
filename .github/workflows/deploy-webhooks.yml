@@ -1,0 +1,41 @@
+name: Deploy Webhooks to Netlify
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "webhooks"
+  cancel-in-progress: true
+
+jobs:
+  deploy-webhooks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: webhooks
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Deploy
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_ALLOWED_ORIGINS: ${{ secrets.NETLIFY_ALLOWED_ORIGINS }}
+        run: yarn deploy --prod -d .
