@@ -3,6 +3,7 @@ import React, {useMemo, useState} from 'react'
 import {Category1, TraitData} from '../data/traits'
 import {useAuth} from '../providers/contexts/AuthContext'
 import {usePeep} from '../providers/contexts/PeepContext'
+import {STAGE_TO_COLOR_CLASS} from '../utils/constants'
 import {legalizeTraits} from '../utils/traitUtils'
 
 const TraitsPanel: React.FC = () => {
@@ -109,9 +110,8 @@ const TraitsPanel: React.FC = () => {
                               className="mr-2"
                             />
                             <span
-                              className={`${
-                                trait.stage === 'In Quality Control' ? 'text-red-400' : ''
-                              }`}
+                              className={`${STAGE_TO_COLOR_CLASS[trait.stage]}`}
+                              title={trait.stage !== 'Final' ? trait.stage : undefined}
                             >
                               {trait.name}
                             </span>

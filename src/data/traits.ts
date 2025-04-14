@@ -77,7 +77,7 @@ export type Category3 =
   | 'Uniform'
   | 'Vest'
 
-export type Stage = 'Final' | 'In Quality Control'
+export type Stage = 'Final' | 'In Quality Control' | 'Bug' | 'Art Updates'
 
 export interface TraitData {
   zoomArea?: ZoomArea

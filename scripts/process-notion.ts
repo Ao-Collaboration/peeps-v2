@@ -240,7 +240,9 @@ function convertJsonToTypeScript(jsonFilePath: string) {
         .join(' | ') +
       '\n\n'
 
-    typeDefinition += "export type Stage = 'Final' | 'In Quality Control'\n\n"
+    const validStages = ['Final', 'In Quality Control', 'Bug', 'Art Updates']
+
+    typeDefinition += `export type Stage = ${validStages.map(v => `'${v}'`).join(' | ')}\n\n`
 
     typeDefinition += 'export interface TraitData {\n'
 
@@ -297,7 +299,7 @@ function convertJsonToTypeScript(jsonFilePath: string) {
       .filter((item: any) => {
         const isValid =
           item['Name'] &&
-          (item['Stage'] === 'Final' || item['Stage'] === 'In Quality Control') &&
+          validStages.includes(item['Stage']) &&
           item['Category 1'] &&
           item['Category 1'] !== 'Hidden'
 

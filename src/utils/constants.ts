@@ -1,3 +1,5 @@
+import {Stage} from '../data/traits'
+
 export const SKIN_TONE_DEFAULT = '#f7e2ab'
 
 export const SKIN_TONES: Map<string, string> = new Map([
@@ -67,3 +69,10 @@ export const REQUIRED_CATEGORIES: RequiredCategory[] = [
   {category1: 'Body', category2: 'Expression'},
   {category1: 'Pose'},
 ]
+
+export const STAGE_TO_COLOR_CLASS: Record<Stage, string> = {
+  Final: '',
+  'In Quality Control': 'bg-blue-500',
+  Bug: 'bg-red-500',
+  'Art Updates': 'bg-yellow-500',
+}
