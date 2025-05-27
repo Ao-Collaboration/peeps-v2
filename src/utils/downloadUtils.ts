@@ -44,26 +44,29 @@ export const downloadSvg = async (
     }
   }
 
+  // Add comment to SVG
+  const comment = `${name ? `${name} from ` : ''}Peeps Club! Created with ❤️ by Ao Collaboration`
+  const commentNode = document.createComment(comment)
+  const svgClone = svg.cloneNode(true) as SVGSVGElement
+  svgClone.insertBefore(commentNode, svgClone.firstChild)
+
   // Serialize the SVG
-  const svgData = new XMLSerializer().serializeToString(svg)
+  const svgData = new XMLSerializer().serializeToString(svgClone)
+  const svgBlob = new Blob([svgData], {type: 'image/svg+xml'})
+  const svgUrl = URL.createObjectURL(svgBlob)
 
   if (format === 'SVG') {
     // Download as SVG
-    const blob = new Blob([svgData], {type: 'image/svg+xml'})
-    const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
-    link.href = url
+    link.href = svgUrl
     link.download = `${name ? name + '_' : ''}Peep.svg`
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
-    URL.revokeObjectURL(url)
+    URL.revokeObjectURL(svgUrl)
   } else {
     // Convert to PNG
     const img = new Image()
-    const svgBlob = new Blob([svgData], {type: 'image/svg+xml'})
-    const svgUrl = URL.createObjectURL(svgBlob)
-
     await new Promise((resolve, reject) => {
       img.onload = resolve
       img.onerror = reject
