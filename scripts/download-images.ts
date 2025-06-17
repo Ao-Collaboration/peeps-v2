@@ -20,6 +20,9 @@ async function withCleanImageFolders(fn: () => Promise<void>) {
   if (fs.existsSync(PATHS.TRAITS_DIR)) {
     fs.rmSync(PATHS.TRAITS_DIR, {recursive: true})
   }
+  if (fs.existsSync(PATHS.ICONS_DIR)) {
+    fs.rmSync(PATHS.ICONS_DIR, {recursive: true})
+  }
 
   await fn()
 
@@ -31,23 +34,35 @@ async function withCleanImageFolders(fn: () => Promise<void>) {
 /**
  * Downloads all files from the Notion data JSON file.
  */
-async function downloadFiles() {
-  const jsonData = readJsonFile(PATHS.NOTION_DATA_FILE)
+async function downloadFiles(filePath: string) {
+  const jsonData = readJsonFile(filePath)
 
   for (const row of jsonData) {
     for (const key in row) {
       if (typeof row[key] === 'object' && row[key] !== null) {
         const file = row[key]
         const fileUrl = file.url
-        const fileName = file.name
 
-        const poseName = key.split(' ').slice(0, -2).join(' ')
+        if (fileUrl) {
+          let fileName = file.name
+          let folderPath: string
 
-        if (fileName && fileUrl) {
-          console.log(`Downloading ${fileName} for ${poseName} pose`)
+          if (key === 'icon') {
+            // Categories
+            const catName = row.categoryName.replace(/\//g, '-')
+            folderPath = path.join(PATHS.ICONS_DIR)
+            fileName = catName + '.svg'
+          } else {
+            // Traits
+            const poseName = key.split(' ').slice(0, -2).join(' ')
+            const folders = [row['Category 1 Old'], row['Category 2'], row.Name, poseName].filter(
+              Boolean,
+            )
+            folderPath = path.join(PATHS.TRAITS_DIR, ...folders, fileName)
+          }
+          console.log(`Downloading ${fileName} for ${folderPath}`)
+
           // Build the folder path
-          const folders = [row['Category 1'], row['Category 2'], row.Name, poseName].filter(Boolean)
-          const folderPath = path.join(PATHS.TRAITS_DIR, ...folders)
           if (!fs.existsSync(folderPath)) {
             fs.mkdirSync(folderPath, {recursive: true})
           }
@@ -65,6 +80,9 @@ async function downloadFiles() {
 
 if (require.main === module) {
   ;(async () => {
-    await withCleanImageFolders(downloadFiles)
+    await withCleanImageFolders(async () => {
+      // await downloadFiles(PATHS.TRAITS_DATA_FILE)
+      await downloadFiles(PATHS.CATEGORIES_DATA_FILE)
+    })
   })()
 }

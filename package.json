@@ -42,7 +42,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "deploy": "./deploy-surge.sh",
-    "script:notion": "ts-node --project scripts/tsconfig.json ./scripts/process-notion.ts && yarn format",
+    "script:traits": "ts-node --project scripts/tsconfig.json ./scripts/extract-traits.ts && yarn format",
+    "script:categories": "ts-node --project scripts/tsconfig.json ./scripts/extract-categories.ts && yarn format",
     "script:images": "ts-node --project scripts/tsconfig.json ./scripts/download-images.ts",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"

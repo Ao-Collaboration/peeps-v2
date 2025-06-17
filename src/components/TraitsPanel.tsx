@@ -89,15 +89,42 @@ const TraitsPanel: React.FC = () => {
       <div className="flex-1 overflow-y-auto my-2">
         {Object.entries(groupedTraits).map(([selectionsCategory, headerCategories]) => (
           <div key={selectionsCategory} className="mb-4">
-            <h2 className="font-bold border-b border-gray-200 pb-2 mb-2">{selectionsCategory}</h2>
+            <h2 className="font-bold border-b border-gray-200 pb-2 mb-2">
+              {selectionsCategory}
+              <img
+                src={`/icons/${selectionsCategory.replace(/\//g, '-')}.svg`}
+                onError={e => {
+                  e.currentTarget.style.display = 'none'
+                }}
+                className="w-4 h-4 inline-block ml-2"
+              />
+            </h2>
 
             {Object.entries(headerCategories).map(([headerCategory, secondaryCategories]) => (
               <div key={headerCategory} className="ml-2 mb-4">
-                <h3 className="font-bold mb-2 text-gray-700">{headerCategory}</h3>
+                <h3 className="font-bold mb-2 text-gray-700">
+                  {headerCategory}
+                  <img
+                    src={`/icons/${headerCategory.replace(/\//g, '-')}.svg`}
+                    onError={e => {
+                      e.currentTarget.style.display = 'none'
+                    }}
+                    className="w-4 h-4 inline-block ml-2"
+                  />
+                </h3>
 
                 {Object.entries(secondaryCategories).map(([secondaryCategory, traits]) => (
                   <div key={secondaryCategory} className="ml-2 mb-2">
-                    <h4 className="font-bold text-sm mb-2 text-gray-500">{secondaryCategory}</h4>
+                    <h4 className="font-bold text-sm mb-2 text-gray-500">
+                      {secondaryCategory}
+                      <img
+                        src={`/icons/${secondaryCategory.replace(/\//g, '-')}.svg`}
+                        onError={e => {
+                          e.currentTarget.style.display = 'none'
+                        }}
+                        className="w-4 h-4 inline-block ml-2"
+                      />
+                    </h4>
 
                     <ul className="list-none ml-2">
                       {traits.map(trait => (

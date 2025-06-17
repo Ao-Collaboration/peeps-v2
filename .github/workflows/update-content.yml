@@ -30,11 +30,17 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Run Notion script
+      - name: Run Notion Traits script
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-        run: yarn script:notion
+          NOTION_TRAITS_DATABASE_ID: ${{ secrets.NOTION_TRAITS_DATABASE_ID }}
+        run: yarn script:traits
+
+      - name: Run Notion Categories script
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_CATEGORIES_DATABASE_ID: ${{ secrets.NOTION_CATEGORIES_DATABASE_ID }}
+        run: yarn script:categories
 
       - name: Run image download script
         run: yarn script:images
