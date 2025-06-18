@@ -3,13 +3,13 @@ pre-commit:
   commands:
     0_stash_push:
       run: git stash push --keep-index --include-untracked
-    0_formatting:
+    1_formatting:
       glob: "*.{js,jsx,ts,tsx,json,css,scss,md}"
       run: yarn prettier --write {staged_files} && git add {staged_files}
-    1_linting:
+    2_linting:
       glob: "*.{js,jsx,ts,tsx}"
       run: yarn eslint {staged_files}
-    2_build:
+    3_build:
       run: yarn build
     9_stash_pop:
       run: git stash pop
