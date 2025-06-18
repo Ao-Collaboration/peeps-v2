@@ -1,5 +1,4 @@
 [![Build](https://github.com/Ao-Collaboration/peeps-v2/actions/workflows/build.yml/badge.svg)](https://github.com/Ao-Collaboration/peeps-v2/actions/workflows/build.yml)
-[![Deploy Website](https://github.com/Ao-Collaboration/peeps-v2/actions/workflows/deploy-website.yml/badge.svg)](https://github.com/Ao-Collaboration/peeps-v2/actions/workflows/deploy-website.yml)
 [![Deploy Webhooks](https://github.com/Ao-Collaboration/peeps-v2/actions/workflows/deploy-webhooks.yml/badge.svg)](https://github.com/Ao-Collaboration/peeps-v2/actions/workflows/deploy-webhooks.yml)
 
 # Peeps Builder!
