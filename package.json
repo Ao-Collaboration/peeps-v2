@@ -1,7 +1,7 @@
 {
   "name": "peeps-v2",
   "version": "0.1.0",
-  "homepage": "https://peeps-v2.surge.sh",
+  "homepage": "https://peeps-v2.aocollab.workers.dev",
   "private": true,
   "type": "module",
   "dependencies": {
@@ -43,7 +43,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "deploy": "./deploy-surge.sh",
+    "deploy": "npx wrangler deploy --assets=./dist --compatibility-date 2025-06-18",
     "script:traits": "ts-node --project scripts/tsconfig.json ./scripts/extract-traits.ts && yarn format",
     "script:categories": "ts-node --project scripts/tsconfig.json ./scripts/extract-categories.ts && yarn format",
     "script:images": "ts-node --project scripts/tsconfig.json ./scripts/download-images.ts",
