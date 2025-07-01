@@ -21,38 +21,52 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install corepack
-        run: npm install -g corepack@0.32.0 --force && corepack enable
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'yarn'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.5
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: pnpm install --frozen-lockfile
 
       - name: Run Notion Traits script
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_TRAITS_DATABASE_ID: ${{ secrets.NOTION_TRAITS_DATABASE_ID }}
-        run: yarn script:traits
+        run: pnpm run script:traits
 
       - name: Run Notion Categories script
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_CATEGORIES_DATABASE_ID: ${{ secrets.NOTION_CATEGORIES_DATABASE_ID }}
-        run: yarn script:categories
+        run: pnpm run script:categories
 
       - name: Run image download script
-        run: yarn script:images
+        run: pnpm run script:images
 
       - name: Run format
-        run: yarn format
+        run: pnpm run format
 
       - name: Build project
-        run: yarn build
+        run: pnpm build
 
       - name: Show diff
         run: git diff

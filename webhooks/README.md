@@ -14,11 +14,11 @@ Using a serverless function allows us to securely hold the Notion API token.
 ### Dev
 
 ```sh
-yarn start
+pnpm start
 ```
 
 ### Deploy
 
 ```sh
-yarn deploy
+pnpm run deploy
 ```

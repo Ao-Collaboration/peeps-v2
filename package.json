@@ -38,17 +38,21 @@
     "typescript": "^4.4.2",
     "vite": "^6.2.5"
   },
-  "packageManager": "yarn@4.5.0",
+  "packageManager": "pnpm@8.15.5",
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "deploy": "npx wrangler deploy --assets=./dist --compatibility-date 2025-06-18",
-    "script:traits": "ts-node --project scripts/tsconfig.json ./scripts/extract-traits.ts && yarn format",
-    "script:categories": "ts-node --project scripts/tsconfig.json ./scripts/extract-categories.ts && yarn format",
+    "script:traits": "ts-node --project scripts/tsconfig.json ./scripts/extract-traits.ts && pnpm run format",
+    "script:categories": "ts-node --project scripts/tsconfig.json ./scripts/extract-categories.ts && pnpm run format",
     "script:images": "ts-node --project scripts/tsconfig.json ./scripts/download-images.ts",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "webhooks:start": "pnpm --filter webhook-relay start",
+    "webhooks:deploy": "pnpm --filter webhook-relay deploy",
+    "dev": "pnpm run start",
+    "dev:webhooks": "pnpm run webhooks:start"
   },
   "eslintConfig": {
     "extends": [
@@ -67,10 +71,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "dependenciesMeta": {
-    "@trivago/prettier-plugin-sort-imports@5.2.2": {
-      "unplugged": true
-    }
   }
 }

@@ -12,7 +12,7 @@ This is the repository for the Peeps builder website!
 Run the application:
 
 ```sh
-yarn start
+pnpm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -29,7 +29,7 @@ Click the button below to run the Notion content update script.
 ### Build
 
 ```sh
-yarn build
+pnpm run build
 ```
 
 Builds the app for production to the `build` folder.
@@ -45,16 +45,16 @@ There are a number of scripts for updating the data from Notion.
 To download and process the traits from the Peeps Notion database:
 
 ```sh
-yarn script:notion
+pnpm run script:traits
 ```
 
 To update the images:
 
 ```sh
-yarn script:images
+pnpm run script:images
 ```
 
-Be sure to run the image update script after the notion script.
+Be sure to run the image update script after the traits script.
 
 ### Webhooks
 

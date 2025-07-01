@@ -1,6 +1,6 @@
 [build]
   functions = "webhooks/functions"
-  command = "yarn install && yarn build"
+  command = "pnpm install && pnpm build"
 
 [dev]
   functions = "functions"
