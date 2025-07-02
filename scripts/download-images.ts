@@ -37,6 +37,10 @@ async function withCleanImageFolders(fn: () => Promise<void>) {
 async function downloadFiles(filePath: string) {
   const jsonData = readJsonFile(filePath)
 
+  // Process files in batches of 10
+  const batchSize = 10
+  const downloads: Promise<void>[] = []
+
   for (const row of jsonData) {
     for (const key in row) {
       if (typeof row[key] === 'object' && row[key] !== null) {
@@ -58,30 +62,47 @@ async function downloadFiles(filePath: string) {
             const folders = [row['Category 1 Old'], row['Category 2'], row.Name, poseName].filter(
               Boolean,
             )
-            folderPath = path.join(PATHS.TRAITS_DIR, ...folders, fileName)
-          }
-          console.log(`Downloading ${fileName} for ${folderPath}`)
-
-          // Build the folder path
-          if (!fs.existsSync(folderPath)) {
-            fs.mkdirSync(folderPath, {recursive: true})
+            folderPath = path.join(PATHS.TRAITS_DIR, ...folders)
           }
 
-          // Download the file
-          const response = await fetch(fileUrl)
-          const blob = await response.blob()
-          const filePath = path.join(folderPath, fileName)
-          fs.writeFileSync(filePath, Buffer.from(await blob.arrayBuffer()))
+          // Create download promise
+          const downloadPromise = async () => {
+            console.log(`Downloading ${fileName} for ${folderPath}`)
+
+            // Build the folder path
+            if (!fs.existsSync(folderPath)) {
+              fs.mkdirSync(folderPath, {recursive: true})
+            }
+
+            // Download the file
+            const response = await fetch(fileUrl)
+            const blob = await response.blob()
+            const filePath = path.join(folderPath, fileName)
+            fs.writeFileSync(filePath, Buffer.from(await blob.arrayBuffer()))
+          }
+
+          downloads.push(downloadPromise())
+
+          // Process in batches of 10
+          if (downloads.length >= batchSize) {
+            await Promise.all(downloads)
+            downloads.length = 0
+          }
         }
       }
     }
+  }
+
+  // Process any remaining downloads
+  if (downloads.length > 0) {
+    await Promise.all(downloads)
   }
 }
 
 if (require.main === module) {
   ;(async () => {
     await withCleanImageFolders(async () => {
-      // await downloadFiles(PATHS.TRAITS_DATA_FILE)
+      await downloadFiles(PATHS.TRAITS_DATA_FILE)
       await downloadFiles(PATHS.CATEGORIES_DATA_FILE)
     })
   })()
