@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@netlify/functions": "^3.0.4"
+    "@netlify/functions": "^3.0.4",
+    "@notionhq/client": "^2.3.0"
   },
   "devDependencies": {
     "netlify-cli": "^20.0.0",

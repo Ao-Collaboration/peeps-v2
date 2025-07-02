@@ -16,3 +16,11 @@ export interface DeveloperNotification {
   url: string
   timestamp: string
 }
+
+export interface CreatePeepEntry {
+  name: string
+  birthday: string
+  userEmail: string
+  url: string
+  timestamp: Date
+}
