@@ -3,6 +3,7 @@ import {
   faEye,
   faEyeSlash,
   faFloppyDisk,
+  faHand,
   faShareNodes,
 } from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -51,6 +52,9 @@ export default function ButtonsBar({peep, invert = false}: ButtonsBarProps) {
         </Button>
         <Button onClick={() => handleShare(peep)} title="Share" invert={invert}>
           <FontAwesomeIcon icon={faShareNodes} />
+        </Button>
+        <Button onClick={() => openModal('traitRequest')} title="Request Trait" invert={invert}>
+          <FontAwesomeIcon icon={faHand} />
         </Button>
         {account.isAdmin && (
           <>

@@ -14,7 +14,6 @@ export interface DeveloperNotification {
   userEmail: string
   peep: PeepMetadata
   url: string
-  timestamp: string
 }
 
 export interface CreatePeepEntry {
@@ -23,4 +22,10 @@ export interface CreatePeepEntry {
   userEmail: string
   url: string
   timestamp: Date
+}
+
+export interface TraitRequest {
+  trait: string
+  description: string
+  userEmail: string
 }

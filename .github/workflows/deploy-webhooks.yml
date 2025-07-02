@@ -57,4 +57,5 @@ jobs:
           NETLIFY_ALLOWED_ORIGINS: ${{ secrets.NETLIFY_ALLOWED_ORIGINS }}
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_CREATEDPEEPS_DATABASE_ID: ${{ secrets.NOTION_CREATEDPEEPS_DATABASE_ID }}
+          NOTION_TRAITREQUESTS_DATABASE_ID: ${{ secrets.NOTION_TRAITREQUESTS_DATABASE_ID }}
         run: pnpm run deploy --prod -d .

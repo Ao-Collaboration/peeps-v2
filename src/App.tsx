@@ -5,6 +5,7 @@ import Canvas from './components/Canvas'
 import Footer from './components/Footer'
 import OrientationCheck from './components/OrientationCheck'
 import SaveLoadModal from './components/SaveLoadModal'
+import TraitRequestModal from './components/TraitRequestModal'
 import TraitsPanel from './components/TraitsPanel'
 import {useAuth} from './providers/contexts/AuthContext'
 import {useCanvas} from './providers/contexts/CanvasContext'
@@ -89,6 +90,7 @@ function App() {
           </div>
         </div>
         <SaveLoadModal onSave={handleSave} onLoad={handleLoad} onShare={handleShare} peep={peep} />
+        <TraitRequestModal />
       </div>
     </OrientationCheck>
   )

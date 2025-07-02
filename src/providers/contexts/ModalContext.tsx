@@ -1,6 +1,6 @@
 import {createContext, useContext} from 'react'
 
-export type ModalType = 'saveLoad' | 'download'
+export type ModalType = 'saveLoad' | 'download' | 'traitRequest'
 
 interface ModalContextType {
   openModal: (type: ModalType) => void

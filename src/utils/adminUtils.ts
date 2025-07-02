@@ -10,6 +10,12 @@ interface DeveloperNotification {
   timestamp: string
 }
 
+interface TraitRequest {
+  trait: string
+  description: string
+  userEmail: string
+}
+
 export const notifyDevelopers = async (
   action: 'save' | 'share',
   peep: PeepMetadata,
@@ -48,5 +54,39 @@ export const notifyDevelopers = async (
   } catch (error) {
     // Log and continue
     console.error('Failed to send developer notification:', error)
+  }
+}
+
+export const sendTraitRequest = async (
+  trait: string,
+  description: string,
+  userEmail: string | null,
+): Promise<void> => {
+  if (!WEBHOOKS_URL) {
+    console.warn('Webhook URL not configured')
+    return
+  }
+
+  const requestUrl = `${WEBHOOKS_URL}/request`
+
+  try {
+    const traitRequest: TraitRequest = {
+      trait,
+      description,
+      userEmail: userEmail ?? 'unknown',
+    }
+
+    const response = await fetch(requestUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(traitRequest),
+    })
+    console.log('Trait request sent', response.status)
+    console.log(await response.json())
+  } catch (error) {
+    // Log and continue
+    console.error('Failed to send trait request:', error)
   }
 }
