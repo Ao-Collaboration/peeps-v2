@@ -128,7 +128,9 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({onSave, onLoad, onShare}) 
           >
             {Array.from({length: 12}, (_, i) => (
               <option key={i + 1} value={i + 1}>
-                {new Date(2000, i, 1).toLocaleString('default', {month: 'long'})}
+                {new Date(2000, i, 1).toLocaleString('default', {
+                  month: 'long',
+                })}
               </option>
             ))}
           </select>

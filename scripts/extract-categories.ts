@@ -18,7 +18,10 @@ async function extractCategories() {
     const id = Number(extractPropertyValue(props.ID))
     const categoryType = String(extractPropertyValue(props['Category Type']))
     const categoryName = String(extractPropertyValue(props['Category Name']))
-    const icon = (extractPropertyValue(props.Icon) as {url: string; name: string}) || {
+    const icon = (extractPropertyValue(props.Icon) as {
+      url: string
+      name: string
+    }) || {
       url: '',
       name: '',
     }

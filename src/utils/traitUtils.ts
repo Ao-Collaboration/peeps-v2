@@ -30,7 +30,11 @@ const DEFAULT_IMAGE_ENTRIES: ImageEntry[] = [
 
 const getHairColour = (selectedTraits: TraitData[]): string | undefined => {
   const hairColour = selectedTraits.find(trait =>
-    requiredCategoryMatches(trait, {category1: 'Body', category2: 'Hair', category3: 'Colour'}),
+    requiredCategoryMatches(trait, {
+      category1: 'Body',
+      category2: 'Hair',
+      category3: 'Colour',
+    }),
   )
   if (hairColour) {
     return HAIR_COLOURS.get(hairColour.name)
@@ -41,7 +45,11 @@ const getHairColour = (selectedTraits: TraitData[]): string | undefined => {
 
 const getSkinTone = (selectedTraits: TraitData[]): string | undefined => {
   const skinTone = selectedTraits.find(trait =>
-    requiredCategoryMatches(trait, {category1: 'Body', category2: 'Skin', category3: 'Tone'}),
+    requiredCategoryMatches(trait, {
+      category1: 'Body',
+      category2: 'Skin',
+      category3: 'Tone',
+    }),
   )
   return skinTone ? SKIN_TONES.get(skinTone.name) : undefined
 }

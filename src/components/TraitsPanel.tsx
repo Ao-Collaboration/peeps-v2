@@ -1,132 +1,125 @@
 import React, {useMemo, useState} from 'react'
 
-import {Category1, TraitData} from '../data/traits'
+import {Category1, Category2, Category3, TraitData} from '../data/traits'
 import {useAuth} from '../providers/contexts/AuthContext'
 import {usePeep} from '../providers/contexts/PeepContext'
 import {STAGE_TO_COLOR_CLASS} from '../utils/constants'
 import {legalizeTraits} from '../utils/traitUtils'
 
 const TraitsPanel: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('')
+  const [activeDrawer1, setActiveDrawer1] = useState<Category1 | null>(null)
+  const [activeDrawer2, setActiveDrawer2] = useState<Category2 | null>(null)
+  const [activeDrawer3, setActiveDrawer3] = useState<Category3 | null>(null)
+
   const {traitData} = useAuth()
   const {peep, setPeep} = usePeep()
 
-  // Filter traits based on search term
-  const filteredTraits = useMemo(() => {
-    if (!searchTerm) return traitData
+  type GroupedTraits = Partial<
+    Record<Category1, Partial<Record<Category2, Partial<Record<Category3 | '', TraitData[]>>>>>
+  >
 
-    const lowerSearchTerm = searchTerm.toLowerCase()
-    return traitData.filter(
-      trait =>
-        trait.name.toLowerCase().includes(lowerSearchTerm) ||
-        trait.category1?.toLowerCase().includes(lowerSearchTerm) ||
-        trait.category2?.toLowerCase().includes(lowerSearchTerm) ||
-        trait.category3?.toLowerCase().includes(lowerSearchTerm) ||
-        trait.zoomArea?.toLowerCase().includes(lowerSearchTerm) ||
-        trait.searchableTags.some(tag => tag.toLowerCase().includes(lowerSearchTerm)),
-    )
-  }, [traitData, searchTerm])
-
-  // Group traits by category hierarchy
-  const groupedTraits = useMemo(() => {
-    const groups: Record<Category1, Record<string, Record<string, TraitData[]>>> = {
-      Location: {},
-      Body: {},
-      Pose: {},
-      Clothing: {},
-      Accessory: {},
-    }
-
-    filteredTraits.forEach(trait => {
-      const {category1} = trait
-      const category2 = trait.category2 ?? ''
+  const groupedTraits = useMemo<GroupedTraits>(() => {
+    const groups: GroupedTraits = {}
+    traitData.forEach((trait: TraitData) => {
+      const {category1, category2} = trait
       const category3 = trait.category3 ?? ''
-
-      if (!groups[category1]) {
-        groups[category1] = {}
-      }
-
-      if (!groups[category1][category2]) {
-        groups[category1][category2] = {}
-      }
-
-      if (!groups[category1][category2][category3]) {
-        groups[category1][category2][category3] = []
-      }
-
-      groups[category1][category2][category3].push(trait)
+      if (!groups[category1]) groups[category1] = {}
+      if (!groups[category1]![category2]) groups[category1]![category2] = {}
+      if (!groups[category1]![category2]![category3]) groups[category1]![category2]![category3] = []
+      groups[category1]![category2]![category3]!.push(trait)
     })
-
     return groups
-  }, [filteredTraits])
+  }, [traitData])
 
   const handleTraitToggle = (trait: TraitData) => {
-    const isSelected = peep.traits.some(t => t.name === trait.name)
-
-    let newTraits: TraitData[]
-    if (isSelected) {
-      newTraits = peep.traits.filter(t => t.name !== trait.name)
-    } else {
-      newTraits = [...peep.traits, trait]
-    }
-
+    const isSelected = peep.traits.some((t: TraitData) => t.name === trait.name)
+    let newTraits = isSelected
+      ? peep.traits.filter((t: TraitData) => t.name !== trait.name)
+      : [...peep.traits, trait]
     newTraits = legalizeTraits(traitData, newTraits)
     setPeep({...peep, traits: newTraits})
   }
 
   return (
-    <div className="h-full w-full overflow-hidden flex flex-col border-r border-gray-200 bg-gray-50 px-4">
-      <div className="my-2">
-        <input
-          type="text"
-          placeholder="Search traits..."
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md"
-        />
+    <div className="flex h-full w-fit">
+      <div className="flex flex-col w-16 border-r border-gray-300 bg-gray-100 items-center py-2 space-y-4">
+        {Object.entries(groupedTraits).map(([category1]) => (
+          <button
+            key={category1}
+            onClick={() => {
+              setActiveDrawer1(category1 === activeDrawer1 ? null : (category1 as Category1))
+              setActiveDrawer2(null)
+              setActiveDrawer3(null)
+            }}
+            className={`w-10 h-10 flex items-center justify-center rounded ${activeDrawer1 === category1 ? 'bg-gray-300' : ''}`}
+          >
+            <img
+              src={`/icons/${category1.replace(/\//g, '-')}.svg`}
+              alt={category1}
+              className="w-6 h-6"
+              onError={e => {
+                e.currentTarget.style.display = 'none'
+              }}
+            />
+          </button>
+        ))}
       </div>
 
-      <div className="flex-1 overflow-y-auto my-2">
-        {Object.entries(groupedTraits).map(([selectionsCategory, headerCategories]) => (
-          <div key={selectionsCategory} className="mb-4">
-            <h2 className="font-bold border-b border-gray-200 pb-2 mb-2">
-              {selectionsCategory}
-              <img
-                src={`/icons/${selectionsCategory.replace(/\//g, '-')}.svg`}
-                onError={e => {
-                  e.currentTarget.style.display = 'none'
+      <div className="flex-1 flex overflow-hidden">
+        <div
+          className={`transition-all duration-300 ease-in-out ${activeDrawer1 ? 'w-48' : 'w-0'} border-r border-gray-200 bg-white p-2 overflow-y-auto`}
+        >
+          {activeDrawer1 &&
+            Object.entries(groupedTraits[activeDrawer1] || {}).map(([category2]) => (
+              <button
+                key={category2}
+                onClick={() => {
+                  setActiveDrawer2(category2 === activeDrawer2 ? null : (category2 as Category2))
+                  setActiveDrawer3(null)
                 }}
-                className="w-4 h-4 inline-block ml-2"
-              />
-            </h2>
+                className="block w-full text-left py-1 hover:bg-gray-100"
+              >
+                <img
+                  src={`/icons/${category2.replace(/\//g, '-')}.svg`}
+                  alt={category2 || 'Uncategorized'}
+                  className="w-4 h-4 inline-block mr-2"
+                  onError={e => {
+                    e.currentTarget.style.display = 'none'
+                  }}
+                />
+                {category2 || 'Uncategorized'}
+              </button>
+            ))}
+        </div>
 
-            {Object.entries(headerCategories).map(([headerCategory, secondaryCategories]) => (
-              <div key={headerCategory} className="ml-2 mb-4">
-                <h3 className="font-bold mb-2 text-gray-700">
-                  {headerCategory}
-                  <img
-                    src={`/icons/${headerCategory.replace(/\//g, '-')}.svg`}
-                    onError={e => {
-                      e.currentTarget.style.display = 'none'
-                    }}
-                    className="w-4 h-4 inline-block ml-2"
-                  />
-                </h3>
-
-                {Object.entries(secondaryCategories).map(([secondaryCategory, traits]) => (
-                  <div key={secondaryCategory} className="ml-2 mb-2">
-                    <h4 className="font-bold text-sm mb-2 text-gray-500">
-                      {secondaryCategory}
-                      <img
-                        src={`/icons/${secondaryCategory.replace(/\//g, '-')}.svg`}
-                        onError={e => {
-                          e.currentTarget.style.display = 'none'
-                        }}
-                        className="w-4 h-4 inline-block ml-2"
-                      />
-                    </h4>
-
-                    <ul className="list-none ml-2">
+        <div
+          className={`transition-all duration-300 ease-in-out ${activeDrawer1 && activeDrawer2 ? 'w-48' : 'w-0'} border-r border-gray-200 bg-white p-2 overflow-y-auto`}
+        >
+          {activeDrawer1 &&
+            activeDrawer2 &&
+            Object.entries(groupedTraits[activeDrawer1]?.[activeDrawer2] || {}).map(
+              ([category3, traits]) => (
+                <div key={category3} className="mb-4">
+                  <button
+                    onClick={() =>
+                      setActiveDrawer3(
+                        category3 === activeDrawer3 ? null : (category3 as Category3),
+                      )
+                    }
+                    className="block w-full text-left text-sm font-medium py-1 hover:bg-gray-100"
+                  >
+                    <img
+                      src={`/icons/${category3.replace(/\//g, '-')}.svg`}
+                      alt={category3 || 'Uncategorized'}
+                      className="w-4 h-4 inline-block mr-2"
+                      onError={e => {
+                        e.currentTarget.style.display = 'none'
+                      }}
+                    />
+                    {category3 || 'Uncategorized'}
+                  </button>
+                  {activeDrawer3 === category3 && (
+                    <ul className="list-none ml-4 mt-2">
                       {traits.map(trait => (
                         <li key={trait.name} className="mb-1.5">
                           <label className="flex items-center cursor-pointer text-sm text-gray-600">
@@ -146,12 +139,11 @@ const TraitsPanel: React.FC = () => {
                         </li>
                       ))}
                     </ul>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-        ))}
+                  )}
+                </div>
+              ),
+            )}
+        </div>
       </div>
     </div>
   )
