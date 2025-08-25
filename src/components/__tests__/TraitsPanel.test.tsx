@@ -6,63 +6,8 @@ import {fireEvent, render, screen} from '@testing-library/react'
 import {AuthProvider} from '../../providers/AuthProvider'
 import {ModalProvider} from '../../providers/ModalProvider'
 import {PeepProvider} from '../../providers/PeepProvider'
+import {mockTraitData} from '../../test/mockData'
 import TraitsPanel from '../TraitsPanel'
-
-// Mock the trait data
-const mockTraitData = [
-  {
-    id: 1,
-    name: 'Bats',
-    stage: 'Final' as const,
-    category1: 'Accessory' as const,
-    category2: 'Animal' as const,
-    searchableTags: ['Halloween', 'Animal'],
-    devTags: [],
-    frontIndex: 1000,
-  },
-  {
-    id: 2,
-    name: 'Dark Blue Tie',
-    stage: 'Final' as const,
-    category1: 'Accessory' as const,
-    category2: 'Bows/Ties' as const,
-    searchableTags: [],
-    devTags: [],
-    frontIndex: 6000,
-  },
-  {
-    id: 3,
-    name: 'Black Eyes',
-    stage: 'Final' as const,
-    category1: 'Body' as const,
-    category2: 'Eyes' as const,
-    category3: 'Colour' as const,
-    searchableTags: ['Eye Colour'],
-    devTags: [],
-    frontIndex: 15000,
-  },
-  {
-    id: 4,
-    name: 'Blue Eyes',
-    stage: 'Final' as const,
-    category1: 'Body' as const,
-    category2: 'Eyes' as const,
-    category3: 'Colour' as const,
-    searchableTags: ['Eye Colour'],
-    devTags: [],
-    frontIndex: 15000,
-  },
-  {
-    id: 5,
-    name: 'Red Shirt',
-    stage: 'Final' as const,
-    category1: 'Clothing' as const,
-    category2: 'Tops' as const,
-    searchableTags: ['Shirt'],
-    devTags: [],
-    frontIndex: 5000,
-  },
-]
 
 // Mock the providers
 const MockProviders = ({children}: {children: React.ReactNode}) => (
