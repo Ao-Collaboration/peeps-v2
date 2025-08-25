@@ -17,6 +17,8 @@
   },
   "devDependencies": {
     "@notionhq/client": "^2.3.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/node": "^24.0.3",
     "@types/react": "^19.0.0",
@@ -32,11 +34,13 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "jsdom": "^26.1.0",
     "lefthook": "^1.11.6",
     "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
     "typescript": "^4.4.2",
-    "vite": "^6.2.5"
+    "vite": "^6.2.5",
+    "vitest": "^3.2.4"
   },
   "packageManager": "pnpm@8.15.5",
   "scripts": {
@@ -52,7 +56,10 @@
     "webhooks:start": "pnpm --filter webhook-relay start",
     "webhooks:deploy": "pnpm --filter webhook-relay deploy",
     "dev": "pnpm run start",
-    "dev:webhooks": "pnpm run webhooks:start"
+    "dev:webhooks": "pnpm run webhooks:start",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run"
   },
   "eslintConfig": {
     "extends": [
