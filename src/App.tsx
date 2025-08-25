@@ -77,11 +77,11 @@ function App() {
   return (
     <OrientationCheck>
       <div className="h-screen w-screen overflow-hidden bg-app-gradient">
-        <div className="flex h-full w-full overflow-hidden">
-          <div className="h-full">
+        <div className="grid grid-cols-2 h-full w-full overflow-hidden">
+          <div className="h-full overflow-hidden">
             <TraitsPanel />
           </div>
-          <div className="flex-1 flex flex-col h-full overflow-hidden">
+          <div className="flex flex-col h-full overflow-hidden">
             <ButtonsBar peep={peep} />
             <div className="flex-1 overflow-hidden">
               <Canvas ref={canvasRef} />
