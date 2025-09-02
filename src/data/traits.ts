@@ -23,6 +23,7 @@ export type Category2 =
   | 'Jumpsuits'
   | 'Mobility'
   | 'Outerwear'
+  | 'School Uniform'
   | 'Set'
   | 'Shoes'
   | 'Signs'
@@ -73,6 +74,7 @@ export type Category3 =
   | 'Tiara/Crowns'
   | 'Tone'
   | 'Tools'
+  | 'Tops'
   | 'Umbrella'
   | 'Uniform'
   | 'Vest'
@@ -3605,6 +3607,31 @@ const traitsData: TraitData[] = [
     devTags: [],
     frontIndex: 5000,
     basicFrontFile: 'Navy Suit Jacket Front.svg',
+  },
+  {
+    id: 395,
+    name: 'Long Sleeve School Uniform',
+    stage: 'Final',
+    category1: 'Clothing',
+    category2: 'School Uniform',
+    category3: 'Tops',
+    searchableTags: [],
+    devTags: [],
+    frontIndex: 8000,
+    basicFrontFile: 'CBS Long Sleeve.svg',
+  },
+  {
+    id: 396,
+    name: 'Winter Blouse School Uniform',
+    stage: 'Final',
+    category1: 'Clothing',
+    category2: 'School Uniform',
+    category3: 'Tops',
+    searchableTags: [],
+    devTags: [],
+    frontIndex: 8000,
+    basicFrontFile: 'CBS White Collar.svg',
+    chibiBasicFrontFile: 'CBS White Collar Chibi.svg',
   },
   {
     id: 211,
