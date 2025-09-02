@@ -186,6 +186,18 @@ const traitsData: TraitData[] = [
     basicFrontFile: 'Exclusive RR Tako.svg',
   },
   {
+    id: 393,
+    name: 'Oreo Cat Plushie',
+    stage: 'Final',
+    category1: 'Accessory',
+    category2: 'Companions',
+    searchableTags: ['Hold', 'Black', 'Location', 'Animal'],
+    devTags: ['Hold'],
+    frontIndex: 1000,
+    basicFrontFile: 'Oreo Plushie.svg',
+    holdingFrontFile: 'Oreo Plushie.svg',
+  },
+  {
     id: 248,
     name: 'Cauldron',
     stage: 'Final',
