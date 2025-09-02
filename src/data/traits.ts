@@ -152,6 +152,18 @@ const traitsData: TraitData[] = [
     basicFrontFile: 'Seasonal Large Red Bowtie.svg',
   },
   {
+    id: 394,
+    name: 'Cookie Cat Plushie',
+    stage: 'Final',
+    category1: 'Accessory',
+    category2: 'Companions',
+    searchableTags: ['Hold', 'Black', 'Location', 'Animal'],
+    devTags: ['Hold'],
+    frontIndex: 1000,
+    basicFrontFile: 'Cookie Plushie.svg',
+    holdingFrontFile: 'Cookie Plushie.svg',
+  },
+  {
     id: 171,
     name: 'Exclusive CC Astro',
     stage: 'Final',
