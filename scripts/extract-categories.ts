@@ -9,7 +9,7 @@ interface CategoryRecord {
 }
 
 async function extractCategories() {
-  const rawPages = await fetchAllPages(process.env.NOTION_CATEGORY_DATABASE_ID!)
+  const rawPages = await fetchAllPages(process.env.NOTION_CATEGORIES_DATABASE_ID!)
 
   const records: CategoryRecord[] = rawPages.map(page => {
     const props = page.properties
@@ -35,7 +35,7 @@ async function extractCategories() {
 }
 
 if (require.main === module) {
-  validateEnvVars(['NOTION_TOKEN', 'NOTION_CATEGORY_DATABASE_ID'])
+  validateEnvVars(['NOTION_TOKEN', 'NOTION_CATEGORIES_DATABASE_ID'])
   extractCategories().catch(err => {
     console.error(err)
     process.exit(1)
