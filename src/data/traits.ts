@@ -3896,6 +3896,7 @@ const traitsData: TraitData[] = [
     devTags: [],
     frontIndex: 8000,
     basicFrontFile: 'Long Sleeve.svg',
+    chibiBasicFrontFile: 'CBS Long Sleeve.svg',
   },
   {
     id: 303,
