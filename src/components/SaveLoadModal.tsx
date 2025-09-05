@@ -59,7 +59,6 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({onSave, onLoad, onShare}) 
     onSave(newPeep)
     setNewPeepName('')
     setErrorMessage('')
-    closeModal('saveLoad')
   }
 
   const handleLoad = (peep: PeepMetadata) => {
@@ -75,7 +74,6 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({onSave, onLoad, onShare}) 
     )
     setSavedPeeps(updatedPeeps)
     localStorage.setItem('savedPeeps', JSON.stringify(updatedPeeps))
-    closeModal('saveLoad')
   }
 
   const handleDelete = (peepName: string) => {
