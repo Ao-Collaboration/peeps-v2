@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vitest'
 
 import {type Category1, type Category2, type Stage, type TraitData} from '../../data/traits'
 import {type PeepMetadata} from '../../types/metadata'
-import {convertPeepToNFTMetadata} from '../nftUtils'
+import {type NFTMetadata, convertPeepToNFTMetadata, getUpdateTypedData} from '../nftUtils'
 
 // Helper function to create mock TraitData
 function createTrait(name: string, id: number = 1): TraitData {
@@ -187,5 +187,195 @@ describe('convertPeepToNFTMetadata', () => {
     expect(() => convertPeepToNFTMetadata(peep, 'https://api.peeps.club/peep/test.png')).toThrow(
       'Peep birthday is required and must be valid (day: 1-31, month: 1-12)',
     )
+  })
+})
+
+describe('getUpdateTypedData', () => {
+  const mockMetadata: NFTMetadata = {
+    name: 'Test Peep',
+    description: 'A test peep for testing',
+    image: 'https://api.peeps.club/peep/123.png',
+    external_url: 'https://peeps.club',
+    attributes: [
+      {trait_type: 'Hair', value: 'Blue Hair'},
+      {trait_type: 'Eyes', value: 'Green Eyes'},
+      {trait_type: 'Birthday', value: '15 June'},
+      {trait_type: 'Name', value: 'Test Peep'},
+    ],
+  }
+
+  it('should create correct EIP-712 typed data structure', () => {
+    const tokenId = BigInt(123)
+    const imageHash = '0x1234567890abcdef'
+    const chainId = 1
+
+    const result = getUpdateTypedData(tokenId, mockMetadata, imageHash, chainId)
+
+    // Check domain structure
+    expect(result.domain).toEqual({
+      name: 'Peeps Club',
+      version: '1',
+      chainId: 1,
+      verifyingContract: '0x383a7b0488756b5618f4ce2bcbc608ad48f09a57',
+    })
+
+    // Check types structure
+    expect(result.types).toEqual({
+      UpdatePeep: [
+        {name: 'tokenId', type: 'uint256'},
+        {name: 'imageHash', type: 'bytes32'},
+        {name: 'name', type: 'string'},
+        {name: 'attributes', type: 'Attribute[]'},
+      ],
+      Attribute: [
+        {name: 'trait_type', type: 'string'},
+        {name: 'value', type: 'string'},
+      ],
+    })
+
+    // Check primary type
+    expect(result.primaryType).toBe('UpdatePeep')
+
+    // Check message structure
+    expect(result.message).toEqual({
+      tokenId: BigInt(123),
+      imageHash: expect.any(String), // keccak256 hash
+      name: 'Test Peep',
+      attributes: [
+        {trait_type: 'Hair', value: 'Blue Hair'},
+        {trait_type: 'Eyes', value: 'Green Eyes'},
+        {trait_type: 'Birthday', value: '15 June'},
+        {trait_type: 'Name', value: 'Test Peep'},
+      ],
+    })
+  })
+
+  it('should use the provided image hash directly', () => {
+    const tokenId = BigInt(456)
+    const imageHash = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef' // 32 bytes
+    const chainId = 1
+
+    const result = getUpdateTypedData(tokenId, mockMetadata, imageHash, chainId)
+
+    // The imageHash should be used as provided (already hashed)
+    expect(result.message.imageHash).toBe(imageHash)
+  })
+
+  it('should work with mainnet chain ID', () => {
+    const tokenId = BigInt(789)
+    const imageHash = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
+    const chainId = 1 // Ethereum Mainnet
+
+    const result = getUpdateTypedData(tokenId, mockMetadata, imageHash, chainId)
+
+    expect(result.domain.chainId).toBe(1)
+    expect(result.message.tokenId).toBe(BigInt(789))
+  })
+
+  it('should handle empty attributes array', () => {
+    const metadataWithNoAttributes: NFTMetadata = {
+      name: 'Empty Attributes Peep',
+      description: 'A peep with no attributes',
+      image: 'https://api.peeps.club/peep/empty.png',
+      external_url: 'https://peeps.club',
+      attributes: [],
+    }
+
+    const tokenId = BigInt(999)
+    const imageHash = '0x0000000000000000000000000000000000000000000000000000000000000000'
+    const chainId = 1
+
+    const result = getUpdateTypedData(tokenId, metadataWithNoAttributes, imageHash, chainId)
+
+    expect(result.message.attributes).toEqual([])
+    expect(result.message.name).toBe('Empty Attributes Peep')
+  })
+
+  it('should handle metadata with special characters', () => {
+    const metadataWithSpecialChars: NFTMetadata = {
+      name: 'Peep with "quotes" & symbols',
+      description: 'A peep with special characters: @#$%^&*()',
+      image: 'https://api.peeps.club/peep/special.png',
+      external_url: 'https://peeps.club',
+      attributes: [
+        {trait_type: 'Special', value: 'Value with "quotes"'},
+        {trait_type: 'Symbols', value: '!@#$%^&*()'},
+      ],
+    }
+
+    const tokenId = BigInt(111)
+    const imageHash = '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890'
+    const chainId = 1
+
+    const result = getUpdateTypedData(tokenId, metadataWithSpecialChars, imageHash, chainId)
+
+    expect(result.message.name).toBe('Peep with "quotes" & symbols')
+    expect(result.message.attributes).toEqual([
+      {trait_type: 'Special', value: 'Value with "quotes"'},
+      {trait_type: 'Symbols', value: '!@#$%^&*()'},
+    ])
+  })
+
+  it('should handle large token IDs', () => {
+    const tokenId = BigInt('123456789012345678901234567890')
+    const imageHash = '0x1111111111111111111111111111111111111111111111111111111111111111'
+    const chainId = 1
+
+    const result = getUpdateTypedData(tokenId, mockMetadata, imageHash, chainId)
+
+    expect(result.message.tokenId).toBe(BigInt('123456789012345678901234567890'))
+  })
+
+  it('should maintain consistent structure across multiple calls', () => {
+    const tokenId1 = BigInt(1)
+    const tokenId2 = BigInt(2)
+    const imageHash = '0x2222222222222222222222222222222222222222222222222222222222222222'
+    const chainId = 1
+
+    const result1 = getUpdateTypedData(tokenId1, mockMetadata, imageHash, chainId)
+    const result2 = getUpdateTypedData(tokenId2, mockMetadata, imageHash, chainId)
+
+    // Domain and types should be identical
+    expect(result1.domain).toEqual(result2.domain)
+    expect(result1.types).toEqual(result2.types)
+    expect(result1.primaryType).toBe(result2.primaryType)
+
+    // Only message should differ
+    expect(result1.message.tokenId).toBe(BigInt(1))
+    expect(result2.message.tokenId).toBe(BigInt(2))
+  })
+
+  it('should throw error for non-mainnet chain IDs', () => {
+    const testCases = [
+      {chainId: 137, name: 'Polygon'},
+      {chainId: 56, name: 'BSC'},
+      {chainId: 42161, name: 'Arbitrum'},
+      {chainId: 10, name: 'Optimism'},
+      {chainId: 0, name: 'Invalid chain'},
+    ]
+
+    testCases.forEach(({chainId}) => {
+      expect(() =>
+        getUpdateTypedData(
+          BigInt(1),
+          mockMetadata,
+          '0x3333333333333333333333333333333333333333333333333333333333333333',
+          chainId,
+        ),
+      ).toThrow(
+        `This feature only works on Ethereum Mainnet. Chain ID ${chainId} is not supported.`,
+      )
+    })
+  })
+
+  it('should work with mainnet chain ID 1', () => {
+    const result = getUpdateTypedData(
+      BigInt(1),
+      mockMetadata,
+      '0x4444444444444444444444444444444444444444444444444444444444444444',
+      1,
+    )
+    expect(result.domain.chainId).toBe(1)
+    expect(result.message.tokenId).toBe(BigInt(1))
   })
 })

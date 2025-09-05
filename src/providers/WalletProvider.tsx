@@ -4,6 +4,7 @@ import {mainnet} from 'viem/chains'
 import React, {useCallback, useState} from 'react'
 
 import '../types/wallet'
+import {switchToMainnet} from '../utils/chainUtils'
 import {WalletContext, type WalletContextType} from './contexts/WalletContext'
 
 export const WalletProvider = ({children}: {children: React.ReactNode}) => {
@@ -26,6 +27,9 @@ export const WalletProvider = ({children}: {children: React.ReactNode}) => {
       // Request account access
       await window.ethereum.request({method: 'eth_requestAccounts'})
 
+      // Switch to Ethereum Mainnet (chain ID 1)
+      await switchToMainnet()
+
       // Create wallet client
       const client = createWalletClient({
         chain: mainnet,
@@ -42,7 +46,7 @@ export const WalletProvider = ({children}: {children: React.ReactNode}) => {
 
       setWalletClient(client)
       setConnectedAddress(address)
-      console.log(`Connected wallet ${address}`)
+      console.log(`Connected wallet ${address} on Ethereum Mainnet`)
     } catch (error) {
       console.error('Failed to connect wallet:', error)
       throw error

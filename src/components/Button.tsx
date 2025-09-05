@@ -6,6 +6,7 @@ interface ButtonProps {
   children: React.ReactNode
   type?: 'normal' | 'error'
   invert?: boolean
+  disabled?: boolean
 }
 
 const colorStyles = {
@@ -25,14 +26,18 @@ const Button: React.FC<ButtonProps> = ({
   children,
   type = 'normal',
   invert = false,
+  disabled = false,
 }) => {
   const classColours = colorStyles[type][invert ? 'inverted' : 'default']
 
   return (
     <button
-      className={`cursor-pointer px-4 py-2 ${classColours} rounded-md transition-colors`}
-      onClick={onClick}
+      className={`px-4 py-2 ${classColours} rounded-md transition-colors ${
+        disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+      }`}
+      onClick={disabled ? undefined : onClick}
       title={title}
+      disabled={disabled}
     >
       {children}
     </button>

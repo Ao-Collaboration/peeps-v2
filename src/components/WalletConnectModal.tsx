@@ -4,19 +4,29 @@ import {faUpload} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 import {useWallet} from '../hooks/useWallet'
+import {useCanvas} from '../providers/contexts/CanvasContext'
 import {useModal} from '../providers/contexts/ModalContext'
 import {usePeep} from '../providers/contexts/PeepContext'
-import {type NFTData, convertPeepToNFTMetadata, fetchUserNFTs} from '../utils/nftUtils'
+import {switchToMainnet} from '../utils/chainUtils'
+import {getSvgPngHash} from '../utils/imageHashUtils'
+import {
+  type NFTData,
+  convertPeepToNFTMetadata,
+  fetchUserNFTs,
+  getUpdateTypedData,
+} from '../utils/nftUtils'
 import Button from './Button'
 import Modal from './Modal'
 
 const WalletConnectModal: React.FC = () => {
   const {isModalOpen, closeModal} = useModal()
-  const {connectWallet, disconnectWallet, isConnected, connectedAddress} = useWallet()
+  const {connectWallet, disconnectWallet, isConnected, connectedAddress, walletClient} = useWallet()
   const {peep} = usePeep()
+  const {canvasRef} = useCanvas()
   const [nftData, setNftData] = useState<NFTData | null>(null)
   const [isLoadingNFTs, setIsLoadingNFTs] = useState(false)
   const [nftError, setNftError] = useState<string | null>(null)
+  const [isUpdatingNFT, setIsUpdatingNFT] = useState<bigint | null>(null)
 
   const isOpen = isModalOpen('walletConnect')
 
@@ -56,27 +66,78 @@ const WalletConnectModal: React.FC = () => {
     closeModal('walletConnect')
   }
 
-  const handleUpdateNFT = (tokenId: bigint) => {
+  const handleUpdateNFT = async (tokenId: bigint) => {
+    if (!walletClient) {
+      alert('Wallet not connected. Please connect your wallet first.')
+      return
+    }
+
     try {
-      // Find the corresponding NFT to get its image URL
+      setIsUpdatingNFT(tokenId)
+
+      // Check if we're on mainnet (chainId 1), if not, try to switch
+      let chainId = walletClient.chain?.id
+      if (chainId !== 1) {
+        await switchToMainnet()
+
+        // Re-check the chain ID after switching
+        chainId = walletClient.chain?.id
+        if (chainId !== 1) {
+          throw new Error(
+            `Failed to switch to Ethereum Mainnet. Current chain ID: ${chainId}. Please manually switch to Mainnet.`,
+          )
+        }
+      }
+
+      // Get the SVG element from canvas
+      if (!canvasRef.current) {
+        throw new Error('Canvas not available. Please ensure the peep is loaded.')
+      }
+
+      // Get the PNG hash from the current SVG
+      const imageHash = await getSvgPngHash(canvasRef.current, peep.name)
+
+      // Find the corresponding NFT to get its image URL for metadata
       const nft = nftData?.nfts.find(n => n.tokenId === tokenId)
       const imageUrl = nft?.metadata?.image
 
       if (!imageUrl) {
-        alert('Cannot update NFT: Please ensure the NFT metadata is loaded.')
-        return
+        throw new Error('Cannot update NFT: Please ensure the NFT metadata is loaded.')
       }
 
       // Convert current peep metadata to NFT format
       const nftMetadata = convertPeepToNFTMetadata(peep, imageUrl)
 
       console.log(`Updating NFT token ${tokenId.toString()} with metadata:`, nftMetadata)
+      console.log(`Image hash: ${imageHash}`)
 
-      // TODO: Implement actual blockchain update logic here
-      alert(`NFT token ${tokenId.toString()} will be updated with current peep metadata!`)
+      // Create the typed data for signing
+      const typedData = getUpdateTypedData(tokenId, nftMetadata, imageHash, chainId)
+
+      console.log('Typed data for signing:', typedData)
+
+      // Sign the typed data with the connected wallet
+      const signature = await walletClient.signTypedData({
+        domain: typedData.domain,
+        types: typedData.types,
+        primaryType: typedData.primaryType as 'UpdatePeep',
+        message: typedData.message,
+        account: connectedAddress!,
+      })
+
+      console.log('Signature received:', signature)
+
+      // TODO: Send the signature and metadata to your backend/contract
+      // For now, we'll just show a success message
+      alert(
+        `NFT token ${tokenId.toString()} update signed successfully!\n\nSignature: ${signature}\n\nThis signature can now be sent to your backend for processing.`,
+      )
     } catch (error) {
-      console.error('Error converting peep to NFT metadata:', error)
-      alert(`Failed to prepare NFT update. Please save your peep and try again. ${error}`)
+      console.error('Error updating NFT:', error)
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+      alert(`Failed to update NFT: ${errorMessage}`)
+    } finally {
+      setIsUpdatingNFT(null)
     }
   }
 
@@ -128,8 +189,19 @@ const WalletConnectModal: React.FC = () => {
                             </div>
                           </div>
                           <div className="flex gap-2">
-                            <Button onClick={() => handleUpdateNFT(nft.tokenId)} title="Update NFT">
-                              <FontAwesomeIcon icon={faUpload} />
+                            <Button
+                              onClick={() => handleUpdateNFT(nft.tokenId)}
+                              title="Update NFT"
+                              disabled={isUpdatingNFT === nft.tokenId}
+                            >
+                              {isUpdatingNFT === nft.tokenId ? (
+                                <div className="flex items-center gap-2">
+                                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                  <span>Signing...</span>
+                                </div>
+                              ) : (
+                                <FontAwesomeIcon icon={faUpload} />
+                              )}
                             </Button>
                           </div>
                         </div>

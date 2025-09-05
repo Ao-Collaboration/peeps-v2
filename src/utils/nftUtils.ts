@@ -1,4 +1,4 @@
-import {type Address, createPublicClient, http} from 'viem'
+import {type Address, Hash, createPublicClient, http} from 'viem'
 import {mainnet} from 'viem/chains'
 
 import {PeepMetadata} from '../types/metadata'
@@ -190,4 +190,58 @@ function getMonthName(monthNumber: number): string {
     'December',
   ]
   return months[monthNumber - 1] || 'Unknown'
+}
+
+/**
+ * Creates EIP-712 typed data for updating NFT metadata
+ */
+export function getUpdateTypedData(
+  tokenId: bigint,
+  metadata: NFTMetadata,
+  imageHash: Hash,
+  chainId: number,
+) {
+  // Only allow mainnet (chainId 1)
+  if (chainId !== 1) {
+    throw new Error(
+      `This feature only works on Ethereum Mainnet. Chain ID ${chainId} is not supported.`,
+    )
+  }
+
+  // Create the domain separator
+  const domain = {
+    name: 'Peeps Club',
+    version: '1',
+    chainId,
+    verifyingContract: NFT_CONTRACT_ADDRESS,
+  }
+
+  // Define the types structure including all metadata fields
+  const types = {
+    UpdatePeep: [
+      {name: 'tokenId', type: 'uint256'},
+      {name: 'imageHash', type: 'bytes32'},
+      {name: 'name', type: 'string'},
+      {name: 'attributes', type: 'Attribute[]'},
+    ],
+    Attribute: [
+      {name: 'trait_type', type: 'string'},
+      {name: 'value', type: 'string'},
+    ],
+  }
+
+  // Create the message with all metadata fields
+  const message = {
+    tokenId,
+    imageHash,
+    name: metadata.name,
+    attributes: metadata.attributes,
+  }
+
+  return {
+    domain,
+    types,
+    primaryType: 'UpdatePeep',
+    message,
+  }
 }
