@@ -4,6 +4,7 @@ import type {Handler} from '@netlify/functions'
 
 import type {UpdateMetadataRequest, UpdateMetadataResponse} from '../types'
 import {getCorsHeaders, requirePostRequest} from '../utils/event'
+import {validateNFTOwnership} from '../utils/nft'
 
 // NFT Contract address (same as in the main app)
 const NFT_CONTRACT_ADDRESS = Address.from('0x383a7b0488756b5618f4ce2bcbc608ad48f09a57')
@@ -142,10 +143,23 @@ const handler: Handler = async (event, context) => {
     console.log('✅ Signature verified successfully!')
     console.log('🔍 Signer address:', signerAddress)
 
+    // Validate that the signer actually owns the NFT
+    console.log('🔍 Validating NFT ownership...')
+    const isOwner = await validateNFTOwnership(data.tokenId, signerAddress)
+    if (!isOwner) {
+      throw new Error(
+        `Address ${signerAddress} does not own NFT token ${data.tokenId}. Only the current owner can update metadata.`,
+      )
+    }
+
+    //TODO Update the NFT metadata
+
+    console.log('✅ NFT ownership validated successfully!')
+
     const response: UpdateMetadataResponse = {
       success: true,
       signerAddress,
-      message: 'Signature verified successfully',
+      message: 'Signature verified and ownership validated successfully',
     }
 
     return {

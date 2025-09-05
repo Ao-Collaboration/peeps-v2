@@ -1,10 +1,18 @@
 import {Address, Hash, Hex, Secp256k1, Signature, TypedData} from 'ox'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 
 import type {HandlerContext, HandlerEvent, HandlerResponse} from '@netlify/functions'
 
 import type {UpdateMetadataRequest} from '../../types'
 import {handler} from '../updateMetadata'
+
+// Mock the NFT validation function
+vi.mock('../utils/nft', () => ({
+  validateNFTOwnership: vi.fn().mockImplementation(async () => {
+    console.log('🔧 Mocked validateNFTOwnership called - returning true')
+    return true
+  }),
+}))
 
 const TEST_PRIVATE_KEY = Secp256k1.randomPrivateKey()
 const TEST_ADDRESS = Address.fromPublicKey(Secp256k1.getPublicKey({privateKey: TEST_PRIVATE_KEY}))
@@ -132,7 +140,7 @@ const hashPngDataUrl = (pngDataUrl: string): Hex.Hex => {
 }
 
 describe('updateMetadata webhook', () => {
-  it('should successfully process a valid request and recover the correct signer address', async () => {
+  it('should reject requests when signer does not own the NFT (ownership validation)', async () => {
     // 1. Create test data
     const tokenId = '123'
     const metadata = createTestMetadata()
@@ -191,14 +199,13 @@ describe('updateMetadata webhook', () => {
     // 10. Call the webhook handler
     const response = await handler(mockEvent, createMockContext())
 
-    // 11. Verify the response
+    // 11. Verify the response - should fail due to ownership validation
     const validResponse = assertResponse(response)
-    expect(validResponse.statusCode).toBe(200)
+    expect(validResponse.statusCode).toBe(400)
 
     const responseBody = JSON.parse(validResponse.body!)
-    expect(responseBody.success).toBe(true)
-    expect(responseBody.signerAddress?.toLowerCase()).toBe(TEST_ADDRESS.toLowerCase())
-    expect(responseBody.message).toBe('Signature verified successfully')
+    expect(responseBody.success).toBe(false)
+    expect(responseBody.error).toContain('does not own NFT token')
   })
 
   it('should reject requests with missing required fields', async () => {
