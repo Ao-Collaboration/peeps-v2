@@ -21,6 +21,8 @@ Before committing, make sure to run:
 - Run the build process
 - Execute tests
 
+Avoid using `as` to skip type checks. Always use the appropriate types and assertions.
+
 ## 3. Testing
 
 - Use `pnpm test:run` to run the test suite
@@ -57,13 +59,15 @@ This is a **pnpm workspace** with two packages:
 - **Root package** (`.`) - Main React application
 - **Webhooks package** (`webhooks/`) - Netlify functions for webhook relay
 
-## 7. Keep Dependencies in Sync
+## 7. Dependencies
 
 If you add or update dependencies remember to:
 
 1. Update the `pnpm-lock.yaml` file
 2. Re-start the development server so that Vite picks up the changes
 3. If modifying webhooks, restart the webhook service with `pnpm webhooks:start`
+
+The `ox` library documentation is available at `site:oxlib.sh`.
 
 ## 8. Useful Commands Recap
 
