@@ -29,3 +29,27 @@ export interface TraitRequest {
   description: string
   userEmail: string
 }
+
+export interface UpdateMetadataRequest {
+  tokenId: string
+  metadata: {
+    name: string
+    description: string
+    image: string
+    external_url: string
+    attributes: Array<{
+      trait_type: string
+      value: string
+    }>
+  }
+  pngData: string // Base64 encoded PNG data
+  signature: string
+  chainId: number
+}
+
+export interface UpdateMetadataResponse {
+  success: boolean
+  signerAddress?: string
+  message?: string
+  error?: string
+}
