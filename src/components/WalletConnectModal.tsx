@@ -46,7 +46,7 @@ const WalletConnectModal: React.FC = () => {
     try {
       await connectWallet()
       // Don't auto-close modal when connected
-    } catch (error) {
+    } catch {
       alert('Failed to connect wallet. Please try again.')
     }
   }

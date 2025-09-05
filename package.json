@@ -24,16 +24,15 @@
     "@types/node": "^24.0.3",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "^7.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
     "@vitejs/plugin-react": "^4.3.4",
     "dotenv": "^16.4.7",
-    "eslint": "^8.56.0",
+    "eslint": "^9.0.0",
     "eslint-config-prettier": "^10.1.1",
-    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^5.2.6",
     "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "jsdom": "^26.1.0",
     "lefthook": "^1.11.6",
@@ -61,12 +60,6 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "vitest run"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
