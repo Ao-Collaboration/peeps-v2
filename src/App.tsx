@@ -7,6 +7,7 @@ import OrientationCheck from './components/OrientationCheck'
 import SaveLoadModal from './components/SaveLoadModal'
 import TraitRequestModal from './components/TraitRequestModal'
 import TraitsPanel from './components/TraitsPanel'
+import WalletConnectModal from './components/WalletConnectModal'
 import {useAuth} from './providers/contexts/AuthContext'
 import {useCanvas} from './providers/contexts/CanvasContext'
 import {usePeep} from './providers/contexts/PeepContext'
@@ -91,6 +92,7 @@ function App() {
         </div>
         <SaveLoadModal onSave={handleSave} onLoad={handleLoad} onShare={handleShare} peep={peep} />
         <TraitRequestModal />
+        <WalletConnectModal />
       </div>
     </OrientationCheck>
   )

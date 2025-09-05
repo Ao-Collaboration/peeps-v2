@@ -6,17 +6,20 @@ import {AuthProvider} from './providers/AuthProvider'
 import {CanvasProvider} from './providers/CanvasProvider'
 import {ModalProvider} from './providers/ModalProvider'
 import {PeepProvider} from './providers/PeepProvider'
+import {WalletProvider} from './providers/WalletProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <AuthProvider>
       <PeepProvider>
-        <ModalProvider>
-          <CanvasProvider>
-            <App />
-          </CanvasProvider>
-        </ModalProvider>
+        <WalletProvider>
+          <ModalProvider>
+            <CanvasProvider>
+              <App />
+            </CanvasProvider>
+          </ModalProvider>
+        </WalletProvider>
       </PeepProvider>
     </AuthProvider>
   </React.StrictMode>,
