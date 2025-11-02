@@ -266,7 +266,7 @@ const WalletConnectModal: React.FC = () => {
           </>
         ) : (
           <>
-            <p className="text-gray-700">Have a eep on Ethereum? Connect your wallet to update!</p>
+            <p className="text-gray-700">Have a Peep on Ethereum? Connect your wallet to update!</p>
             <div className="flex gap-3 justify-end">
               <Button onClick={handleConnectWallet} title="Connect Wallet">
                 Connect Wallet
