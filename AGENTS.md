@@ -71,16 +71,16 @@ The `ox` library documentation is available at `site:oxlib.sh`.
 
 ## 8. Useful Commands Recap
 
-| Command         | Purpose                                                   |
-| --------------- | --------------------------------------------------------- |
-| `pnpm dev`      | Start the Vite dev server with HMR (port 3000)            |
-| `pnpm lint`     | Run ESLint checks                                         |
-| `pnpm format`   | Run Prettier formatting                                   |
-| `pnpm test:run` | Execute the test suite                                    |
-| `pnpm test`     | Run tests in watch mode                                   |
-| `pnpm test:ui`  | Run tests with Vitest UI                                  |
-| `pnpm build`    | **Production build – _do not run during agent sessions_** |
-| `pnpm preview`  | Preview production build locally                          |
+| Command         | Purpose                                                               |
+| --------------- | --------------------------------------------------------------------- |
+| `pnpm dev`      | Start the Vite dev server with HMR (port 3000)                        |
+| `pnpm lint`     | Run ESLint checks                                                     |
+| `pnpm format`   | Run Prettier formatting                                               |
+| `pnpm test:run` | Execute the test suite                                                |
+| `pnpm test`     | Run tests in watch mode                                               |
+| `pnpm test:ui`  | Run tests with Vitest UI                                              |
+| `pnpm build`    | **Production build – _do not run during agent sessions unless told_** |
+| `pnpm preview`  | Preview production build locally                                      |
 
 ## 9. Special Scripts
 
