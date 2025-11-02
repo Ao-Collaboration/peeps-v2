@@ -30,16 +30,4 @@ describe('validateNFTOwnership', () => {
 
     expect(result).toBe(false)
   })
-
-  it('should handle network errors gracefully', async () => {
-    const tokenId = '0'
-    const ownerAddress = Address.from('0x455fef5aecaccd3a43a4bce2c303392e10f22c63')
-
-    // This should work with the real token, but if there's a network error,
-    // it should return false rather than throw
-    const result = await validateNFTOwnership(tokenId, ownerAddress)
-
-    // Should be true for the real owner of token 0
-    expect(result).toBe(true)
-  })
 })

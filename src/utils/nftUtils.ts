@@ -13,6 +13,13 @@ const NFT_ABI = [
     type: 'function',
   },
   {
+    inputs: [{name: 'tokenId', type: 'uint256'}],
+    name: 'ownerOf',
+    outputs: [{name: 'owner', type: 'address'}],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {name: 'owner', type: 'address'},
       {name: 'index', type: 'uint256'},

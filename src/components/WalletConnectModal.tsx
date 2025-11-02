@@ -8,13 +8,15 @@ import {useCanvas} from '../providers/contexts/CanvasContext'
 import {useModal} from '../providers/contexts/ModalContext'
 import {usePeep} from '../providers/contexts/PeepContext'
 import {switchToMainnet} from '../utils/chainUtils'
-import {getSvgPngHash} from '../utils/imageHashUtils'
+import {hashPngDataUrl} from '../utils/imageHashUtils'
+import {svgToPngDataUrl} from '../utils/imageUtils'
 import {
   type NFTData,
   convertPeepToNFTMetadata,
   fetchUserNFTs,
   getUpdateTypedData,
 } from '../utils/nftUtils'
+import {updateNFTMetadata} from '../utils/nftWebhookUtils'
 import Button from './Button'
 import Modal from './Modal'
 
@@ -27,6 +29,11 @@ const WalletConnectModal: React.FC = () => {
   const [isLoadingNFTs, setIsLoadingNFTs] = useState(false)
   const [nftError, setNftError] = useState<string | null>(null)
   const [isUpdatingNFT, setIsUpdatingNFT] = useState<bigint | null>(null)
+  const [updateStatus, setUpdateStatus] = useState<{
+    tokenId: bigint
+    status: 'success' | 'error'
+    message: string
+  } | null>(null)
 
   const isOpen = isModalOpen('walletConnect')
 
@@ -94,8 +101,11 @@ const WalletConnectModal: React.FC = () => {
         throw new Error('Canvas not available. Please ensure the peep is loaded.')
       }
 
-      // Get the PNG hash from the current SVG
-      const imageHash = await getSvgPngHash(canvasRef.current, peep.name)
+      // Get the PNG data URL from the current SVG
+      // We need both the PNG data URL (for the webhook) and the hash (for signing)
+      // SVG from Canvas already has data URLs, so empty svgContent is fine
+      const pngDataUrl = await svgToPngDataUrl(canvasRef.current, {}, async () => {}, peep.name)
+      const imageHash = hashPngDataUrl(pngDataUrl) as `0x${string}`
 
       // Find the corresponding NFT to get its image URL for metadata
       const nft = nftData?.nfts.find(n => n.tokenId === tokenId)
@@ -127,15 +137,37 @@ const WalletConnectModal: React.FC = () => {
 
       console.log('Signature received:', signature)
 
-      // TODO: Send the signature and metadata to your backend/contract
-      // For now, we'll just show a success message
-      alert(
-        `NFT token ${tokenId.toString()} update signed successfully!\n\nSignature: ${signature}\n\nThis signature can now be sent to your backend for processing.`,
-      )
+      // Send the signature and metadata to the webhook
+      console.log('Sending update request to webhook...')
+      const response = await updateNFTMetadata({
+        tokenId: tokenId.toString(),
+        metadata: nftMetadata,
+        pngData: pngDataUrl,
+        signature,
+        chainId,
+      })
+
+      if (response.success) {
+        setUpdateStatus({
+          tokenId,
+          status: 'success',
+          message: response.message || 'NFT metadata updated successfully!',
+        })
+        // Clear status after 5 seconds
+        setTimeout(() => setUpdateStatus(null), 5000)
+      } else {
+        throw new Error(response.error || 'Failed to update NFT metadata')
+      }
     } catch (error) {
       console.error('Error updating NFT:', error)
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
-      alert(`Failed to update NFT: ${errorMessage}`)
+      setUpdateStatus({
+        tokenId,
+        status: 'error',
+        message: `Failed to update NFT: ${errorMessage}`,
+      })
+      // Clear error status after 8 seconds
+      setTimeout(() => setUpdateStatus(null), 8000)
     } finally {
       setIsUpdatingNFT(null)
     }
@@ -187,6 +219,17 @@ const WalletConnectModal: React.FC = () => {
                                 {nft.metadata?.name ? `- ${nft.metadata.name}` : ''}
                               </span>
                             </div>
+                            {updateStatus && updateStatus.tokenId === nft.tokenId && (
+                              <div
+                                className={`text-xs px-2 py-1 rounded ${
+                                  updateStatus.status === 'success'
+                                    ? 'bg-green-50 text-green-700'
+                                    : 'bg-red-50 text-red-700'
+                                }`}
+                              >
+                                {updateStatus.message}
+                              </div>
+                            )}
                           </div>
                           <div className="flex gap-2">
                             <Button
@@ -197,7 +240,7 @@ const WalletConnectModal: React.FC = () => {
                               {isUpdatingNFT === nft.tokenId ? (
                                 <div className="flex items-center gap-2">
                                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                  <span>Signing...</span>
+                                  <span>Updating...</span>
                                 </div>
                               ) : (
                                 <FontAwesomeIcon icon={faUpload} />

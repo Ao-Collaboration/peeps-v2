@@ -1,5 +1,5 @@
 import {Address, Hash, Hex, Secp256k1, Signature, TypedData} from 'ox'
-import {describe, expect, it, vi} from 'vitest'
+import {beforeAll, describe, expect, it, vi} from 'vitest'
 
 import type {HandlerContext, HandlerEvent, HandlerResponse} from '@netlify/functions'
 
@@ -13,6 +13,22 @@ vi.mock('../utils/nft', () => ({
     return true
   }),
 }))
+
+// Mock the Git operations
+vi.mock('../utils/git', () => ({
+  updateNFTMetadataInRepo: vi.fn().mockImplementation(async () => {
+    console.log('🔧 Mocked updateNFTMetadataInRepo called - returning success')
+    return Promise.resolve()
+  }),
+}))
+
+// Set up environment variables for tests
+beforeAll(() => {
+  process.env.PEEPS_NFT_DATA_REPO_URL = 'https://github.com/test/repo.git'
+  process.env.PEEPS_NFT_DATA_BRANCH = 'main'
+  process.env.PEEPS_NFT_DATA_GIT_USER_NAME = 'Test Bot'
+  process.env.PEEPS_NFT_DATA_GIT_USER_EMAIL = 'test@example.com'
+})
 
 const TEST_PRIVATE_KEY = Secp256k1.randomPrivateKey()
 const TEST_ADDRESS = Address.fromPublicKey(Secp256k1.getPublicKey({privateKey: TEST_PRIVATE_KEY}))
@@ -307,5 +323,58 @@ describe('updateMetadata webhook', () => {
 
     const responseBody = JSON.parse(validResponse.body!)
     expect(responseBody.error).toBe('Method Not Allowed')
+  })
+
+  it('should fail when required environment variables are missing', async () => {
+    // Store original env vars
+    const originalEnv = {
+      PEEPS_NFT_DATA_REPO_URL: process.env.PEEPS_NFT_DATA_REPO_URL,
+      PEEPS_NFT_DATA_BRANCH: process.env.PEEPS_NFT_DATA_BRANCH,
+      PEEPS_NFT_DATA_GIT_USER_NAME: process.env.PEEPS_NFT_DATA_GIT_USER_NAME,
+      PEEPS_NFT_DATA_GIT_USER_EMAIL: process.env.PEEPS_NFT_DATA_GIT_USER_EMAIL,
+    }
+
+    try {
+      // Clear required env vars
+      delete process.env.PEEPS_NFT_DATA_REPO_URL
+      delete process.env.PEEPS_NFT_DATA_BRANCH
+      delete process.env.PEEPS_NFT_DATA_GIT_USER_NAME
+      delete process.env.PEEPS_NFT_DATA_GIT_USER_EMAIL
+
+      const request: UpdateMetadataRequest = {
+        tokenId: '123',
+        metadata: {
+          name: 'Test Peep',
+          description: 'A test peep',
+          image: 'https://example.com/image.png',
+          external_url: 'https://peeps.club',
+          attributes: [
+            {trait_type: 'Hair', value: 'Blonde'},
+            {trait_type: 'Eyes', value: 'Blue'},
+          ],
+        },
+        pngData:
+          'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
+        signature: '0x1234567890abcdef',
+        chainId: 1,
+      }
+      const mockEvent = createMockEvent('POST', JSON.stringify(request))
+
+      const response = await handler(mockEvent, createMockContext())
+
+      const validResponse = assertResponse(response)
+      expect(validResponse.statusCode).toBe(400)
+
+      const responseBody = JSON.parse(validResponse.body!)
+      expect(responseBody.success).toBe(false)
+      expect(responseBody.error).toContain('Missing required environment variables')
+      expect(responseBody.error).toContain('PEEPS_NFT_DATA_REPO_URL')
+      expect(responseBody.error).toContain('PEEPS_NFT_DATA_BRANCH')
+      expect(responseBody.error).toContain('PEEPS_NFT_DATA_GIT_USER_NAME')
+      expect(responseBody.error).toContain('PEEPS_NFT_DATA_GIT_USER_EMAIL')
+    } finally {
+      // Restore original env vars
+      Object.assign(process.env, originalEnv)
+    }
   })
 })

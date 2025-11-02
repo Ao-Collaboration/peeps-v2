@@ -1,10 +1,15 @@
+import {config} from 'dotenv'
 import {Address, Hash, Hex, Secp256k1, Signature, TypedData} from 'ox'
 
 import type {Handler} from '@netlify/functions'
 
 import type {UpdateMetadataRequest, UpdateMetadataResponse} from '../types'
 import {getCorsHeaders, requirePostRequest} from '../utils/event'
+import {type GitConfig, type NFTMetadataFile, updateNFTMetadataInRepo} from '../utils/git'
 import {validateNFTOwnership} from '../utils/nft'
+
+// Load environment variables from .env file
+config()
 
 // NFT Contract address (same as in the main app)
 const NFT_CONTRACT_ADDRESS = Address.from('0x383a7b0488756b5618f4ce2bcbc608ad48f09a57')
@@ -103,6 +108,34 @@ const handler: Handler = async (event, context) => {
       throw new Error('Missing required fields: tokenId, metadata, pngData, signature, or chainId')
     }
 
+    // Get and validate required environment variables
+    const envVars = {
+      PEEPS_NFT_DATA_REPO_URL: process.env.PEEPS_NFT_DATA_REPO_URL,
+      PEEPS_NFT_DATA_BRANCH: process.env.PEEPS_NFT_DATA_BRANCH,
+      PEEPS_NFT_DATA_GIT_USER_NAME: process.env.PEEPS_NFT_DATA_GIT_USER_NAME,
+      PEEPS_NFT_DATA_GIT_USER_EMAIL: process.env.PEEPS_NFT_DATA_GIT_USER_EMAIL,
+    }
+
+    // Validate that all required environment variables are set
+    const missingVars = Object.entries(envVars)
+      .filter(([_, value]) => !value)
+      .map(([key]) => key)
+
+    if (missingVars.length > 0) {
+      throw new Error(
+        `Missing required environment variables: ${missingVars.join(', ')}. ` +
+          'Please configure the peeps-nft-data repository settings.',
+      )
+    }
+
+    // Create git config from validated environment variables
+    const gitConfig: GitConfig = {
+      repoUrl: envVars.PEEPS_NFT_DATA_REPO_URL!,
+      branch: envVars.PEEPS_NFT_DATA_BRANCH!,
+      userName: envVars.PEEPS_NFT_DATA_GIT_USER_NAME!,
+      userEmail: envVars.PEEPS_NFT_DATA_GIT_USER_EMAIL!,
+    }
+
     console.log('Received update metadata request:', {
       tokenId: data.tokenId,
       metadataName: data.metadata.name,
@@ -152,14 +185,25 @@ const handler: Handler = async (event, context) => {
       )
     }
 
-    //TODO Update the NFT metadata
+    // Update the NFT metadata in the peeps-nft-data repository
+    console.log('📝 Updating NFT metadata in peeps-nft-data repository...')
 
-    console.log('✅ NFT ownership validated successfully!')
+    // Prepare NFT metadata file data
+    const nftMetadataFile: NFTMetadataFile = {
+      tokenId: data.tokenId,
+      metadata: data.metadata,
+      imageHash: imageHash,
+    }
+
+    // Update the repository
+    await updateNFTMetadataInRepo(nftMetadataFile, gitConfig)
+
+    console.log('✅ NFT metadata updated successfully in peeps-nft-data repository!')
 
     const response: UpdateMetadataResponse = {
       success: true,
       signerAddress,
-      message: 'Signature verified and ownership validated successfully',
+      message: 'NFT metadata updated successfully in peeps-nft-data repository',
     }
 
     return {

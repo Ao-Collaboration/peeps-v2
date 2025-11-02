@@ -1,11 +1,11 @@
-import {keccak256} from 'viem'
+import {Hex, keccak256} from 'viem'
 
 import {svgToPngDataUrl as sharedSvgToPngDataUrl} from './imageUtils'
 
 /**
  * Converts a PNG data URL to binary data and hashes it
  */
-export const hashPngDataUrl = (pngDataUrl: string): string => {
+export const hashPngDataUrl = (pngDataUrl: string): Hex => {
   // Extract the base64 data from the data URL
   const base64Data = pngDataUrl.split(',')[1]
   if (!base64Data) {
@@ -27,7 +27,7 @@ export const hashPngDataUrl = (pngDataUrl: string): string => {
  * Gets the PNG data from an SVG and returns its hash
  * This version works directly with the SVG element without needing svgContent
  */
-export const getSvgPngHash = async (svg: SVGSVGElement, name?: string): Promise<`0x${string}`> => {
+export const getSvgPngHash = async (svg: SVGSVGElement, name?: string): Promise<Hex> => {
   // Use shared utility with empty svgContent and no-op loadSvg
   const pngDataUrl = await sharedSvgToPngDataUrl(
     svg,
@@ -37,5 +37,5 @@ export const getSvgPngHash = async (svg: SVGSVGElement, name?: string): Promise<
   )
 
   // Hash the PNG data
-  return hashPngDataUrl(pngDataUrl) as `0x${string}`
+  return hashPngDataUrl(pngDataUrl)
 }

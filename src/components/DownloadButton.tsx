@@ -20,6 +20,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({svgRef, currentName, inv
   const handleDownload = async (format: 'SVG' | 'PNG') => {
     if (!svgRef.current) return
     closeModal('download')
+    // SVG from Canvas already has data URLs, so empty svgContent is fine
     await downloadSvg(svgRef.current, {}, async () => {}, currentName, format)
   }
 
