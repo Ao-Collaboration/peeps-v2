@@ -6,7 +6,7 @@ import type {Handler} from '@netlify/functions'
 import type {UpdateMetadataRequest, UpdateMetadataResponse} from '../types'
 import {getCorsHeaders, requirePostRequest} from '../utils/event'
 import {type GitConfig, type NFTMetadataFile, updateNFTMetadataInRepo} from '../utils/git'
-import {validateNFTOwnership} from '../utils/nft'
+import {extractPeepURIFromURI, getTokenURI, validateNFTOwnership} from '../utils/nft'
 
 // Load environment variables from .env file
 config()
@@ -35,7 +35,7 @@ function hashPngDataUrl(pngDataUrl: string): Hex.Hex {
 
     // Hash the bytes using keccak256
     return Hash.keccak256(bytes, {as: 'Hex'})
-  } catch (error) {
+  } catch {
     throw new Error('Invalid PNG data URL format')
   }
 }
@@ -95,7 +95,7 @@ function getUpdateTypedData(
   }
 }
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (event, _context) => {
   const requireResponse = requirePostRequest(event)
   if (requireResponse) return requireResponse
   const headers = getCorsHeaders(event)
@@ -104,8 +104,17 @@ const handler: Handler = async (event, context) => {
     const data: UpdateMetadataRequest = JSON.parse(event.body || '')
 
     // Validate required fields first
-    if (!data.tokenId || !data.metadata || !data.pngData || !data.signature || !data.chainId) {
-      throw new Error('Missing required fields: tokenId, metadata, pngData, signature, or chainId')
+    if (
+      !data.tokenId ||
+      !data.metadata ||
+      !data.pngData ||
+      !data.svgData ||
+      !data.signature ||
+      !data.chainId
+    ) {
+      throw new Error(
+        'Missing required fields: tokenId, metadata, pngData, svgData, signature, or chainId',
+      )
     }
 
     // Get and validate required environment variables
@@ -114,11 +123,12 @@ const handler: Handler = async (event, context) => {
       PEEPS_NFT_DATA_BRANCH: process.env.PEEPS_NFT_DATA_BRANCH,
       PEEPS_NFT_DATA_GIT_USER_NAME: process.env.PEEPS_NFT_DATA_GIT_USER_NAME,
       PEEPS_NFT_DATA_GIT_USER_EMAIL: process.env.PEEPS_NFT_DATA_GIT_USER_EMAIL,
+      PEEPS_NFT_DATA_GITHUB_TOKEN: process.env.PEEPS_NFT_DATA_GITHUB_TOKEN, // Optional
     }
 
-    // Validate that all required environment variables are set
+    // Validate that all required environment variables are set (except GitHub token)
     const missingVars = Object.entries(envVars)
-      .filter(([_, value]) => !value)
+      .filter(([key, value]) => key !== 'PEEPS_NFT_DATA_GITHUB_TOKEN' && !value)
       .map(([key]) => key)
 
     if (missingVars.length > 0) {
@@ -134,6 +144,7 @@ const handler: Handler = async (event, context) => {
       branch: envVars.PEEPS_NFT_DATA_BRANCH!,
       userName: envVars.PEEPS_NFT_DATA_GIT_USER_NAME!,
       userEmail: envVars.PEEPS_NFT_DATA_GIT_USER_EMAIL!,
+      githubToken: envVars.PEEPS_NFT_DATA_GITHUB_TOKEN, // Optional, used for authentication
     }
 
     console.log('Received update metadata request:', {
@@ -147,6 +158,8 @@ const handler: Handler = async (event, context) => {
     // Hash the PNG data to get the image hash
     const imageHash = hashPngDataUrl(data.pngData)
     console.log('Generated image hash from PNG data:', imageHash)
+
+    //TODO We should regenerate the image from the metadata here instead of receiving it from the client
 
     // Reconstruct the EIP-712 typed data
     const typedData = getUpdateTypedData(data.tokenId, data.metadata, imageHash, data.chainId)
@@ -185,6 +198,22 @@ const handler: Handler = async (event, context) => {
       )
     }
 
+    // Get the tokenURI from the contract
+    // tokenURI returns: baseURI + peepURI + ".json"
+    // We'll use this to determine where to save the file
+    console.log('📝 Getting tokenURI from contract...')
+    const currentTokenURI = await getTokenURI(data.tokenId)
+    console.log('Current tokenURI:', currentTokenURI)
+
+    // Extract the peepURI value from the tokenURI (the filename without .json)
+    const peepURI = extractPeepURIFromURI(currentTokenURI)
+    console.log('Extracted peepURI value from URI:', peepURI)
+
+    // The peepURI is the same as the tokenURI since tokenURI already includes peepURI
+    // tokenURI = baseURI + peepURI + ".json"
+    const fullPeepURI = currentTokenURI
+    console.log('Using peep URI:', fullPeepURI)
+
     // Update the NFT metadata in the peeps-nft-data repository
     console.log('📝 Updating NFT metadata in peeps-nft-data repository...')
 
@@ -193,6 +222,9 @@ const handler: Handler = async (event, context) => {
       tokenId: data.tokenId,
       metadata: data.metadata,
       imageHash: imageHash,
+      svgData: data.svgData, // Required SVG content
+      pngData: data.pngData, // PNG data URL for saving
+      peepURI: fullPeepURI, // The peep URI to save the file with (from tokenURI)
     }
 
     // Update the repository
@@ -203,7 +235,7 @@ const handler: Handler = async (event, context) => {
     const response: UpdateMetadataResponse = {
       success: true,
       signerAddress,
-      message: 'NFT metadata updated successfully in peeps-nft-data repository',
+      message: 'Success!',
     }
 
     return {

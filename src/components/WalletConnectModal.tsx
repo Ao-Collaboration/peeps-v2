@@ -9,7 +9,7 @@ import {useModal} from '../providers/contexts/ModalContext'
 import {usePeep} from '../providers/contexts/PeepContext'
 import {switchToMainnet} from '../utils/chainUtils'
 import {hashPngDataUrl} from '../utils/imageHashUtils'
-import {svgToPngDataUrl} from '../utils/imageUtils'
+import {getProcessedSvgString, svgToPngDataUrl} from '../utils/imageUtils'
 import {
   type NFTData,
   convertPeepToNFTMetadata,
@@ -107,6 +107,9 @@ const WalletConnectModal: React.FC = () => {
       const pngDataUrl = await svgToPngDataUrl(canvasRef.current, {}, async () => {}, peep.name)
       const imageHash = hashPngDataUrl(pngDataUrl) as `0x${string}`
 
+      // Get the processed SVG content as a string
+      const svgData = await getProcessedSvgString(canvasRef.current, {}, async () => {}, peep.name)
+
       // Find the corresponding NFT to get its image URL for metadata
       const nft = nftData?.nfts.find(n => n.tokenId === tokenId)
       const imageUrl = nft?.metadata?.image
@@ -143,6 +146,7 @@ const WalletConnectModal: React.FC = () => {
         tokenId: tokenId.toString(),
         metadata: nftMetadata,
         pngData: pngDataUrl,
+        svgData,
         signature,
         chainId,
       })

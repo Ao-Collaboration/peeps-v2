@@ -1,5 +1,5 @@
 import {Address, Hash, Hex, Secp256k1, Signature, TypedData} from 'ox'
-import {beforeAll, describe, expect, it, vi} from 'vitest'
+import {beforeAll, beforeEach, describe, expect, it, vi} from 'vitest'
 
 import type {HandlerContext, HandlerEvent, HandlerResponse} from '@netlify/functions'
 
@@ -7,20 +7,30 @@ import type {UpdateMetadataRequest} from '../../types'
 import {handler} from '../updateMetadata'
 
 // Mock the NFT validation function
-vi.mock('../utils/nft', () => ({
-  validateNFTOwnership: vi.fn().mockImplementation(async () => {
-    console.log('🔧 Mocked validateNFTOwnership called - returning true')
-    return true
-  }),
-}))
+const mockValidateNFTOwnership = vi.fn()
+const mockGetTokenURI = vi.fn()
+const mockExtractPeepURIFromURI = vi.fn()
+
+vi.mock('../../utils/nft', async () => {
+  const actual = await vi.importActual<typeof import('../../utils/nft')>('../../utils/nft')
+  return {
+    ...actual,
+    validateNFTOwnership: (...args: any[]) => mockValidateNFTOwnership(...args),
+    getTokenURI: (...args: any[]) => mockGetTokenURI(...args),
+    extractPeepURIFromURI: (...args: any[]) => mockExtractPeepURIFromURI(...args),
+  }
+})
 
 // Mock the Git operations
-vi.mock('../utils/git', () => ({
-  updateNFTMetadataInRepo: vi.fn().mockImplementation(async () => {
-    console.log('🔧 Mocked updateNFTMetadataInRepo called - returning success')
-    return Promise.resolve()
-  }),
-}))
+const mockUpdateNFTMetadataInRepo = vi.fn()
+
+vi.mock('../../utils/git', async () => {
+  const actual = await vi.importActual<typeof import('../../utils/git')>('../../utils/git')
+  return {
+    ...actual,
+    updateNFTMetadataInRepo: (...args: any[]) => mockUpdateNFTMetadataInRepo(...args),
+  }
+})
 
 // Set up environment variables for tests
 beforeAll(() => {
@@ -28,6 +38,19 @@ beforeAll(() => {
   process.env.PEEPS_NFT_DATA_BRANCH = 'main'
   process.env.PEEPS_NFT_DATA_GIT_USER_NAME = 'Test Bot'
   process.env.PEEPS_NFT_DATA_GIT_USER_EMAIL = 'test@example.com'
+})
+
+// Reset mocks before each test
+beforeEach(() => {
+  vi.clearAllMocks()
+  // Set default mock implementations
+  mockValidateNFTOwnership.mockResolvedValue(true)
+  mockGetTokenURI.mockResolvedValue('https://api.peeps.club/metadata/123.json')
+  mockExtractPeepURIFromURI.mockImplementation((uri: string) => {
+    console.log('🔧 Mocked extractPeepURIFromURI called with:', uri)
+    return '123'
+  })
+  mockUpdateNFTMetadataInRepo.mockResolvedValue(undefined)
 })
 
 const TEST_PRIVATE_KEY = Secp256k1.randomPrivateKey()
@@ -86,6 +109,11 @@ const createTestPngDataUrl = (): string => {
   const pngData =
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
   return `data:image/png;base64,${pngData}`
+}
+
+// Create a test SVG string
+const createTestSvgData = (): string => {
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200"><rect width="1200" height="1200" fill="white"/></svg>'
 }
 
 // Helper function to create test metadata
@@ -157,6 +185,9 @@ const hashPngDataUrl = (pngDataUrl: string): Hex.Hex => {
 
 describe('updateMetadata webhook', () => {
   it('should reject requests when signer does not own the NFT (ownership validation)', async () => {
+    // Set mock to return false for ownership validation
+    mockValidateNFTOwnership.mockResolvedValue(false)
+
     // 1. Create test data
     const tokenId = '123'
     const metadata = createTestMetadata()
@@ -205,6 +236,7 @@ describe('updateMetadata webhook', () => {
       tokenId,
       metadata,
       pngData: pngDataUrl,
+      svgData: createTestSvgData(),
       signature: signatureHex,
       chainId: 1,
     }
@@ -260,6 +292,7 @@ describe('updateMetadata webhook', () => {
       tokenId,
       metadata,
       pngData: pngDataUrl,
+      svgData: createTestSvgData(),
       signature: signatureHex,
       chainId: 137, // Polygon chain ID (not supported)
     }
@@ -287,6 +320,7 @@ describe('updateMetadata webhook', () => {
         tokenId,
         metadata,
         pngData: invalidPngData,
+        svgData: createTestSvgData(), // Required field
         signature: '0x1234567890abcdef',
         chainId: 1,
       }),
@@ -355,6 +389,7 @@ describe('updateMetadata webhook', () => {
         },
         pngData:
           'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
+        svgData: createTestSvgData(),
         signature: '0x1234567890abcdef',
         chainId: 1,
       }
@@ -376,5 +411,61 @@ describe('updateMetadata webhook', () => {
       // Restore original env vars
       Object.assign(process.env, originalEnv)
     }
+  })
+
+  it('should successfully update metadata when all validations pass', async () => {
+    // Note: This test verifies the webhook works end-to-end with all mocks in place.
+    // The git operations are fully mocked, so no real git commands will execute.
+
+    // 1. Create test data
+    const tokenId = '123'
+    const metadata = createTestMetadata()
+    const pngDataUrl = createTestPngDataUrl()
+    const svgData = createTestSvgData()
+
+    // 2. Hash the PNG data
+    const imageHash = hashPngDataUrl(pngDataUrl)
+
+    // 3. Create EIP-712 typed data
+    const typedData = createTypedData(tokenId, metadata, imageHash, 1)
+
+    // 4. Sign the typed data
+    const signPayload = TypedData.getSignPayload(typedData)
+    const signature = Secp256k1.sign({
+      payload: signPayload,
+      privateKey: TEST_PRIVATE_KEY,
+    })
+    const signatureHex = Signature.toHex(signature)
+
+    // 5. Create the webhook request
+    const request: UpdateMetadataRequest = {
+      tokenId,
+      metadata,
+      pngData: pngDataUrl,
+      svgData,
+      signature: signatureHex,
+      chainId: 1,
+    }
+
+    // 6. Create a mock Netlify event
+    const mockEvent = createMockEvent('POST', JSON.stringify(request))
+
+    // 7. Call the webhook handler
+    // The mocks ensure:
+    // - validateNFTOwnership returns true (mocked)
+    // - getTokenURI returns a valid URI (mocked)
+    // - extractPeepURIFromURI extracts the peepURI (mocked)
+    // - updateNFTMetadataInRepo succeeds without executing real git commands (mocked)
+    const response = await handler(mockEvent, createMockContext())
+
+    // 8. Verify the response - should succeed
+    const validResponse = assertResponse(response)
+    expect(validResponse.statusCode).toBe(200)
+
+    const responseBody = JSON.parse(validResponse.body!)
+    expect(responseBody.success).toBe(true)
+    expect(responseBody.message).toBe('Success!')
+    expect(responseBody.signerAddress).toBeDefined()
+    expect(responseBody.signerAddress).toBe(TEST_ADDRESS.toLowerCase())
   })
 })

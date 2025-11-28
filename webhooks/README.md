@@ -28,6 +28,7 @@ Handles updating NFT metadata by pushing changes to the `peeps-nft-data` reposit
     ]
   },
   "pngData": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
+  "svgData": "<svg>...</svg>",
   "signature": "0x...",
   "chainId": 1
 }
@@ -47,10 +48,11 @@ Handles updating NFT metadata by pushing changes to the `peeps-nft-data` reposit
 
 1. Validates the EIP-712 signature
 2. Verifies NFT ownership
-3. Clones the `peeps-nft-data` repository
+3. Clones the `peeps-nft-data` repository (with GitHub token if provided)
 4. Updates the metadata file for the token
-5. Commits and pushes changes
-6. Cleans up temporary files
+5. Saves SVG and PNG files to the `peep/` directory (named by imageHash)
+6. Commits and pushes changes
+7. Cleans up temporary files
 
 ## Environment Variables
 
@@ -65,6 +67,10 @@ The following environment variables need to be configured:
 - `PEEPS_NFT_DATA_BRANCH` - Target branch (e.g., `main`)
 - `PEEPS_NFT_DATA_GIT_USER_NAME` - Git commit author name
 - `PEEPS_NFT_DATA_GIT_USER_EMAIL` - Git commit author email
+
+### Optional
+
+- `PEEPS_NFT_DATA_GITHUB_TOKEN` - GitHub personal access token for authenticating Git operations (required for private repositories or when running on Netlify)
 
 ## Development
 
@@ -84,6 +90,9 @@ The following environment variables need to be configured:
    PEEPS_NFT_DATA_BRANCH=main
    PEEPS_NFT_DATA_GIT_USER_NAME=Peeps Bot
    PEEPS_NFT_DATA_GIT_USER_EMAIL=bot@peeps.club
+
+   # Optional: GitHub token for authentication (required for private repos or Netlify)
+   PEEPS_NFT_DATA_GITHUB_TOKEN=your_github_token_here
 
    # Notion API (if using Notion features)
    NOTION_TOKEN=your_notion_token_here

@@ -13,6 +13,7 @@ export interface UpdateMetadataRequest {
     }>
   }
   pngData: string // Base64 encoded PNG data URL
+  svgData: string // SVG content as string
   signature: string
   chainId: number
 }

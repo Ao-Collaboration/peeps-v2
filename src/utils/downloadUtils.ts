@@ -1,10 +1,4 @@
-import {
-  addSvgComment,
-  downloadDataUrl,
-  processSvgImages,
-  svgToDataUrl,
-  svgToPngDataUrl,
-} from './imageUtils'
+import {downloadDataUrl, getProcessedSvgString, svgToPngDataUrl} from './imageUtils'
 
 export const downloadSvg = async (
   svg: SVGSVGElement,
@@ -14,17 +8,12 @@ export const downloadSvg = async (
   format: 'PNG' | 'SVG' = 'SVG',
 ) => {
   if (format === 'SVG') {
-    // Clone the SVG to avoid modifying the original
-    const svgClone = svg.cloneNode(true) as SVGSVGElement
-
-    // Process images in the SVG
-    await processSvgImages(svgClone, svgContent, loadSvg)
-
-    // Add comment
-    addSvgComment(svgClone, name)
+    // Get processed SVG string
+    const svgString = await getProcessedSvgString(svg, svgContent, loadSvg, name)
 
     // Convert to data URL and download
-    const svgDataUrl = svgToDataUrl(svgClone)
+    const svgBlob = new Blob([svgString], {type: 'image/svg+xml'})
+    const svgDataUrl = URL.createObjectURL(svgBlob)
     downloadDataUrl(svgDataUrl, `${name ? name + '_' : ''}Peep.svg`)
     URL.revokeObjectURL(svgDataUrl)
   } else {

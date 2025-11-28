@@ -49,6 +49,11 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        working-directory: .
+
+      - name: Run tests
+        run: pnpm test:run
+        working-directory: .
 
       - name: Deploy
         env:
@@ -59,6 +64,7 @@ jobs:
           PEEPS_NFT_DATA_BRANCH: ${{ secrets.PEEPS_NFT_DATA_BRANCH }}
           PEEPS_NFT_DATA_GIT_USER_NAME: ${{ secrets.PEEPS_NFT_DATA_GIT_USER_NAME }}
           PEEPS_NFT_DATA_GIT_USER_EMAIL: ${{ secrets.PEEPS_NFT_DATA_GIT_USER_EMAIL }}
+          PEEPS_NFT_DATA_GITHUB_TOKEN: ${{ secrets.PEEPS_NFT_DATA_GITHUB_TOKEN }}
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_CREATEDPEEPS_DATABASE_ID: ${{ secrets.NOTION_CREATEDPEEPS_DATABASE_ID }}
           NOTION_TRAITREQUESTS_DATABASE_ID: ${{ secrets.NOTION_TRAITREQUESTS_DATABASE_ID }}

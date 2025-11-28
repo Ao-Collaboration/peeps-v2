@@ -99,6 +99,29 @@ export const svgDataUrlToPngDataUrl = async (svgDataUrl: string): Promise<string
 }
 
 /**
+ * Processes an SVG and returns it as a serialized string
+ * This is useful for saving or sending SVG data
+ */
+export const getProcessedSvgString = async (
+  svg: SVGSVGElement,
+  svgContent: {[key: string]: string},
+  loadSvg: (filePath: string) => Promise<void>,
+  name?: string,
+): Promise<string> => {
+  // Clone the SVG to avoid modifying the original
+  const svgClone = svg.cloneNode(true) as SVGSVGElement
+
+  // Process images in the SVG
+  await processSvgImages(svgClone, svgContent, loadSvg)
+
+  // Add comment
+  addSvgComment(svgClone, name)
+
+  // Serialize to string
+  return new XMLSerializer().serializeToString(svgClone)
+}
+
+/**
  * Converts an SVG element to PNG data URL
  * This is the main function that orchestrates the entire process
  */

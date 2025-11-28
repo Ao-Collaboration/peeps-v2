@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {addSvgComment, downloadDataUrl, svgToDataUrl} from '../imageUtils'
+import {addSvgComment, downloadDataUrl, getProcessedSvgString, svgToDataUrl} from '../imageUtils'
 
 // Mock DOM methods
 const mockCreateComment = vi.fn()
@@ -119,6 +119,66 @@ describe('imageUtils', () => {
       expect(mockAppendChild).toHaveBeenCalledWith(mockLink)
       expect(mockClick).toHaveBeenCalled()
       expect(mockRemoveChild).toHaveBeenCalledWith(mockLink)
+    })
+  })
+
+  describe('getProcessedSvgString', () => {
+    it('should process SVG and return serialized string', async () => {
+      const mockSvg = {
+        cloneNode: vi.fn().mockReturnValue({
+          querySelectorAll: vi.fn().mockReturnValue([]),
+          firstChild: null,
+          insertBefore: vi.fn(),
+        }),
+      } as any
+
+      const svgContent: {[key: string]: string} = {}
+      const loadSvg = vi.fn().mockResolvedValue(undefined)
+
+      // Mock XMLSerializer
+      const mockSerializeToString = vi.fn().mockReturnValue('<svg>processed</svg>')
+      const mockXMLSerializer = vi.fn().mockImplementation(() => ({
+        serializeToString: mockSerializeToString,
+      }))
+      Object.defineProperty(window, 'XMLSerializer', {
+        value: mockXMLSerializer,
+        writable: true,
+      })
+
+      const result = await getProcessedSvgString(mockSvg, svgContent, loadSvg, 'Test Peep')
+
+      expect(mockSvg.cloneNode).toHaveBeenCalledWith(true)
+      expect(mockSerializeToString).toHaveBeenCalled()
+      expect(result).toBe('<svg>processed</svg>')
+    })
+
+    it('should process SVG without name', async () => {
+      const mockSvg = {
+        cloneNode: vi.fn().mockReturnValue({
+          querySelectorAll: vi.fn().mockReturnValue([]),
+          firstChild: null,
+          insertBefore: vi.fn(),
+        }),
+      } as any
+
+      const svgContent: {[key: string]: string} = {}
+      const loadSvg = vi.fn().mockResolvedValue(undefined)
+
+      // Mock XMLSerializer
+      const mockSerializeToString = vi.fn().mockReturnValue('<svg>processed</svg>')
+      const mockXMLSerializer = vi.fn().mockImplementation(() => ({
+        serializeToString: mockSerializeToString,
+      }))
+      Object.defineProperty(window, 'XMLSerializer', {
+        value: mockXMLSerializer,
+        writable: true,
+      })
+
+      const result = await getProcessedSvgString(mockSvg, svgContent, loadSvg)
+
+      expect(mockSvg.cloneNode).toHaveBeenCalledWith(true)
+      expect(mockSerializeToString).toHaveBeenCalled()
+      expect(result).toBe('<svg>processed</svg>')
     })
   })
 })

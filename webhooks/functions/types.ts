@@ -42,7 +42,8 @@ export interface UpdateMetadataRequest {
       value: string
     }>
   }
-  pngData: string // Base64 encoded PNG data
+  pngData: string // Base64 encoded PNG data URL
+  svgData: string // SVG content as string
   signature: string
   chainId: number
 }
