@@ -144,6 +144,14 @@ async function createCommitWithFiles(
           files,
         },
       ],
+      author: {
+        name: userName,
+        email: userEmail,
+      },
+      committer: {
+        name: userName,
+        email: userEmail,
+      },
     })
 
     console.log(`Successfully created commit with ${fileOperations.length} file(s)`)
