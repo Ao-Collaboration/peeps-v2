@@ -1,6 +1,6 @@
 import {Hex} from 'ox'
 
-import {Octokit} from '@octokit/rest'
+import {Octokit, type RestEndpointMethodTypes} from '@octokit/rest'
 
 export interface GitConfig {
   repoUrl: string
@@ -99,91 +99,127 @@ function pngDataUrlToBase64(dataUrl: string): string {
 }
 
 /**
- * Gets existing file content and SHA if file exists
+ * Gets the current commit SHA for a branch
  */
-async function getExistingFile(
+async function getBranchCommitSha(
   octokit: Octokit,
   owner: string,
   repo: string,
-  path: string,
   branch: string,
-): Promise<{sha: string; content: string} | null> {
-  try {
-    const response = await octokit.repos.getContent({
-      owner,
-      repo,
-      path,
-      ref: branch,
-    })
-
-    if (Array.isArray(response.data)) {
-      // This is a directory, not a file
-      return null
-    }
-
-    if (response.data.type !== 'file') {
-      return null
-    }
-
-    // Decode base64 content
-    const content = Buffer.from(response.data.content, 'base64').toString('utf-8')
-
-    return {
-      sha: response.data.sha,
-      content,
-    }
-  } catch (error: any) {
-    // 404 means file doesn't exist, which is fine for new files
-    if (error.status === 404) {
-      return null
-    }
-    throw error
-  }
+): Promise<string> {
+  const {data: ref} = await octokit.git.getRef({
+    owner,
+    repo,
+    ref: `heads/${branch}`,
+  })
+  return ref.object.sha
 }
 
 /**
- * Creates or updates a file in the repository using GitHub API
+ * Creates a blob for file content
  */
-async function createOrUpdateFile(
+async function createBlob(
   octokit: Octokit,
   owner: string,
   repo: string,
-  path: string,
   content: string,
-  message: string,
+  isBinary: boolean,
+): Promise<string> {
+  // For binary files (PNG), content is already base64-encoded
+  // For text files (JSON, SVG), we need to encode the string to base64
+  const base64Content = isBinary ? content : Buffer.from(content, 'utf-8').toString('base64')
+
+  const {data: blob} = await octokit.git.createBlob({
+    owner,
+    repo,
+    content: base64Content,
+    encoding: 'base64',
+  })
+
+  return blob.sha
+}
+
+/**
+ * Creates a single commit with multiple file updates using Git Data API
+ */
+async function createCommitWithFiles(
+  octokit: Octokit,
+  owner: string,
+  repo: string,
   branch: string,
+  fileOperations: Array<{path: string; content: string; isBinary: boolean}>,
+  commitMessage: string,
   userName: string,
   userEmail: string,
-  existingSha?: string,
-  isBinary: boolean = false,
 ): Promise<void> {
   try {
-    // For binary files (PNG), content is already base64-encoded
-    // For text files (JSON, SVG), we need to encode the string to base64
-    const base64Content = isBinary ? content : Buffer.from(content, 'utf-8').toString('base64')
+    // Get the current commit SHA for the branch
+    const commitSha = await getBranchCommitSha(octokit, owner, repo, branch)
 
-    await octokit.repos.createOrUpdateFileContents({
+    // Get the tree SHA from the current commit
+    const {data: commit} = await octokit.git.getCommit({
       owner,
       repo,
-      path,
-      message,
-      content: base64Content,
-      sha: existingSha, // Required for updates, undefined for new files
-      branch,
-      committer: {
-        name: userName,
-        email: userEmail,
-      },
+      commit_sha: commitSha,
+    })
+    const baseTreeSha = commit.tree.sha
+
+    // Create blobs for all files we're updating
+    // Note: We only need to specify the files we're updating.
+    // The base_tree parameter in createTree will automatically preserve all existing files.
+    const treeEntries: RestEndpointMethodTypes['git']['createTree']['parameters']['tree'] = []
+
+    // Create blobs and add entries for files we're updating
+    for (const fileOp of fileOperations) {
+      const blobSha = await createBlob(octokit, owner, repo, fileOp.content, fileOp.isBinary)
+      treeEntries.push({
+        path: fileOp.path,
+        mode: '100644', // Regular file mode
+        type: 'blob',
+        sha: blobSha,
+      })
+    }
+
+    // Create a new tree with all entries
+    const {data: newTree} = await octokit.git.createTree({
+      owner,
+      repo,
+      tree: treeEntries,
+      base_tree: baseTreeSha, // Use base tree to preserve directory structure
+    })
+
+    // Create a new commit pointing to the new tree
+    const {data: newCommit} = await octokit.git.createCommit({
+      owner,
+      repo,
+      message: commitMessage,
+      tree: newTree.sha,
+      parents: [commitSha],
       author: {
         name: userName,
         email: userEmail,
+        date: new Date().toISOString(),
+      },
+      committer: {
+        name: userName,
+        email: userEmail,
+        date: new Date().toISOString(),
       },
     })
-    console.log(`Successfully ${existingSha ? 'updated' : 'created'} file: ${path}`)
+
+    // Update the branch reference to point to the new commit
+    await octokit.git.updateRef({
+      owner,
+      repo,
+      ref: `heads/${branch}`,
+      sha: newCommit.sha,
+    })
+
+    console.log(`Successfully created commit with ${fileOperations.length} file(s)`)
   } catch (error) {
-    console.error(`Failed to create/update file ${path}:`, error)
+    console.error('Failed to create commit with files:', error)
     throw new Error(
-      `Failed to create/update file: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      `Failed to create commit: ${error instanceof Error ? error.message : 'Unknown error'}`,
     )
   }
 }
@@ -267,26 +303,17 @@ export async function updateNFTMetadataInRepo(
     const fileOperations = prepareFileOperations(nftData)
     const commitMessage = `Update NFT metadata for token #${nftData.tokenId}`
 
-    // Process each file
-    for (const fileOp of fileOperations) {
-      // Get existing file SHA if file exists
-      const existingFile = await getExistingFile(octokit, owner, repo, fileOp.path, config.branch)
-
-      // Create or update file
-      await createOrUpdateFile(
-        octokit,
-        owner,
-        repo,
-        fileOp.path,
-        fileOp.content,
-        commitMessage,
-        config.branch,
-        config.userName,
-        config.userEmail,
-        existingFile?.sha,
-        fileOp.isBinary,
-      )
-    }
+    // Create a single commit with all file updates
+    await createCommitWithFiles(
+      octokit,
+      owner,
+      repo,
+      config.branch,
+      fileOperations,
+      commitMessage,
+      config.userName,
+      config.userEmail,
+    )
 
     console.log(`Successfully updated NFT metadata for token ${nftData.tokenId}`)
   } catch (error) {
