@@ -47,12 +47,11 @@ Handles updating NFT metadata by pushing changes to the `peeps-nft-data` reposit
 **Process:**
 
 1. Validates the EIP-712 signature
-2. Verifies NFT ownership
-3. Clones the `peeps-nft-data` repository (with GitHub token if provided)
-4. Updates the metadata file for the token
-5. Saves SVG and PNG files to the `peep/` directory (named by imageHash)
-6. Commits and pushes changes
-7. Cleans up temporary files
+1. Verifies NFT ownership
+1. Uses GitHub REST API (Octokit) to update files in the `peeps-nft-data` repository
+1. Creates or updates the metadata JSON file for the token
+1. Creates or updates SVG and PNG files in the `peep/` directory (named by peepURI)
+1. All changes are committed via GitHub API (no git CLI required)
 
 ## Environment Variables
 
@@ -70,7 +69,7 @@ The following environment variables need to be configured:
 
 ### Optional
 
-- `PEEPS_NFT_DATA_GITHUB_TOKEN` - GitHub personal access token for authenticating Git operations (required for private repositories or when running on Netlify)
+- `PEEPS_NFT_DATA_GITHUB_TOKEN` - GitHub personal access token for authenticating GitHub API operations (required for all operations)
 
 ## Development
 
@@ -90,8 +89,6 @@ The following environment variables need to be configured:
    PEEPS_NFT_DATA_BRANCH=main
    PEEPS_NFT_DATA_GIT_USER_NAME=Peeps Bot
    PEEPS_NFT_DATA_GIT_USER_EMAIL=bot@peeps.club
-
-   # Optional: GitHub token for authentication (required for private repos or Netlify)
    PEEPS_NFT_DATA_GITHUB_TOKEN=your_github_token_here
 
    # Notion API (if using Notion features)
@@ -118,15 +115,18 @@ pnpm test:run
 pnpm deploy
 ```
 
-## Git Operations
+## GitHub API Operations
 
-The webhook uses Git operations to update the `peeps-nft-data` repository:
+The webhook uses GitHub REST API (via Octokit) to update the `peeps-nft-data` repository:
 
-1. **Clone**: Creates a temporary clone of the repository
-2. **Update**: Writes/updates the metadata file for the specific token
-3. **Commit**: Commits changes with a descriptive message
-4. **Push**: Pushes changes to the remote repository
-5. **Cleanup**: Removes the temporary directory
+1. **Authenticate**: Initializes Octokit client with GitHub token (token is never logged or exposed)
+2. **Verify Access**: Verifies repository access using `repos.get()` API
+3. **Get Existing Files**: Retrieves existing file SHAs if files already exist (for updates)
+4. **Create/Update Files**: Uses `repos.createOrUpdateFileContents()` API to:
+   - Create or update metadata JSON file
+   - Create or update SVG file
+   - Create or update PNG file
+5. **Commit**: All file changes are committed atomically via GitHub API
 
 ### Metadata File Structure
 
@@ -153,6 +153,7 @@ Metadata files are stored as `{tokenId}.json` in the `metadata/` directory:
 - Only NFT owners can update their metadata
 - Only mainnet (chainId 1) is supported
 - CORS is properly configured for allowed origins
+- Github token is only used for Octokit API authentication and never logged or exposed
 
 ## Error Handling
 
@@ -160,8 +161,9 @@ The webhook includes comprehensive error handling for:
 
 - Invalid signatures
 - Non-owners attempting to update metadata
-- Network errors during Git operations
-- File system errors
+- Network errors during GitHub API operations
+- Missing or invalid GitHub token
+- Repository access errors
 - Invalid request data
 
-All errors are logged and returned with appropriate HTTP status codes.
+All errors are logged and returned with appropriate HTTP status codes. The GitHub token is never exposed in error messages.

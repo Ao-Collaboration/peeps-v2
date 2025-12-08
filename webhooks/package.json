@@ -6,6 +6,7 @@
   "dependencies": {
     "@netlify/functions": "^3.0.4",
     "@notionhq/client": "^2.3.0",
+    "@octokit/rest": "^20.0.2",
     "dotenv": "^16.4.7",
     "ox": "^0.9.5"
   },

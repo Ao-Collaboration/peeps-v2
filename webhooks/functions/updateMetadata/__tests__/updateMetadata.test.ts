@@ -21,7 +21,7 @@ vi.mock('../../utils/nft', async () => {
   }
 })
 
-// Mock the Git operations
+// Mock the GitHub API operations (Octokit)
 const mockUpdateNFTMetadataInRepo = vi.fn()
 
 vi.mock('../../utils/git', async () => {
@@ -38,6 +38,7 @@ beforeAll(() => {
   process.env.PEEPS_NFT_DATA_BRANCH = 'main'
   process.env.PEEPS_NFT_DATA_GIT_USER_NAME = 'Test Bot'
   process.env.PEEPS_NFT_DATA_GIT_USER_EMAIL = 'test@example.com'
+  process.env.PEEPS_NFT_DATA_GITHUB_TOKEN = 'test_token_12345' // Required for API operations
 })
 
 // Reset mocks before each test
@@ -415,7 +416,7 @@ describe('updateMetadata webhook', () => {
 
   it('should successfully update metadata when all validations pass', async () => {
     // Note: This test verifies the webhook works end-to-end with all mocks in place.
-    // The git operations are fully mocked, so no real git commands will execute.
+    // The GitHub API operations (Octokit) are fully mocked, so no real API calls will execute.
 
     // 1. Create test data
     const tokenId = '123'

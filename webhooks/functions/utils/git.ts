@@ -1,18 +1,13 @@
-import {exec} from 'child_process'
-import {mkdir, rm, writeFile} from 'fs/promises'
-import {tmpdir} from 'os'
 import {Hex} from 'ox'
-import {join} from 'path'
-import {promisify} from 'util'
 
-const execAsync = promisify(exec)
+import {Octokit} from '@octokit/rest'
 
 export interface GitConfig {
   repoUrl: string
   branch: string
   userName: string
   userEmail: string
-  githubToken?: string // Optional GitHub token for authentication
+  githubToken: string
 }
 
 export interface NFTMetadataFile {
@@ -34,77 +29,46 @@ export interface NFTMetadataFile {
 }
 
 /**
- * Clones the peeps-nft-data repository to a temporary directory
+ * Parses a repository URL to extract owner and repo name
+ * Handles both https://github.com/owner/repo.git and git@github.com:owner/repo.git formats
  */
-export async function cloneRepository(config: GitConfig): Promise<string> {
-  const tempDir = join(tmpdir(), `peeps-nft-data-${Date.now()}`)
-
+function parseRepoUrl(repoUrl: string): {owner: string; repo: string} {
   try {
-    await mkdir(tempDir, {recursive: true})
-
-    console.log(`Cloning repository to ${tempDir}`)
-
-    // Build clone URL with authentication if token is provided
-    let cloneUrl = config.repoUrl
-    if (config.githubToken) {
-      // Insert token into URL for authentication
-      // Handle both https://github.com and git@github.com formats
-      if (cloneUrl.startsWith('https://')) {
-        // Extract the path after https://
-        const urlPath = cloneUrl.replace('https://', '')
-        cloneUrl = `https://${config.githubToken}@${urlPath}`
-      } else if (cloneUrl.startsWith('git@')) {
-        // For SSH URLs, we'll need to configure SSH with the token
-        // For now, convert to HTTPS format
-        const sshPath = cloneUrl.replace('git@github.com:', '')
-        cloneUrl = `https://${config.githubToken}@github.com/${sshPath}`
+    let path = ''
+    if (repoUrl.startsWith('https://')) {
+      // Extract path from https://github.com/owner/repo.git
+      const url = new URL(repoUrl)
+      path = url.pathname
+    } else if (repoUrl.startsWith('git@')) {
+      // Extract path from git@github.com:owner/repo.git
+      const match = repoUrl.match(/git@github\.com:(.+)/)
+      if (!match) {
+        throw new Error('Invalid SSH repository URL format')
       }
+      path = '/' + match[1]
+    } else {
+      throw new Error('Unsupported repository URL format')
     }
 
-    await execAsync(`git clone ${cloneUrl} .`, {cwd: tempDir})
+    // Remove leading slash and .git suffix
+    path = path.replace(/^\/+/, '').replace(/\.git$/, '')
+    const parts = path.split('/').filter(part => part.length > 0)
 
-    // Configure git user
-    await execAsync(`git config user.name "${config.userName}"`, {cwd: tempDir})
-    await execAsync(`git config user.email "${config.userEmail}"`, {cwd: tempDir})
+    if (parts.length < 2) {
+      throw new Error('Invalid repository URL: missing owner or repo')
+    }
 
-    // Checkout the target branch
-    await execAsync(`git checkout ${config.branch}`, {cwd: tempDir})
-
-    console.log(`Repository cloned successfully to ${tempDir}`)
-    return tempDir
+    return {
+      owner: parts[0],
+      repo: parts[1],
+    }
   } catch (error) {
-    console.error('Failed to clone repository:', error)
     throw new Error(
-      `Failed to clone repository: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      `Failed to parse repository URL: ${error instanceof Error ? error.message : 'Unknown error'}`,
     )
   }
 }
 
-/**
- * Converts a PNG data URL to binary data and saves it as a PNG file
- */
-async function savePngFromDataUrl(dataUrl: string, filePath: string): Promise<void> {
-  // Extract the base64 data from the data URL
-  const base64Data = dataUrl.split(',')[1]
-  if (!base64Data) {
-    throw new Error('Invalid PNG data URL format')
-  }
-
-  try {
-    // Convert base64 to buffer
-    const binaryData = Buffer.from(base64Data, 'base64')
-    await writeFile(filePath, binaryData)
-    console.log(`Saved PNG file: ${filePath}`)
-  } catch (error) {
-    throw new Error(
-      `Failed to save PNG file: ${error instanceof Error ? error.message : 'Unknown error'}`,
-    )
-  }
-}
-
-/**
- * Creates or updates an NFT metadata file in the repository
- */
 /**
  * Extracts the relative path from a URI for saving in the repository
  * For example: "https://api.peeps.club/metadata/123.json" -> "123.json"
@@ -121,150 +85,220 @@ function extractPathFromURI(uri: string): string {
   }
 }
 
-export async function updateNFTMetadataFile(
-  repoPath: string,
-  nftData: NFTMetadataFile,
-): Promise<void> {
-  const peepDir = join(repoPath, 'peep')
-  const pngDir = peepDir // join(peepDir, 'png')
-  const svgDir = peepDir // join(peepDir, 'svg')
-  const tokenId = nftData.tokenId
+/**
+ * Converts a PNG data URL to base64-encoded binary data for GitHub API
+ */
+function pngDataUrlToBase64(dataUrl: string): string {
+  // Extract the base64 data from the data URL
+  const base64Data = dataUrl.split(',')[1]
+  if (!base64Data) {
+    throw new Error('Invalid PNG data URL format')
+  }
+  // Return as-is since it's already base64
+  return base64Data
+}
 
+/**
+ * Gets existing file content and SHA if file exists
+ */
+async function getExistingFile(
+  octokit: Octokit,
+  owner: string,
+  repo: string,
+  path: string,
+  branch: string,
+): Promise<{sha: string; content: string} | null> {
+  try {
+    const response = await octokit.repos.getContent({
+      owner,
+      repo,
+      path,
+      ref: branch,
+    })
+
+    if (Array.isArray(response.data)) {
+      // This is a directory, not a file
+      return null
+    }
+
+    if (response.data.type !== 'file') {
+      return null
+    }
+
+    // Decode base64 content
+    const content = Buffer.from(response.data.content, 'base64').toString('utf-8')
+
+    return {
+      sha: response.data.sha,
+      content,
+    }
+  } catch (error: any) {
+    // 404 means file doesn't exist, which is fine for new files
+    if (error.status === 404) {
+      return null
+    }
+    throw error
+  }
+}
+
+/**
+ * Creates or updates a file in the repository using GitHub API
+ */
+async function createOrUpdateFile(
+  octokit: Octokit,
+  owner: string,
+  repo: string,
+  path: string,
+  content: string,
+  message: string,
+  branch: string,
+  userName: string,
+  userEmail: string,
+  existingSha?: string,
+  isBinary: boolean = false,
+): Promise<void> {
+  try {
+    // For binary files (PNG), content is already base64-encoded
+    // For text files (JSON, SVG), we need to encode the string to base64
+    const base64Content = isBinary ? content : Buffer.from(content, 'utf-8').toString('base64')
+
+    await octokit.repos.createOrUpdateFileContents({
+      owner,
+      repo,
+      path,
+      message,
+      content: base64Content,
+      sha: existingSha, // Required for updates, undefined for new files
+      branch,
+      committer: {
+        name: userName,
+        email: userEmail,
+      },
+      author: {
+        name: userName,
+        email: userEmail,
+      },
+    })
+    console.log(`Successfully ${existingSha ? 'updated' : 'created'} file: ${path}`)
+  } catch (error) {
+    console.error(`Failed to create/update file ${path}:`, error)
+    throw new Error(
+      `Failed to create/update file: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    )
+  }
+}
+
+/**
+ * Prepares file data for API upload and returns file operations to perform
+ */
+function prepareFileOperations(nftData: NFTMetadataFile): Array<{
+  path: string
+  content: string
+  isBinary: boolean
+}> {
   // Extract filename from peep URI (e.g., "123.json" from "https://api.peeps.club/metadata/123.json")
   const peepFileName = extractPathFromURI(nftData.peepURI)
-  const peepFilePath = join(peepDir, peepFileName)
-
-  // Extract peepURI value (without .json) for use in image filenames
   const peepURIValue = peepFileName.replace(/\.json$/, '')
 
-  try {
-    // Ensure directories exist
-    await mkdir(peepDir, {recursive: true})
-    await mkdir(pngDir, {recursive: true})
-    await mkdir(svgDir, {recursive: true})
+  // Prepare metadata file (without svgData, pngData, and peepURI)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {svgData, pngData, peepURI, ...metadataToSave} = nftData
+  const metadataContent = JSON.stringify(metadataToSave, null, 2)
 
-    // Write the metadata file (without svgData, pngData, and peepURI)
-    // peepURI is used above to extract the filename, so we exclude it from the saved data
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const {svgData, pngData, peepURI, ...metadataToSave} = nftData
-    const metadataContent = JSON.stringify(metadataToSave, null, 2)
+  // Prepare file operations
+  const operations: Array<{path: string; content: string; isBinary: boolean}> = []
 
-    // Save with peep URI filename (primary location)
-    await writeFile(peepFilePath, metadataContent, 'utf8')
-    console.log(`Updated metadata file with peep URI: ${peepFileName}`)
+  // Metadata JSON file
+  operations.push({
+    path: `peep/${peepFileName}`,
+    content: metadataContent,
+    isBinary: false,
+  })
 
-    // Save SVG file to svg directory using peepURI value
-    const svgFileName = `${peepURIValue}.svg`
-    const svgFilePath = join(svgDir, svgFileName)
-    await writeFile(svgFilePath, svgData, 'utf8')
-    console.log(`Saved SVG file: ${svgFileName}`)
+  // SVG file
+  operations.push({
+    path: `peep/${peepURIValue}.svg`,
+    content: svgData,
+    isBinary: false,
+  })
 
-    // Save PNG file to png directory using peepURI value
-    const pngFileName = `${peepURIValue}.png`
-    const pngFilePath = join(pngDir, pngFileName)
-    await savePngFromDataUrl(pngData, pngFilePath)
-    console.log(`Saved PNG file: ${pngFileName}`)
-  } catch (error) {
-    console.error(`Failed to update metadata file for token ${tokenId}:`, error)
-    throw new Error(
-      `Failed to update metadata file: ${error instanceof Error ? error.message : 'Unknown error'}`,
-    )
-  }
+  // PNG file (binary, already base64 from data URL)
+  operations.push({
+    path: `peep/${peepURIValue}.png`,
+    content: pngDataUrlToBase64(pngData),
+    isBinary: true,
+  })
+
+  return operations
 }
 
 /**
- * Commits and pushes changes to the repository
- */
-export async function commitAndPush(
-  repoPath: string,
-  tokenId: string,
-  config: GitConfig,
-): Promise<void> {
-  try {
-    // Add all changes
-    await execAsync('git add .', {cwd: repoPath})
-
-    // Check if there are any changes to commit
-    const {stdout: statusOutput} = await execAsync('git status --porcelain', {cwd: repoPath})
-    if (!statusOutput.trim()) {
-      console.log('No changes to commit')
-      return
-    }
-
-    // Commit changes
-    const commitMessage = `Update NFT metadata for token #${tokenId}`
-    await execAsync(`git commit -m "${commitMessage}"`, {cwd: repoPath})
-
-    // Push changes with authentication if token is provided
-    if (config.githubToken) {
-      // Configure git credential helper to use token
-      const remoteUrl = await execAsync('git config --get remote.origin.url', {cwd: repoPath})
-      const currentUrl = remoteUrl.stdout.trim()
-
-      // Update remote URL with token if not already present
-      if (!currentUrl.includes(config.githubToken)) {
-        let authenticatedUrl = currentUrl
-        if (currentUrl.startsWith('https://')) {
-          const urlPath = currentUrl.replace('https://', '')
-          authenticatedUrl = `https://${config.githubToken}@${urlPath}`
-        } else if (currentUrl.startsWith('git@')) {
-          const sshPath = currentUrl.replace('git@github.com:', '')
-          authenticatedUrl = `https://${config.githubToken}@github.com/${sshPath}`
-        }
-        await execAsync(`git remote set-url origin "${authenticatedUrl}"`, {cwd: repoPath})
-      }
-    }
-
-    await execAsync(`git push origin ${config.branch}`, {cwd: repoPath})
-
-    console.log(`Successfully pushed changes for token ${tokenId}`)
-  } catch (error) {
-    console.error(`Failed to commit and push changes for token ${tokenId}:`, error)
-    throw new Error(
-      `Failed to commit and push changes: ${error instanceof Error ? error.message : 'Unknown error'}`,
-    )
-  }
-}
-
-/**
- * Cleans up the temporary repository directory
- */
-export async function cleanupRepository(repoPath: string): Promise<void> {
-  try {
-    await rm(repoPath, {recursive: true, force: true})
-    console.log(`Cleaned up temporary directory: ${repoPath}`)
-  } catch (error) {
-    console.warn(`Failed to cleanup temporary directory ${repoPath}:`, error)
-  }
-}
-
-/**
- * Main function to update NFT metadata in the peeps-nft-data repository
+ * Main function to update NFT metadata in the peeps-nft-data repository using GitHub API
  */
 export async function updateNFTMetadataInRepo(
   nftData: NFTMetadataFile,
   config: GitConfig,
 ): Promise<void> {
-  let repoPath: string | null = null
-
   try {
-    // Clone the repository
-    repoPath = await cloneRepository(config)
+    // Initialize Octokit client (token is never logged)
+    const octokit = new Octokit({
+      auth: config.githubToken,
+    })
 
-    // Update the metadata file
-    await updateNFTMetadataFile(repoPath, nftData)
+    // Parse repository URL to get owner and repo
+    const {owner, repo} = parseRepoUrl(config.repoUrl)
+    console.log(`Updating repository: ${owner}/${repo} on branch ${config.branch}`)
 
-    // Commit and push changes
-    await commitAndPush(repoPath, nftData.tokenId, config)
+    // Verify repository access
+    try {
+      await octokit.repos.get({
+        owner,
+        repo,
+      })
+      console.log(`Verified access to repository: ${owner}/${repo}`)
+    } catch (error) {
+      console.error('Failed to access repository:', error)
+      throw new Error(
+        `Failed to access repository ${owner}/${repo}: ${error instanceof Error ? error.message : 'Unknown error'}. Please check your GitHub token permissions.`,
+      )
+    }
+
+    // Prepare file operations
+    const fileOperations = prepareFileOperations(nftData)
+    const commitMessage = `Update NFT metadata for token #${nftData.tokenId}`
+
+    // Process each file
+    for (const fileOp of fileOperations) {
+      // Get existing file SHA if file exists
+      const existingFile = await getExistingFile(octokit, owner, repo, fileOp.path, config.branch)
+
+      // Create or update file
+      await createOrUpdateFile(
+        octokit,
+        owner,
+        repo,
+        fileOp.path,
+        fileOp.content,
+        commitMessage,
+        config.branch,
+        config.userName,
+        config.userEmail,
+        existingFile?.sha,
+        fileOp.isBinary,
+      )
+    }
 
     console.log(`Successfully updated NFT metadata for token ${nftData.tokenId}`)
   } catch (error) {
     console.error('Failed to update NFT metadata in repository:', error)
-    throw error
-  } finally {
-    // Cleanup
-    if (repoPath) {
-      await cleanupRepository(repoPath)
+    // Ensure token is never exposed in error messages
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    let sanitizedMessage = errorMessage
+    if (config.githubToken) {
+      // Replace token with *** in error messages (escape special regex characters)
+      const escapedToken = config.githubToken.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      sanitizedMessage = errorMessage.replace(new RegExp(escapedToken, 'g'), '***')
     }
+    throw new Error(`Failed to update NFT metadata: ${sanitizedMessage}`)
   }
 }

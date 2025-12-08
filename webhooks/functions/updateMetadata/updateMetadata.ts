@@ -123,12 +123,12 @@ const handler: Handler = async (event, _context) => {
       PEEPS_NFT_DATA_BRANCH: process.env.PEEPS_NFT_DATA_BRANCH,
       PEEPS_NFT_DATA_GIT_USER_NAME: process.env.PEEPS_NFT_DATA_GIT_USER_NAME,
       PEEPS_NFT_DATA_GIT_USER_EMAIL: process.env.PEEPS_NFT_DATA_GIT_USER_EMAIL,
-      PEEPS_NFT_DATA_GITHUB_TOKEN: process.env.PEEPS_NFT_DATA_GITHUB_TOKEN, // Optional
+      PEEPS_NFT_DATA_GITHUB_TOKEN: process.env.PEEPS_NFT_DATA_GITHUB_TOKEN, // Required for GitHub API operations
     }
 
-    // Validate that all required environment variables are set (except GitHub token)
+    // Validate that all required environment variables are set
     const missingVars = Object.entries(envVars)
-      .filter(([key, value]) => key !== 'PEEPS_NFT_DATA_GITHUB_TOKEN' && !value)
+      .filter(([_key, value]) => !value)
       .map(([key]) => key)
 
     if (missingVars.length > 0) {
@@ -144,7 +144,7 @@ const handler: Handler = async (event, _context) => {
       branch: envVars.PEEPS_NFT_DATA_BRANCH!,
       userName: envVars.PEEPS_NFT_DATA_GIT_USER_NAME!,
       userEmail: envVars.PEEPS_NFT_DATA_GIT_USER_EMAIL!,
-      githubToken: envVars.PEEPS_NFT_DATA_GITHUB_TOKEN, // Optional, used for authentication
+      githubToken: envVars.PEEPS_NFT_DATA_GITHUB_TOKEN!, // Required for GitHub API authentication
     }
 
     console.log('Received update metadata request:', {
