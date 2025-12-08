@@ -8,6 +8,7 @@
     "@notionhq/client": "^2.3.0",
     "@octokit/rest": "^20.0.2",
     "dotenv": "^16.4.7",
+    "octokit-commit-multiple-files": "^6.0.3",
     "ox": "^0.9.5"
   },
   "devDependencies": {

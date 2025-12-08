@@ -1,6 +1,9 @@
+import {CreateOrUpdateFiles} from 'octokit-commit-multiple-files'
 import {Hex} from 'ox'
 
-import {Octokit, type RestEndpointMethodTypes} from '@octokit/rest'
+import {Octokit} from '@octokit/rest'
+
+const OctokitWithPlugin = Octokit.plugin(CreateOrUpdateFiles)
 
 export interface GitConfig {
   repoUrl: string
@@ -99,51 +102,10 @@ function pngDataUrlToBase64(dataUrl: string): string {
 }
 
 /**
- * Gets the current commit SHA for a branch
- */
-async function getBranchCommitSha(
-  octokit: Octokit,
-  owner: string,
-  repo: string,
-  branch: string,
-): Promise<string> {
-  const {data: ref} = await octokit.git.getRef({
-    owner,
-    repo,
-    ref: `heads/${branch}`,
-  })
-  return ref.object.sha
-}
-
-/**
- * Creates a blob for file content
- */
-async function createBlob(
-  octokit: Octokit,
-  owner: string,
-  repo: string,
-  content: string,
-  isBinary: boolean,
-): Promise<string> {
-  // For binary files (PNG), content is already base64-encoded
-  // For text files (JSON, SVG), we need to encode the string to base64
-  const base64Content = isBinary ? content : Buffer.from(content, 'utf-8').toString('base64')
-
-  const {data: blob} = await octokit.git.createBlob({
-    owner,
-    repo,
-    content: base64Content,
-    encoding: 'base64',
-  })
-
-  return blob.sha
-}
-
-/**
- * Creates a single commit with multiple file updates using Git Data API
+ * Creates a single commit with multiple file updates using octokit-commit-multiple-files plugin
  */
 async function createCommitWithFiles(
-  octokit: Octokit,
+  octokit: InstanceType<typeof OctokitWithPlugin>,
   owner: string,
   repo: string,
   branch: string,
@@ -153,66 +115,35 @@ async function createCommitWithFiles(
   userEmail: string,
 ): Promise<void> {
   try {
-    // Get the current commit SHA for the branch
-    const commitSha = await getBranchCommitSha(octokit, owner, repo, branch)
-
-    // Get the tree SHA from the current commit
-    const {data: commit} = await octokit.git.getCommit({
-      owner,
-      repo,
-      commit_sha: commitSha,
-    })
-    const baseTreeSha = commit.tree.sha
-
-    // Create blobs for all files we're updating
-    // Note: We only need to specify the files we're updating.
-    // The base_tree parameter in createTree will automatically preserve all existing files.
-    const treeEntries: RestEndpointMethodTypes['git']['createTree']['parameters']['tree'] = []
-
-    // Create blobs and add entries for files we're updating
+    // Convert file operations to the format expected by the plugin
+    // Binary files need to be passed as objects with contents and encoding
+    // Text files can be passed as strings
+    const files: Record<string, string | {contents: string; encoding: 'base64'}> = {}
     for (const fileOp of fileOperations) {
-      const blobSha = await createBlob(octokit, owner, repo, fileOp.content, fileOp.isBinary)
-      treeEntries.push({
-        path: fileOp.path,
-        mode: '100644', // Regular file mode
-        type: 'blob',
-        sha: blobSha,
-      })
+      if (fileOp.isBinary) {
+        // For binary files (PNG), content is already base64 from the data URL
+        // The plugin expects an object with contents and encoding
+        files[fileOp.path] = {
+          contents: fileOp.content,
+          encoding: 'base64',
+        }
+      } else {
+        // For text files, pass the content as a string
+        files[fileOp.path] = fileOp.content
+      }
     }
 
-    // Create a new tree with all entries
-    const {data: newTree} = await octokit.git.createTree({
+    // Use the plugin to create/update files in a single commit
+    await octokit.createOrUpdateFiles({
       owner,
       repo,
-      tree: treeEntries,
-      base_tree: baseTreeSha, // Use base tree to preserve directory structure
-    })
-
-    // Create a new commit pointing to the new tree
-    const {data: newCommit} = await octokit.git.createCommit({
-      owner,
-      repo,
-      message: commitMessage,
-      tree: newTree.sha,
-      parents: [commitSha],
-      author: {
-        name: userName,
-        email: userEmail,
-        date: new Date().toISOString(),
-      },
-      committer: {
-        name: userName,
-        email: userEmail,
-        date: new Date().toISOString(),
-      },
-    })
-
-    // Update the branch reference to point to the new commit
-    await octokit.git.updateRef({
-      owner,
-      repo,
-      ref: `heads/${branch}`,
-      sha: newCommit.sha,
+      branch,
+      changes: [
+        {
+          message: commitMessage,
+          files,
+        },
+      ],
     })
 
     console.log(`Successfully created commit with ${fileOperations.length} file(s)`)
@@ -276,8 +207,8 @@ export async function updateNFTMetadataInRepo(
   config: GitConfig,
 ): Promise<void> {
   try {
-    // Initialize Octokit client (token is never logged)
-    const octokit = new Octokit({
+    // Initialize Octokit client with the commit-multiple-files plugin
+    const octokit = new OctokitWithPlugin({
       auth: config.githubToken,
     })
 

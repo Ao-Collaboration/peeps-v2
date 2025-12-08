@@ -126,6 +126,9 @@ importers:
       dotenv:
         specifier: ^16.4.7
         version: 16.6.1
+      octokit-commit-multiple-files:
+        specifier: ^6.0.3
+        version: 6.0.3(@octokit/rest@20.1.2)
       ox:
         specifier: ^0.9.5
         version: 0.9.5(typescript@5.8.3)
@@ -9324,6 +9327,14 @@ packages:
       define-properties: 1.2.1
       es-object-atoms: 1.1.1
     dev: true
+
+  /octokit-commit-multiple-files@6.0.3(@octokit/rest@20.1.2):
+    resolution: {integrity: sha512-NXm3kqdFg3ur/+SHjE3/MsLX3BCjHtjczy23a46+2NfqxSNOqG8u+ZiZieKxc83QJeWKfNb+2E80fIocwCfSFA==}
+    peerDependencies:
+      '@octokit/rest': '>=20.0.1'
+    dependencies:
+      '@octokit/rest': 20.1.2
+    dev: false
 
   /ofetch@1.4.1:
     resolution: {integrity: sha512-QZj2DfGplQAr2oj9KzceK9Hwz6Whxazmn85yYeVuS3u9XTMOGMRx0kO95MQ+vLsj/S/NwBDMMLU5hpxvI6Tklw==}
