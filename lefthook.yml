@@ -6,7 +6,7 @@ pre-commit:
       run: pnpm prettier --write {staged_files}
       stage_fixed: true
     2_linting:
-      glob: "*.{js,jsx,ts,tsx}"
+      glob: "src/**/*.{ts,tsx}"
       run: pnpm eslint {staged_files}
     3_build:
       run: pnpm build

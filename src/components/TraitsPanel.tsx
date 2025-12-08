@@ -5,7 +5,6 @@ import {useAuth} from '../providers/contexts/AuthContext'
 import {usePeep} from '../providers/contexts/PeepContext'
 import {STAGE_TO_COLOR_CLASS} from '../utils/constants'
 import {legalizeTraits} from '../utils/traitUtils'
-import FilterDrawer from './FilterDrawer'
 
 const TraitsPanel: React.FC = () => {
   const [activeCategory1, setActiveCategory1] = useState<Category1>('Body')

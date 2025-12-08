@@ -21,6 +21,8 @@ Before committing, make sure to run:
 - Run the build process
 - Execute tests
 
+Avoid using `as` to skip type checks. Always use the appropriate types and assertions.
+
 ## 3. Testing
 
 - Use `pnpm test:run` to run the test suite
@@ -57,7 +59,7 @@ This is a **pnpm workspace** with two packages:
 - **Root package** (`.`) - Main React application
 - **Webhooks package** (`webhooks/`) - Netlify functions for webhook relay
 
-## 7. Keep Dependencies in Sync
+## 7. Dependencies
 
 If you add or update dependencies remember to:
 
@@ -65,18 +67,20 @@ If you add or update dependencies remember to:
 2. Re-start the development server so that Vite picks up the changes
 3. If modifying webhooks, restart the webhook service with `pnpm webhooks:start`
 
+The `ox` library documentation is available at `site:oxlib.sh`.
+
 ## 8. Useful Commands Recap
 
-| Command         | Purpose                                                   |
-| --------------- | --------------------------------------------------------- |
-| `pnpm dev`      | Start the Vite dev server with HMR (port 3000)            |
-| `pnpm lint`     | Run ESLint checks                                         |
-| `pnpm format`   | Run Prettier formatting                                   |
-| `pnpm test:run` | Execute the test suite                                    |
-| `pnpm test`     | Run tests in watch mode                                   |
-| `pnpm test:ui`  | Run tests with Vitest UI                                  |
-| `pnpm build`    | **Production build – _do not run during agent sessions_** |
-| `pnpm preview`  | Preview production build locally                          |
+| Command         | Purpose                                                               |
+| --------------- | --------------------------------------------------------------------- |
+| `pnpm dev`      | Start the Vite dev server with HMR (port 3000)                        |
+| `pnpm lint`     | Run ESLint checks                                                     |
+| `pnpm format`   | Run Prettier formatting                                               |
+| `pnpm test:run` | Execute the test suite                                                |
+| `pnpm test`     | Run tests in watch mode                                               |
+| `pnpm test:ui`  | Run tests with Vitest UI                                              |
+| `pnpm build`    | **Production build – _do not run during agent sessions unless told_** |
+| `pnpm preview`  | Preview production build locally                                      |
 
 ## 9. Special Scripts
 

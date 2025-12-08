@@ -4,10 +4,12 @@ import {
   faEyeSlash,
   faFloppyDisk,
   faHand,
+  faLink,
   faShareNodes,
 } from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
+import {useWallet} from '../hooks/useWallet'
 import {useAuth} from '../providers/contexts/AuthContext'
 import {useCanvas} from '../providers/contexts/CanvasContext'
 import {useModal} from '../providers/contexts/ModalContext'
@@ -27,6 +29,7 @@ export default function ButtonsBar({peep, invert = false}: ButtonsBarProps) {
   const {canvasRef} = useCanvas()
   const {openModal} = useModal()
   const {randomizePeep, backgroundHidden, setBackgroundHidden} = usePeep()
+  const {isWalletAvailable} = useWallet()
 
   const handleShare = (peep: PeepMetadata) => {
     const encoded = encodePeepToString(peep)
@@ -56,6 +59,11 @@ export default function ButtonsBar({peep, invert = false}: ButtonsBarProps) {
         <Button onClick={() => openModal('traitRequest')} title="Request Trait" invert={invert}>
           <FontAwesomeIcon icon={faHand} />
         </Button>
+        {isWalletAvailable && (
+          <Button onClick={() => openModal('walletConnect')} title="Connect Wallet" invert={invert}>
+            <FontAwesomeIcon icon={faLink} />
+          </Button>
+        )}
         {account.isAdmin && (
           <>
             <Button onClick={randomizePeep} title="Randomize" invert={invert}>

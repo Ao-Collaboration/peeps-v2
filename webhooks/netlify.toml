@@ -2,6 +2,13 @@
   functions = "webhooks/functions"
   command = "pnpm install && pnpm build"
 
+# Required environment variables for peeps-nft-data repository
+# These must be configured in Netlify dashboard or via environment variables
+# PEEPS_NFT_DATA_REPO_URL = "https://github.com/Ao-Collaboration/peeps-nft-data.git"
+# PEEPS_NFT_DATA_BRANCH = "main"
+# PEEPS_NFT_DATA_GIT_USER_NAME = "Peeps Bot"
+# PEEPS_NFT_DATA_GIT_USER_EMAIL = "bot@peeps.club"
+
 [dev]
   functions = "functions"
   port = 8888
