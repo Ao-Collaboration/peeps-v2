@@ -93,16 +93,20 @@ export async function fetchUserNFTs(userAddress: Address): Promise<NFTData> {
       // Get token URI and fetch metadata
       let metadata: NFTMetadata | null = null
       try {
-        const tokenURI = await publicClient.readContract({
+        let tokenURI = (await publicClient.readContract({
           address: NFT_CONTRACT_ADDRESS,
           abi: NFT_ABI,
           functionName: 'tokenURI',
           args: [tokenId],
-        })
+        })) as string
 
-        // FIXME This is a hack. Fetch metadata from the URI using a CORS proxy
-        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(tokenURI)}`
-        const response = await fetch(proxyUrl)
+        // CORS workaround: Replace data.peeps.club with raw GitHub URL
+        if (tokenURI.startsWith('https://data.peeps.club/')) {
+          const filename = tokenURI.replace('https://data.peeps.club/', '')
+          tokenURI = `https://raw.githubusercontent.com/Ao-Collaboration/peeps-nft-data/refs/heads/main/peep/${filename}`
+        }
+
+        const response = await fetch(tokenURI)
         if (response.ok) {
           metadata = await response.json()
         }
