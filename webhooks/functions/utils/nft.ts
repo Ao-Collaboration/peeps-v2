@@ -40,7 +40,13 @@ export async function validateNFTOwnership(
     const currentOwner = AbiFunction.decodeResult(ownerOf, result)
 
     // Compare the current owner with the provided ownerAddress
-    return Address.isEqual(currentOwner, Address.from(ownerAddress))
+    const isOwner = Address.isEqual(currentOwner, Address.from(ownerAddress))
+    if (!isOwner) {
+      console.error(
+        `Ownership mismatch for token ${tokenId}: currentOwner=${currentOwner}, ownerAddress=${ownerAddress}`,
+      )
+    }
+    return isOwner
   } catch (error) {
     console.error(`Error validating ownership for token ${tokenId}:`, error)
     return false
