@@ -175,10 +175,8 @@ function prepareFileOperations(nftData: NFTMetadataFile): Array<{
   const peepFileName = extractPathFromURI(nftData.peepURI)
   const peepURIValue = peepFileName.replace(/\.json$/, '')
 
-  // Prepare metadata file (without svgData, pngData, and peepURI)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {svgData, pngData, peepURI, ...metadataToSave} = nftData
-  const metadataContent = JSON.stringify(metadataToSave, null, 2)
+  // Prepare metadata file - only save the metadata object
+  const metadataContent = JSON.stringify(nftData.metadata, null, 2)
 
   // Prepare file operations
   const operations: Array<{path: string; content: string; isBinary: boolean}> = []
@@ -193,14 +191,14 @@ function prepareFileOperations(nftData: NFTMetadataFile): Array<{
   // SVG file
   operations.push({
     path: `peep/${peepURIValue}.svg`,
-    content: svgData,
+    content: nftData.svgData,
     isBinary: false,
   })
 
   // PNG file (binary, already base64 from data URL)
   operations.push({
     path: `peep/${peepURIValue}.png`,
-    content: pngDataUrlToBase64(pngData),
+    content: pngDataUrlToBase64(nftData.pngData),
     isBinary: true,
   })
 
