@@ -2,6 +2,7 @@ import {type Address, Hash, createPublicClient, http} from 'viem'
 import {mainnet} from 'viem/chains'
 
 import {PeepMetadata} from '../types/metadata'
+import {getMainnetRpcUrl} from './rpcUtils'
 
 // NFT Contract ABI for ERC721 functions
 const NFT_ABI = [
@@ -43,7 +44,7 @@ const NFT_CONTRACT_ADDRESS = '0x383a7b0488756b5618f4ce2bcbc608ad48f09a57' as Add
 // Create public client for reading contract data
 const publicClient = createPublicClient({
   chain: mainnet,
-  transport: http(),
+  transport: http(getMainnetRpcUrl()),
 })
 
 export interface NFTMetadata {

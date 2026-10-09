@@ -1,5 +1,7 @@
 import {AbiFunction, Address, RpcTransport} from 'ox'
 
+import {DEFAULT_MAINNET_RPC_URL} from '../../../src/utils/rpcUtils'
+
 // NFT Contract address (same as in the main app)
 const NFT_CONTRACT_ADDRESS = '0x383a7b0488756b5618f4ce2bcbc608ad48f09a57'
 
@@ -8,7 +10,8 @@ const ownerOf = AbiFunction.from('function ownerOf(uint256) view returns (addres
 const tokenURI = AbiFunction.from('function tokenURI(uint256) view returns (string)')
 
 // Ethereum mainnet RPC URL - you might want to make this configurable
-const RPC_URL = process.env.ETH_RPC_URL || 'https://eth.llamarpc.com' // Using a public RPC endpoint
+// (eth.llamarpc.com stopped serving TLS; eth.merkle.io rate limits and viem defaults to it)
+const RPC_URL = process.env.ETH_RPC_URL || DEFAULT_MAINNET_RPC_URL
 
 /**
  * Validates that the given address owns the specified NFT token

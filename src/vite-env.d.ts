@@ -3,6 +3,7 @@
 
 interface ImportMetaEnv {
   VITE_WEBHOOKS_URL: string
+  VITE_RPC_URL?: string
 }
 
 interface ImportMeta {

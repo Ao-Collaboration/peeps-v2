@@ -51,6 +51,7 @@ jobs:
         run: pnpm build
         env:
           VITE_WEBHOOKS_URL: ${{ vars.VITE_WEBHOOKS_URL }}
+          VITE_RPC_URL: ${{ vars.VITE_RPC_URL }}
 
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
