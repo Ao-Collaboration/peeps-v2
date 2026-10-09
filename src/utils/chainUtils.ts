@@ -1,6 +1,7 @@
 /**
  * Chain switching utilities for wallet operations
  */
+import {getMainnetRpcUrl} from './rpcUtils'
 
 // Helper function to switch to Ethereum Mainnet
 export const switchToMainnet = async (): Promise<void> => {
@@ -51,7 +52,7 @@ export const addEthereumChain = async (): Promise<void> => {
             symbol: 'ETH',
             decimals: 18,
           },
-          rpcUrls: ['https://eth.llamarpc.com'],
+          rpcUrls: [getMainnetRpcUrl()],
           blockExplorerUrls: ['https://etherscan.io'],
         },
       ],

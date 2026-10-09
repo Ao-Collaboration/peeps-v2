@@ -9,7 +9,7 @@
     "@octokit/rest": "^20.0.2",
     "dotenv": "^16.4.7",
     "octokit-commit-multiple-files": "^6.0.3",
-    "ox": "^0.9.5"
+    "ox": "^1.8.6"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
